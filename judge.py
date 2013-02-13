@@ -16,9 +16,10 @@ if __name__ == '__main__':
         if a == o:
             total_score += 100 / test_num
     outfile = open(hw_path + '/result.txt', 'w')
-    outfile.write("total_score is : " + str(total_score))
+    #outfile.write("total_score is : " + str(total_score))
+    outfile.write(str(total_score))
     outputfile.close()
     answerfile.close()
     outfile.close()
-    
+    print str(total_score)
     
