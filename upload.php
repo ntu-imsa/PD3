@@ -2,7 +2,7 @@
 
 	session_start() ;
 	$db_host = 'localhost' ;
-	$db_database = 'PD Course' ;
+	$db_database = 'pd course' ;
 	$db_username = 'root' ;
 	$connection = mysql_connect($db_host, $db_username, '');
 	if (!$connection)
@@ -12,59 +12,51 @@
 	if (!$selection)
 		die ("selection failed".mysql_error()) ;
 	
-	
-	if (isset($_POST['textarea'])){
+	if (!$_SESSION['account']){
+		header ("Location:login.php") ;
+	} else if (isset($_POST['textarea'])){
+		// 使用textarea上傳
+		echo "Hello, ".$_SESSION['account']."<br>";
 		echo 'textarea'.$_POST['textarea'] ;
-		//$fp = fopen('C:\\xampp\\htdocs\\func\\ori\\1.txt', 'w');
-		//fwrite($fp, $_POST['textarea']);
-		//fclose($fp);
 		
-		
-		//$return = 1;
-		//$command = "C:\\xampp\\htdocs\\func\\print.py";
-		//system($command,$return);
-	
-		//$command = "C:\\xampp\\htdocs\\func\\StopSymbol.py";
-		//system($command,$return);
-		// sleep(1);
-		 //$command = "java -jar C:\\xampp\\htdocs\\func\\IR_project.jar ";
-		 //$result = system($command,$return);
-		 #echo $return;
-		 // $System = java("IRProject");
-           // $System->getSinglePageInf();
-		// if ($result){
-			// echo nl2br($result);
-		// } else {
-			// echo "fail";
-		// }
-		//sleep(2);
-		//$command = "C:\\xampp\\htdocs\\func\\StopWord.py";//	system($command,$return);
-		//	$command = "C:\\xampp\\htdocs\\func\\singleTest.py";
-		//	system($command,$return);
-		//echo $return;
-		//sleep(2);
-		//$file_handle = fopen("C:\\xampp\\htdocs\\result\\1.txt", "r");
-		//while (!feof($file_handle)) {
-		//$type = fgets($file_handle);
-		//echo $line;
-		//}
-		//fclose($file_handle);
 	}
 	else if (isset($_FILES['upload'])){
-		echo 'file upload success';
-		//echo $_FILES['file'];
-		//move_uploaded_file($_FILES['uploadfile'], '/hw/1.cpp');
+		// 選取檔案上傳
 		
-		$upfile = '.\\hw\\'.$_FILES['upload']['name'];
+		
+		$problem_dir = '.\\student\\'.$_SESSION['account'].'\\'.$_POST['problem_num']; 
+		if (!is_dir($problem_dir)){
+			$return = 0;
+			$command = "MD ".$problem_dir;
+			system($command, $return);
+		}
+		$judge_dir = '.\\judgement\\'.$_POST['problem_num'];
+		$upfile = $problem_dir.'\\hw.cpp';
+		$exefile = $problem_dir.'\\hw.exe';
+		$logfile = $problem_dir.'\\log.txt';
+		$testfile = $judge_dir.'\\testing_data.txt';
+		$outputfile = $problem_dir.'\\output.txt';
 		move_uploaded_file($_FILES['upload']['tmp_name'], $upfile);
+		
+		// if (!file_exists($logfile)){
+			// $fp = fopen($logfile, 'w');
+			// fclose($fp);
+		// }
 	
 		$return = 1;
-		$command = "g++ C:\\xampp\\htdocs\\hw\\".$_FILES['upload']['name']." -o C:\\xampp\\htdocs\\hw\\hello.exe --enable-auto-import";
-		system($command,$return);
-		$command = "hello.exe > output.txt"
-		system($command,$return);
-		$command = 
 		
+		$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2> '.$logfile;
+		//echo $command;
+		system($command,$return);
+		if (file_exists($exefile)){
+			$command = $exefile.' < '.$testfile.' > '.$outputfile;
+			system($command,$return);
+		} else {
+			//compile error
+		}
+		
+		echo "Hello, ".$_SESSION['account']."<br>";
+		echo 'file upload success';
 	}
 	else if (!isset($_FILES['upload']) and !isset($_POST['textarea'])){
 		echo 'no upload';
