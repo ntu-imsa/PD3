@@ -47,13 +47,16 @@
 		//$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2> '.$logfile;
 		if (file_exists($upfile)){
 			$command = 'g++ '.$upfile.' -o '.$exefile.' 2> '.$compile_logfile;
-			system($command,$return);
+			system($command, $return);
+			echo 'compile return:'.$return.'<br>';
 			if ($return == 0){	//如果成功編譯出.exe檔 執行.exe 輸入測資為$testfile 標準輸出轉向至$outputfile 標準錯誤轉向至$run_logfile
-				$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2> '.$run__logfile;
-				system($command,$return);
+				$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2> '.$run_logfile;
+				system($command, $return);
+				echo 'runtime return:'.$return.'<br>';
 				if ($return == 0){  //如果執行成功  比對結果
 					$command = 'python judge.py '.$_SESSION['account'].' '.$_POST['problem_num'];
 					$score = exec($command,$return);
+					$status = 'success';
 				} else {
 					//runtime error
 					$status = 'runtime error';
