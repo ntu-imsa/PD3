@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>程式設計批改系統</title>
+      <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+      <link href="css/bootstrap-fileupload.css" rel="stylesheet" media="screen">
+      <link href="css/sticky-footer.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    <div id="wrap"> 
+    <div class="container">      
+      <div class="page-header">
+            <h2>Program Design Online Judge System</h2>
+      </div>
+        <div class="navbar">
+          <div class="navbar-inner">
+            <a class="brand" href="#">PDOJS</a>
+             <ul class="nav">
+                <li><a href="index_login.html">Home</a></li>
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    課堂作業
+                      <b class="caret"></b>
+                    </a>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    <li role = "presentation"><a role="menuitem" tabindex="-1" href="upload.html">PD001</a></li>
+                    <li role = "presentation"><a role="menuitem" tabindex="-1" href="upload.html">PD002</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    實習課作業
+                      <b class="caret"></b>
+                    </a>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    <li role = "presentation"><a role="menuitem" tabindex="-1" href="upload.html">LAB001</a></li>
+                    <li role = "presentation"><a role="menuitem" tabindex="-1" href="upload.html">LAB002</a></li>
+                  </ul>
+                </li>
+                 
+                <li><a href="#">查閱成績</a></li>
+              </ul>
+              <ul class="nav pull-right">
+                      <li class="divider-vertical"></li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi, b96705029<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">修改密碼</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#">登出</a></li>
+                        </ul>
+                      </li>
+              </ul>
+          </div>
+        </div>
+       
+        <!-- 改作業序號看這裡 -->
+        <div class="hero-unit upload_section">
+          <p>Select a hw to upload</p>
+          <label class="radio">
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="lab" checked>
+                實習課
+                </label>
+          <label class="radio">
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="hw">
+                課堂作業
+          </label>
+          <select>
+            <option>HW1</option>
+            <option>HW2</option>
+            <option>HW3</option>
+            <option>HW4</option>
+            <option>HW5</option>
+          </select>   
+
+      <div class="fileupload fileupload-new" data-provides="fileupload">
+          <div class="input-append">
+            <div class="uneditable-input span3">
+              <i class="icon-file fileupload-exists"></i>
+              <span class="fileupload-preview"></span>
+            </div>
+              <span class="btn btn-file">
+                <span class="fileupload-new">Select file</span>
+                <span class="fileupload-exists">Change</span>
+                <input type="file">
+              </span>
+              <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+          </div>
+      </div>
+    </div>
+  
+</div>
+</div>
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">© Copyright NTUIM 2013 Spring Program Design Course | All Rights Reserved.</p>
+      </div>
+    </div>
+  <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+   <script src="js/bootstrap-fileupload.min.js"></script>
+  </body>
+</html>
