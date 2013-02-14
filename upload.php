@@ -40,6 +40,7 @@
 		
 
 		$status = '';
+		$score = 0;
 		$return = -1;
 		$num = (int)$_POST['problem_num'][2].$_POST['problem_num'][3].$_POST['problem_num'][4];
 		
