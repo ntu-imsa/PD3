@@ -1,6 +1,30 @@
+<?php 
+	session_start() ;
+	$db_host = 'localhost' ;
+	$db_database = 'pd course' ;
+	$db_username = 'root' ;
+	$connection = mysql_connect($db_host, $db_username, '');
+	if (!$connection)
+		die ("connection failed".mysql_error()) ;
+	mysql_query("SET NAMES 'utf8'");
+	$selection = mysql_select_db($db_database) ;
+	if (!$selection)
+		die ("selection failed".mysql_error()) ;
+
+	if (isset ($_GET['err']))
+		echo 'the account has been used!<br>';
+	if (isset ($_GET['success']))
+		echo 'Register success!<br>';
+	if (!isset($_SESSION['account'])){
+		header ("Location:index.php") ;
+	} else {
+?>
 <!DOCTYPE html>
 <html>
   <head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>程式設計批改系統</title>
       <link href="css/bootstrap.css" rel="stylesheet" media="screen">
       <link href="css/bootstrap-fileupload.css" rel="stylesheet" media="screen">
@@ -16,38 +40,50 @@
           <div class="navbar-inner">
             <a class="brand" href="#">PDOJS</a>
              <ul class="nav">
-                <li><a href="index_login.html">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li class="dropdown active">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    課堂作業
+                    繳交課堂作業
                       <b class="caret"></b>
                     </a>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                    <li role = "presentation"><a role="menuitem" tabindex="-1" href="upload.html">PD001</a></li>
-                    <li role = "presentation"><a role="menuitem" tabindex="-1" href="upload.html">PD002</a></li>
+                    <?php 
+						$query_pd = 'SELECT p_id FROM pd_hw';
+						$pd = mysql_query($query_pd);
+						while ($fetch_pd = mysql_fetch_row($pd)){
+							$append = substr('PD000', 0, -strlen($fetch_pd[0]));
+							?><li role = "presentation"><a role="menuitem" tabindex="-1" href="upload.php"><?php echo $append.$fetch_pd[0]; ?></a></li><?php
+						}
+					?>	
                   </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    實習課作業
+                    繳交實習課作業
                       <b class="caret"></b>
                     </a>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                    <li role = "presentation"><a role="menuitem" tabindex="-1" href="upload.html">LAB001</a></li>
-                    <li role = "presentation"><a role="menuitem" tabindex="-1" href="upload.html">LAB002</a></li>
+                    <?php 
+						$query_lab = 'SELECT lab_id FROM lab_hw';
+						$lab = mysql_query($query_lab);
+						while ($fetch_lab = mysql_fetch_row($lab)){
+							$append = substr('LAB000', 0, -strlen($fetch_lab[0]));
+							?><li role = "presentation"><a role="menuitem" tabindex="-1" href="upload.php"><?php echo $append.$fetch_lab[0]; ?></a></li><?php
+						}
+					?>	
                   </ul>
                 </li>
                  
-                <li><a href="#">查閱成績</a></li>
+                <li><a href="record.php">查閱上傳紀錄</a></li>
               </ul>
               <ul class="nav pull-right">
                       <li class="divider-vertical"></li>
                       <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi, b96705029<b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi, <?php echo $_SESSION['account'];?><b class="caret"></b></a>
                         <ul class="dropdown-menu">
                           <li><a href="#">修改密碼</a></li>
                           <li class="divider"></li>
-                          <li><a href="#">登出</a></li>
+                          <li><a href="logout.php">登出</a></li>
                         </ul>
                       </li>
               </ul>
@@ -85,3 +121,6 @@
    <script src="js/bootstrap-fileupload.min.js"></script>
   </body>
 </html>
+<?php
+	}
+?>

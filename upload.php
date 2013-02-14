@@ -57,18 +57,18 @@
 				if ($return == 0){  //如果執行成功  比對結果
 					$command = 'python judge.py '.$_SESSION['account'].' '.$_POST['problem_num'];
 					$score = exec($command,$return);
-					$status = 'success';
+					$status = 'Success';
 				} else {
 					//runtime error
-					$status = 'runtime error';
+					$status = 'Runtime Error';
 				}
 			} else {
 				//compile error
-				$status = 'compile error';
+				$status = 'Compile Error';
 			}
 		} else {
 			//upload error
-			$status = 'upload error';
+			$status = 'System Upload Error';
 		}
 		$query = "SELECT s_id FROM student WHERE account = '".$_SESSION['account']."'" ;
 		$id = mysql_query($query);
