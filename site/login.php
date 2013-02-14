@@ -21,11 +21,14 @@
 	$result = mysql_query($query) ;
 	if ($result_row = mysql_fetch_row(($result)))
 	{
-		$_SESSION['account'] = $acc ;
+
+	$_SESSION['account'] = $acc ;
 		
 		 header ("Location:index.php") ;
 	}
-	else
-        header ("Location:index.php?fail=1") ;
-	
+	else{
+     
+		header ("Location:index.php?fail=1") ;
+
+		}
 ?>
