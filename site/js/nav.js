@@ -37,17 +37,10 @@
 
 	$(".upload-button").click(function (){
 		console.log("hw");
-		//var queryString = $.param(formData);
-		//console.log("queryString");
 		$('#fileUploadForm').ajaxSubmit({                 
             beforeSubmit: ShowRequest,
-			//data : {upload: queryString},
             success: function(response) {
-                   //$('.nav').children('.active').removeClass('active');
                    $('#main-content').html(response);
-                   //$('.hw-btn').parent().parent().addClass('active');
-                   //$('.hw-id').html(hw_id);
-				   //var lo = ;
 				   console.log("success");
 			},
             error: function(xhr) {
