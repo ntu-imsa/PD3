@@ -84,6 +84,8 @@
 				<title>程式設計批改系統</title>
 				<link href="css/bootstrap.css" rel="stylesheet" media="screen">
 				<link href="css/sticky-footer.css" rel="stylesheet" media="screen">
+				<link href="css/main.css" rel="stylesheet" media="screen">
+				<link href="css/bootstrap-fileupload.css" rel="stylesheet" media="screen">
 			</head>
 			<body>
 		   <div id="wrap"> <!--把footer推到最底下的div-->
@@ -95,7 +97,7 @@
 				  <div class="navbar-inner">
 					<a class="brand" href="#">PDOJS</a>
 					  <ul class="nav">
-						<li class="active"><a href="#">Home</a></li>
+						<li id="home-btn" class="active"><a>Home</a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							繳交課堂作業
@@ -107,7 +109,7 @@
 								$pd = mysql_query($query_pd);
 								while ($fetch_pd = mysql_fetch_row($pd)){
 									$append = substr('PD000', 0, -strlen($fetch_pd[0]));
-									?><li role = "presentation"><a role="menuitem" tabindex="-1" href="upload.php"><?php echo $append.$fetch_pd[0]; ?></a></li><?php
+									?><li class="hw-btn" role = "presentation"><a role="menuitem"  tabindex="-1" ><?php echo $append.$fetch_pd[0]; ?></a></li><?php
 								}
 							?>	
 						  </ul>
@@ -123,13 +125,13 @@
 								$lab = mysql_query($query_lab);
 								while ($fetch_lab = mysql_fetch_row($lab)){
 									$append = substr('LAB000', 0, -strlen($fetch_lab[0]));
-									?><li role = "presentation"><a role="menuitem" tabindex="-1" href="upload.php"><?php echo $append.$fetch_lab[0]; ?></a></li><?php
+									?><li class="lab-btn" role = "presentation"><a role="menuitem" tabindex="-1" ><?php echo $append.$fetch_lab[0]; ?></a></li><?php
 								}
 							?>	
 						  </ul>
 						</li>
 						 
-						<li><a href="record.php">查閱上傳紀錄</a></li>
+						<li id="record-btn"><a>查閱上傳紀錄</a></li>
 					  </ul>
 					  <ul class="nav pull-right">
 							  <li class="divider-vertical"></li>
@@ -145,7 +147,8 @@
 				  </div>
 				</div>
 				<!-- 以下放公告等等的 -->
-				  
+				  <div id="main-content">
+				  </div>
 		  </div>
 		</div>
 		  <div id="footer">
@@ -155,6 +158,7 @@
 			</div>
 		  <script src="http://code.jquery.com/jquery.js"></script>
 			<script src="js/bootstrap.min.js"></script>
+			<script src="js/nav.js"></script>
 
 		  </body>
 		</html>
