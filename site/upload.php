@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 	session_start() ;
 	$db_host = 'localhost' ;
 	$db_database = 'pd course' ;
@@ -10,117 +11,76 @@
 	$selection = mysql_select_db($db_database) ;
 	if (!$selection)
 		die ("selection failed".mysql_error()) ;
-
-	if (isset ($_GET['err']))
-		echo 'the account has been used!<br>';
-	if (isset ($_GET['success']))
-		echo 'Register success!<br>';
-	if (!isset($_SESSION['account'])){
-		header ("Location:index.php") ;
-	} else {
-?>
-<!DOCTYPE html>
-<html>
-  <head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>ç¨‹å¼è¨­è¨ˆæ‰¹æ”¹ç³»çµ±</title>
-      <link href="css/bootstrap.css" rel="stylesheet" media="screen">
-      <link href="css/bootstrap-fileupload.css" rel="stylesheet" media="screen">
-      <link href="css/sticky-footer.css" rel="stylesheet" media="screen">
-  </head>
-  <body>
-    <div id="wrap"> 
-    <div class="container">      
-      <div class="page-header">
-            <h2>Program Design Online Judge System</h2>
-      </div>
-        <div class="navbar">
-          <div class="navbar-inner">
-            <a class="brand" href="#">PDOJS</a>
-             <ul class="nav">
-                <li><a href="index.php">Home</a></li>
-                <li class="dropdown active">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    ç¹³äº¤èª²å ‚ä½œæ¥­
-                      <b class="caret"></b>
-                    </a>
-                  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                    <?php 
-						$query_pd = 'SELECT p_id FROM pd_hw';
-						$pd = mysql_query($query_pd);
-						while ($fetch_pd = mysql_fetch_row($pd)){
-							$append = substr('PD000', 0, -strlen($fetch_pd[0]));
-							?><li role = "presentation"><a role="menuitem" tabindex="-1" href="upload.php"><?php echo $append.$fetch_pd[0]; ?></a></li><?php
-						}
-					?>	
-                  </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    ç¹³äº¤å¯¦ç¿’èª²ä½œæ¥­
-                      <b class="caret"></b>
-                    </a>
-                  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                    <?php 
-						$query_lab = 'SELECT lab_id FROM lab_hw';
-						$lab = mysql_query($query_lab);
-						while ($fetch_lab = mysql_fetch_row($lab)){
-							$append = substr('LAB000', 0, -strlen($fetch_lab[0]));
-							?><li role = "presentation"><a role="menuitem" tabindex="-1" href="upload.php"><?php echo $append.$fetch_lab[0]; ?></a></li><?php
-						}
-					?>	
-                  </ul>
-                </li>
-                 
-                <li><a href="record.php">æŸ¥é–±ä¸Šå‚³ç´€éŒ„</a></li>
-              </ul>
-              <ul class="nav pull-right">
-                      <li class="divider-vertical"></li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi, <?php echo $_SESSION['account'];?><b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                          <li><a href="#">ä¿®æ”¹å¯†ç¢¼</a></li>
-                          <li class="divider"></li>
-                          <li><a href="logout.php">ç™»å‡º</a></li>
-                        </ul>
-                      </li>
-              </ul>
-          </div>
-        </div>
-       
-        <!-- æ”¹ä½œæ¥­åºè™Ÿçœ‹é€™è£¡ -->
-        <div class="hero-unit upload_section">
-          <p> ä½œæ¥­åºè™Ÿæ”¾é€™è£¡ </p>
-         <div class="fileupload fileupload-new" data-provides="fileupload">
-          <div class="input-append">
-            <div class="uneditable-input span3">
-              <i class="icon-file fileupload-exists"></i>
-              <span class="fileupload-preview"></span>
-            </div>
-              <span class="btn btn-file">
-                <span class="fileupload-new">Select file</span>
-                <span class="fileupload-exists">Change</span>
-                <input type="file">
-              </span>
-              <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
-          </div>
-      </div>
-    </div>
-  
-</div>
-</div>
-    <div id="footer">
-      <div class="container">
-        <p class="muted credit">Â© Copyright NTUIM 2013 Spring Program Design Course | All Rights Reserved.</p>
-      </div>
-    </div>
-  <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-   <script src="js/bootstrap-fileupload.min.js"></script>
-  </body>
-</html>
-<?php
+	
+	date_default_timezone_set('Asia/Taipei');
+	$datetime = date ("Y/m/d H:i:s");
+	//echo $datetime.'<br>';
+	
+	if (!$_SESSION['account']){            // ¨Ï¥ÎªÌ¥¼µn¤J¡A¾É¦^login.php
+		header ("Location:login.php") ;
+	} else if (isset($_POST['textarea'])){ // ¨Ï¥Îtextarea¤W¶Ç
+		echo "Hello, ".$_SESSION['account']."<br>";
+		echo 'textarea'.$_POST['textarea'] ;
 	}
+	else  if (isset($_POST['upload'])){   // ¿ï¨úÀÉ®×¤W¶Ç
+		$problem_dir = '.\\student\\'.$_SESSION['account'].'\\'.$_POST['problem_num']; 
+		if (!is_dir($problem_dir)){
+			$return = 0;
+			$command = "MD ".$problem_dir;
+			system($command, $return);
+		}
+		$judge_dir = '.\\judgement\\'.$_POST['problem_num'];
+		$upfile = $problem_dir.'\\hw.cpp';
+		$exefile = $problem_dir.'\\hw.exe';
+		$compile_logfile = $problem_dir.'\\compile_err_log.txt';
+		$run_logfile = $problem_dir.'\\run_err_log.txt';
+		$testfile = $judge_dir.'\\testing_data.txt';
+		$outputfile = $problem_dir.'\\output.txt';
+		move_uploaded_file($_FILES['upload']['tmp_name'], $upfile);
+		
+
+		$status = '';
+		$score = 0;
+		$return = -1;
+		$num = (int)$_POST['problem_num'][2].$_POST['problem_num'][3].$_POST['problem_num'][4];
+		
+		//½sÄ¶.cppÀÉ
+		//$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2> '.$logfile;
+		if (file_exists($upfile)){
+			$command = 'g++ '.$upfile.' -o '.$exefile.' 2> '.$compile_logfile;
+			system($command, $return);
+			echo 'compile return:'.$return.'<br>';
+			if ($return == 0){	//¦pªG¦¨¥\½sÄ¶¥X.exeÀÉ °õ¦æ.exe ¿é¤J´ú¸ê¬°$testfile ¼Ğ·Ç¿é¥XÂà¦V¦Ü$outputfile ¼Ğ·Ç¿ù»~Âà¦V¦Ü$run_logfile
+				$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2> '.$run_logfile;
+				system($command, $return);
+				echo 'runtime return:'.$return.'<br>';
+				if ($return == 0){  //¦pªG°õ¦æ¦¨¥\  ¤ñ¹ïµ²ªG
+					$command = 'python judge.py '.$_SESSION['account'].' '.$_POST['problem_num'];
+					$score = exec($command,$return);
+					$status = 'Success';
+				} else {
+					//runtime error
+					$status = 'Runtime Error';
+				}
+			} else {
+				//compile error
+				$status = 'Compile Error';
+			}
+		} else {
+			//upload error
+			$status = 'System Upload Error';
+		}
+		$query = "SELECT s_id FROM student WHERE account = '".$_SESSION['account']."'" ;
+		$id = mysql_query($query);
+		$fetch_id = mysql_fetch_row($id);
+		echo $_POST['problem_num'][4];
+		$insert = "INSERT INTO pd_score(s_id, p_id, status, time, score) 
+			VALUES ('$fetch_id[0]', '$num', '$status', '$datetime', '$score')" ;
+		$success = mysql_query($insert);
+		
+	}
+	else if (!isset($_FILES['upload']) and !isset($_POST['textarea'])){
+		echo 'no upload';
+	}
+
 ?>

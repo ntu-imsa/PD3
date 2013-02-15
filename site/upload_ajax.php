@@ -21,6 +21,7 @@
 ?>      <!-- 改作業序號看這裡 -->
         <div class="hero-unit upload_section">
           <p class="hw-id"> 作業序號放這裡 </p>
+		  
          <div class="fileupload fileupload-new" data-provides="fileupload">
           <div class="input-append">
             <div class="uneditable-input span3">
@@ -30,13 +31,15 @@
               <span class="btn btn-file">
                 <span class="fileupload-new">Select file</span>
                 <span class="fileupload-exists">Change</span>
-                <input type="file">
+                <input type="file" class="upload"/>
               </span>
               <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+			  <a class="btn fileupload-exists upload-button" >Upload</a>
           </div>
       </div>
     </div>
    <script src="js/bootstrap-fileupload.min.js"></script>
+   <script src="js/nav.js"></script>
 <?php
 	}
 ?>

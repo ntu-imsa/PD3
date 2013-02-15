@@ -95,7 +95,7 @@
 			  </div>
 				<div class="navbar">
 				  <div class="navbar-inner">
-					<a class="brand" href="#">PDOJS</a>
+					<a class="brand" >PDOJS</a>
 					  <ul class="nav">
 						<li id="home-btn" class="active"><a>Home</a></li>
 						<li class="dropdown">

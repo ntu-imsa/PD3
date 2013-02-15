@@ -22,7 +22,7 @@
 		echo "Hello, ".$_SESSION['account']."<br>";
 		echo 'textarea'.$_POST['textarea'] ;
 	}
-	else  if (isset($_FILES['upload'])){   // 選取檔案上傳
+	else  if (isset($_POST['upload'])){   // 選取檔案上傳
 		$problem_dir = '.\\student\\'.$_SESSION['account'].'\\'.$_POST['problem_num']; 
 		if (!is_dir($problem_dir)){
 			$return = 0;
