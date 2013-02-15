@@ -35,35 +35,37 @@
      // });
   });
 
-  $(".upload-button").click(function (){
-        //console.log("hw");
-		
-        var file1=$(".upload").val($(this).val());
-        console.log(file1);
-         // $.ajax({
-         // url: 'result.php',
-         // cache: false,
-         // dataType: 'html',
-             // type:'POST',
-         // data:{ upload: file1}, //可以在upload_ajax.php裡面用$_POST['hwID']接
-         // error: function(xhr) {
-           // alert('Ajax request 發生錯誤');
-         // },
-         // success: function(response) {
-                   // //$('.nav').children('.active').removeClass('active');
-                   // $('#main-content').html(response);
-                   // //$('.hw-btn').parent().parent().addClass('active');
-                   // //$('.hw-id').html(hw_id);
-				   // //var lo = ;
-				   // console.log("success");
-         // }
-     // });
-  });
-  
+	$(".upload-button").click(function (){
+		console.log("hw");
+		//var queryString = $.param(formData);
+		//console.log("queryString");
+		$('#fileUploadForm').ajaxSubmit({                 
+            beforeSubmit: ShowRequest,
+			//data : {upload: queryString},
+            success: function(response) {
+                   //$('.nav').children('.active').removeClass('active');
+                   $('#main-content').html(response);
+                   //$('.hw-btn').parent().parent().addClass('active');
+                   //$('.hw-id').html(hw_id);
+				   //var lo = ;
+				   console.log("success");
+			},
+            error: function(xhr) {
+				alert('Ajax request 發生錯誤');
+			}                           
+                
+		 });
+	});
+  function ShowRequest(formData, jqForm, options) {
+          var queryString = $.param(formData);
+          //alert('BeforeSend method: \n\nAbout to submit: \n\n' + queryString);
+          return true;
+        }
  $(".hw-btn").click(function (){
         console.log("hw");
         var hw_id=$(this).html();
-        console.log(hw_id);
+		//var id = $(this).html("name");
+        //console.log(id);
          $.ajax({
          url: 'upload_ajax.php',
          cache: false,

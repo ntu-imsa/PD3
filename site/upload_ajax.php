@@ -19,6 +19,7 @@
 		header ("Location:index.php") ;
 	} else {
 ?>      <!-- 改作業序號看這裡 -->
+	<form method="POST" action="result.php" id="fileUploadForm" enctype="multipart/form-data">
         <div class="hero-unit upload_section">
           <p class="hw-id"> 作業序號放這裡 </p>
 		  
@@ -31,15 +32,20 @@
               <span class="btn btn-file">
                 <span class="fileupload-new">Select file</span>
                 <span class="fileupload-exists">Change</span>
-                <input type="file" class="upload"/>
+				
+                <input type="file" class="upload" name="upload"/>
+				
               </span>
               <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
 			  <a class="btn fileupload-exists upload-button" >Upload</a>
           </div>
       </div>
     </div>
+	</form>
    <script src="js/bootstrap-fileupload.min.js"></script>
    <script src="js/nav.js"></script>
+   <script src="js/jquery.form.js"></script>
+   
 <?php
 	}
 ?>

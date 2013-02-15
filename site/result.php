@@ -11,15 +11,15 @@
 	if (!$selection)
 		die ("selection failed".mysql_error()) ;
 
-	if (isset ($_GET['err']))
-		echo 'the account has been used!<br>';
-	if (isset ($_GET['success']))
-		echo 'Register success!<br>';
+	// if (isset ($_GET['err']))
+		// echo 'the account has been used!<br>';
+	// if (isset ($_GET['success']))
+		// echo 'Register success!<br>';
 	if (!isset($_SESSION['account'])){
 		header ("Location:index.php") ;
 	} else {
-		if (isset($_POST['upload'])){   // 選取檔案上傳
-			echo $_POST['upload'];
+		if (isset($_FILES['upload'])){   // 選取檔案上傳
+			//echo $_POST['upload'];
 			$problem_dir = '.\\student\\'.$_SESSION['account'].'\\'.$_POST['problem_num']; 
 			if (!is_dir($problem_dir)){
 				$return = 0;
@@ -46,11 +46,11 @@
 			if (file_exists($upfile)){
 				$command = 'g++ '.$upfile.' -o '.$exefile.' 2> '.$compile_logfile;
 				system($command, $return);
-				echo 'compile return:'.$return.'<br>';
+				//echo 'compile return:'.$return.'<br>';
 				if ($return == 0){	//如果成功編譯出.exe檔 執行.exe 輸入測資為$testfile 標準輸出轉向至$outputfile 標準錯誤轉向至$run_logfile
 					$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2> '.$run_logfile;
 					system($command, $return);
-					echo 'runtime return:'.$return.'<br>';
+					//echo 'runtime return:'.$return.'<br>';
 					if ($return == 0){  //如果執行成功  比對結果
 						$command = 'python judge.py '.$_SESSION['account'].' '.$_POST['problem_num'];
 						$score = exec($command,$return);
@@ -70,7 +70,7 @@
 			$query = "SELECT s_id FROM student WHERE account = '".$_SESSION['account']."'" ;
 			$id = mysql_query($query);
 			$fetch_id = mysql_fetch_row($id);
-			echo $_POST['problem_num'][4];
+			//echo $_POST['problem_num'][4];
 			$insert = "INSERT INTO pd_score(s_id, p_id, status, time, score) 
 				VALUES ('$fetch_id[0]', '$num', '$status', '$datetime', '$score')" ;
 			$success = mysql_query($insert);
