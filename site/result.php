@@ -11,6 +11,8 @@
 	if (!$selection)
 		die ("selection failed".mysql_error()) ;
 
+	date_default_timezone_set('Asia/Taipei');
+	$datetime = date ("Y/m/d H:i:s");
 	// if (isset ($_GET['err']))
 		// echo 'the account has been used!<br>';
 	// if (isset ($_GET['success']))
@@ -19,7 +21,6 @@
 		header ("Location:index.php") ;
 	} else {
 		if (isset($_FILES['upload'])){   // 選取檔案上傳
-			//echo $_POST['upload'];
 			$problem_dir = '.\\student\\'.$_SESSION['account'].'\\'.$_POST['problem_num']; 
 			if (!is_dir($problem_dir)){
 				$return = 0;
@@ -42,9 +43,10 @@
 			$num = (int)$_POST['problem_num'][2].$_POST['problem_num'][3].$_POST['problem_num'][4];
 			
 			//編譯.cpp檔
-			//$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2> '.$logfile;
+			
 			if (file_exists($upfile)){
-				$command = 'g++ '.$upfile.' -o '.$exefile.' 2> '.$compile_logfile;
+				$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2> '.$compile_logfile;
+				//$command = 'g++ '.$upfile.' -o '.$exefile.' 2> '.$compile_logfile;
 				system($command, $return);
 				//echo 'compile return:'.$return.'<br>';
 				if ($return == 0){	//如果成功編譯出.exe檔 執行.exe 輸入測資為$testfile 標準輸出轉向至$outputfile 標準錯誤轉向至$run_logfile

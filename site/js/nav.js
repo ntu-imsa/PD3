@@ -64,8 +64,8 @@
  $(".hw-btn").click(function (){
         console.log("hw");
         var hw_id=$(this).html();
-		//var id = $(this).html("name");
-        //console.log(id);
+		var id = $(this).attr("name");
+        console.log(id);
          $.ajax({
          url: 'upload_ajax.php',
          cache: false,
@@ -79,7 +79,7 @@
                    $('.nav').children('.active').removeClass('active');
                    $('#main-content').html(response);
                    $('.hw-btn').parent().parent().addClass('active');
-                   $('.hw-id').html(hw_id);
+                   $('.hw-id').html(hw_id+"<input type='hidden' name='problem_num' value='"+id+"'>");
          }
      });
   });

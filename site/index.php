@@ -109,7 +109,7 @@
 								$pd = mysql_query($query_pd);
 								while ($fetch_pd = mysql_fetch_row($pd)){
 									$append = substr('PD000', 0, -strlen($fetch_pd[0]));
-									?><li class="hw-btn" role = "presentation"><a role="menuitem"  tabindex="-1" name="<?php echo $fetch_pd[0]; ?>"><?php echo $append.$fetch_pd[0]; ?></a></li><?php
+									?><li class="hw-btn" role = "presentation" name="<?php echo $append.$fetch_pd[0]; ?>"><a role="menuitem"  tabindex="-1" ><?php echo $append.$fetch_pd[0]; ?></a></li><?php
 								}
 							?>	
 						  </ul>
