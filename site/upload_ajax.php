@@ -42,9 +42,7 @@
       </div>
     </div>
 	</form>
-   <script src="js/bootstrap-fileupload.min.js"></script>
-   <script src="js/nav.js"></script>
-   <script src="js/jquery.form.js"></script>
+   
    
 <?php
 	}

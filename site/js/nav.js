@@ -62,7 +62,7 @@
           return true;
         }
  $(".hw-btn").click(function (){
-        console.log("hw");
+        //console.log("hw");
         var hw_id=$(this).html();
 		var id = $(this).attr("name");
         console.log(id);
@@ -84,13 +84,16 @@
      });
   });
   $('.lab-btn').click(function (){
-        console.log("lab");
+        //console.log("lab");
         var hw_id=$(this).html();
+		var id = $(this).attr("name");
+		console.log(id);
          $.ajax({
          url: 'upload_ajax.php',
          cache: false,
          dataType: 'html',
-             type:'GET',
+             type:'POST',
+	     data:{ hwID: hw_id}, //可以在upload_ajax.php裡面用$_POST['hwID']接
          error: function(xhr) {
            alert('Ajax request 發生錯誤');
          },
@@ -98,7 +101,7 @@
                    $('.nav').children('.active').removeClass('active');
                    $('#main-content').html(response);
                    $('.lab-btn').parent().parent().addClass('active');
-                   $('.hw-id').html(hw_id);
+                   $('.hw-id').html(hw_id+"<input type='hidden' name='problem_num' value='"+id+"'>");
          }
      });
   });

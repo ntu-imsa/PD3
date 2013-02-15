@@ -119,7 +119,7 @@
 				 </tbody>
 					</table>
     </div>
-   <script src="js/bootstrap-fileupload.min.js"></script>
+   
 <?php
 	
 	}

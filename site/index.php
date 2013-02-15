@@ -125,7 +125,7 @@
 								$lab = mysql_query($query_lab);
 								while ($fetch_lab = mysql_fetch_row($lab)){
 									$append = substr('LAB000', 0, -strlen($fetch_lab[0]));
-									?><li class="lab-btn" role = "presentation"><a role="menuitem" tabindex="-1" ><?php echo $append.$fetch_lab[0]; ?></a></li><?php
+									?><li class="lab-btn" role = "presentation" name="<?php echo $append.$fetch_lab[0]; ?>"><a role="menuitem" tabindex="-1" ><?php echo $append.$fetch_lab[0]; ?></a></li><?php
 								}
 							?>	
 						  </ul>
@@ -156,9 +156,12 @@
 				<p class="muted credit">© Copyright NTUIM 2013 Spring Program Design Course | All Rights Reserved.</p>
 			  </div>
 			</div>
+			
 		  <script src="http://code.jquery.com/jquery.js"></script>
 			<script src="js/bootstrap.min.js"></script>
 			<script src="js/nav.js"></script>
+			<script src="js/bootstrap-fileupload.min.js"></script>
+	<script src="js/jquery.form.js"></script>
 
 		  </body>
 		</html>

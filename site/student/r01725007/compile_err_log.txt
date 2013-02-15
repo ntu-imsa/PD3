@@ -1,2 +1,0 @@
-c:/program files (x86)/haskell platform/2012.4.0.0/mingw/bin/../lib/gcc/mingw32/4.5.2/../../../../mingw32/bin/ld.exe: warning: auto-importing has been activated without --enable-auto-import specified on the command line.
-This should work unless it involves constant data structures referencing symbols from auto-imported DLLs.
