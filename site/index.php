@@ -37,7 +37,7 @@
 					<header>
 						<h1>Program Design<strong> Online Judge</strong> System</h1>
 						<h2>First time visit? Please <span class="signup">Sign Up</span> with your Student ID or <span class="login">Login</span></h2>
-						
+						<?php if (isset ($_GET['fail'])) echo 'Login fail !<br>'; ?>
 						<div class="support-note">
 							<span class="note-ie">Sorry, only modern browsers.</span>
 						</div>
