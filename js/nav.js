@@ -9,6 +9,7 @@
          },
          success: function(response) {
                    $('.nav').children('.active').removeClass('active');
+				   $('#footer').html("");
                    $('#main-content').html(response);
                    $('#record-btn').addClass('active');
                    
@@ -28,34 +29,13 @@
          // success: function(response) {
                    $('.nav').children('.active').removeClass('active');
                    $('#main-content').html("");
-                   $('#home-btn').addClass('active');
-                  
-                   
+                   $('#home-btn').addClass('active');  
      //     }
      // });
   });
 
-	$(".upload-button").click(function (){
-		console.log("hw");
-		$('#fileUploadForm').ajaxSubmit({                 
-            beforeSubmit: ShowRequest,
-            success: function(response) {
-                   $('#main-content').html(response);
-				   console.log("success");
-			},
-            error: function(xhr) {
-				alert('Ajax request 發生錯誤');
-			}                           
-                
-		 });
-	});
-  function ShowRequest(formData, jqForm, options) {
-          var queryString = $.param(formData);
-          //alert('BeforeSend method: \n\nAbout to submit: \n\n' + queryString);
-          return true;
-        }
+	
  $(".hw-btn").click(function (){
-        //console.log("hw");
         var hw_id=$(this).html();
 		var id = $(this).attr("name");
         console.log(id);
@@ -77,7 +57,6 @@
      });
   });
   $('.lab-btn').click(function (){
-        //console.log("lab");
         var hw_id=$(this).html();
 		var id = $(this).attr("name");
 		console.log(id);
