@@ -11,16 +11,12 @@
 	if (!$selection)
 		die ("selection failed".mysql_error()) ;
 
-	if (isset ($_GET['err']))
-		echo 'the account has been used!<br>';
-	if (isset ($_GET['success']))
-		echo 'Register success!<br>';
 	if (!isset($_SESSION['account'])){
 ?>
 		<!DOCTYPE html>
 		<html lang="en">
 			<head>
-				<meta charset="UTF-8" />
+				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 				<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 				<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 				<title>Program Design Course Site</title>
@@ -37,6 +33,10 @@
 							<h1>Program Design<strong> Online Judge</strong> System</h1>
 							<h2>First time visit? Please <span class="signup">Sign Up</span> with your Student ID or <span class="login">Login</span></h2>
 							<?php if (isset ($_GET['fail'])) echo 'Login fail !<br>'; ?>
+							<?php if (isset ($_GET['empty'])) echo 'Enter your account or pw !<br>'; ?>
+							<?php if (isset ($_GET['same'])) echo 'Confirm the password !<br>'; ?>
+							<?php if (isset ($_GET['err'])) echo 'Account already exist !<br>'; ?>
+							<?php if (isset ($_GET['sucess'])) echo 'Register success !<br>'; ?>
 							<div class="support-note">
 								<span class="note-ie">Sorry, only modern browsers.</span>
 							</div>
@@ -83,7 +83,8 @@
 		<!DOCTYPE html>
 		<html>
 			<head>
-				<title>程式設計批改系統</title>
+				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+				<title>Program Design Course Site</title>
 				<link href="css/bootstrap.css" rel="stylesheet" media="screen">
 				<link href="css/sticky-footer.css" rel="stylesheet" media="screen">
 				<link href="css/main.css" rel="stylesheet" media="screen">

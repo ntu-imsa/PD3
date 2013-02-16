@@ -1,1 +1,0 @@
-/cygnus/cygwin-b20/H-i586-cygwin32/i586-cygwin32/bin/ld: warning: cannot find entry symbol nable-auto-import; defaulting to 00401000

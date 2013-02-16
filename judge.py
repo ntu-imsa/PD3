@@ -3,7 +3,7 @@ import sys
 
 if __name__ == '__main__':
     #python judge.py  s_id  p_id
-    hw_path = './student/' + sys.argv[1] + '/' + sys.argv[2] + '/'
+    hw_path = './student/' + sys.argv[1] + '/' + sys.argv[2] + '/answer/'
     judge_path = './judgement/' + sys.argv[2] + '/'
     outputfile = open(hw_path + 'output.txt', 'r')
     answerfile = open(judge_path + 'answer.txt', 'r')
@@ -15,7 +15,7 @@ if __name__ == '__main__':
         o = outputfile.readline().strip()
         if a == o:
             total_score += 100 / test_num
-    outfile = open(hw_path + '/result.txt', 'w')
+    outfile = open(hw_path + 'score.txt', 'w')
     #outfile.write("total_score is : " + str(total_score))
     outfile.write(str(total_score))
     outputfile.close()

@@ -11,10 +11,7 @@
 	if (!$selection)
 		die ("selection failed".mysql_error()) ;
 
-	if (isset ($_GET['err']))
-		echo 'the account has been used!<br>';
-	if (isset ($_GET['success']))
-		echo 'Register success!<br>';
+
 	if (!isset($_SESSION['account'])){
 		header ("Location:index.php") ;
 	} else {
