@@ -86,6 +86,7 @@
 				<link href="css/sticky-footer.css" rel="stylesheet" media="screen">
 				<link href="css/main.css" rel="stylesheet" media="screen">
 				<link href="css/bootstrap-fileupload.css" rel="stylesheet" media="screen">
+				
 			</head>
 			<body>
 		   <div id="wrap"> <!--把footer推到最底下的div-->
@@ -157,13 +158,13 @@
 			  </div>
 			</div>
 			
+		  
+		  </body>
 		  <script src="http://code.jquery.com/jquery.js"></script>
 			<script src="js/bootstrap.min.js"></script>
-			<script src="js/nav.js"></script>
 			<script src="js/bootstrap-fileupload.min.js"></script>
-	<script src="js/jquery.form.js"></script>
-
-		  </body>
+			<script src="js/jquery.form.js"></script>
+			<script src="js/nav.js"></script>
 		</html>
 <?php
 	}
