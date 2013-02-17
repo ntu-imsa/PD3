@@ -1,22 +1,3 @@
-  $('#record-btn').click(function (){
-         $.ajax({
-         url: 'record_ajax.php',
-         cache: false,
-         dataType: 'html',
-             type:'GET',
-         error: function(xhr) {
-           alert('Ajax request 發生錯誤');
-         },
-         success: function(response) {
-                   $('.nav').children('.active').removeClass('active');
-				   $('#footer').html("");
-                   $('#main-content').html(response);
-                   $('#record-btn').addClass('active');
-                   
-         }
-     });
-  });
-
   $('#home-btn').click(function (){
          // $.ajax({
          // url: '',
@@ -32,9 +13,26 @@
                    $('#home-btn').addClass('active');  
      //     }
      // });
-  });
+  }); 
 
-	
+  $('#problem-btn').click(function (){
+        console.log("problem");
+		 $.ajax({
+         url: 'problem.php',
+         cache: false,
+         dataType: 'html',
+             type:'GET',
+         error: function(xhr) {
+           alert('Ajax request 發生錯誤');
+         },
+         success: function(response) {
+                   $('.nav').children('.active').removeClass('active');
+                   $('#main-content').html(response);
+                   $('#problem-btn').addClass('active');  
+          }
+      });
+  }); 
+  
  $(".hw-btn").click(function (){
         var hw_id=$(this).html();
 		var id = $(this).attr("name");
@@ -56,6 +54,7 @@
          }
      });
   });
+  
   $('.lab-btn').click(function (){
         var hw_id=$(this).html();
 		var id = $(this).attr("name");
@@ -77,3 +76,22 @@
          }
      });
   });
+
+ $('#record-btn').click(function (){
+         $.ajax({
+         url: 'record_ajax.php',
+         cache: false,
+         dataType: 'html',
+             type:'GET',
+         error: function(xhr) {
+           alert('Ajax request 發生錯誤');
+         },
+         success: function(response) {
+                   $('.nav').children('.active').removeClass('active');
+				   $('#footer').html("");
+                   $('#main-content').html(response);
+                   $('#record-btn').addClass('active');
+                   
+         }
+     });
+  });  

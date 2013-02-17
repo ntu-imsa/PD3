@@ -103,6 +103,8 @@
 									
 									<li id="home-btn" class="active"><a>Home</a></li>
 									
+									<li id="problem-btn"><a>Problem Set</a></li>
+									
 									<li class="dropdown">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">繳交課堂作業<b class="caret"></b></a>
 										<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
