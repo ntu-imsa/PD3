@@ -18,9 +18,10 @@
 		header ("Location:index.php") ;
 	} else {
 		if (isset($_FILES['upload'])){   // 選取檔案上傳
-			$problem_dir = '.\student\\'.$_SESSION['account'].'\\'.$_POST['problem_num']; 
-			$log_dir = '.\\student\\'.$_SESSION['account'].'\\'.$_POST['problem_num'].'\\log';
-			$ans_dir = '.\\student\\'.$_SESSION['account'].'\\'.$_POST['problem_num'].'\\answer';
+			$acc = mysql_real_escape_string($_SESSION['account']);
+			$problem_dir = '.\student\\'.$acc.'\\'.$_POST['problem_num']; 
+			$log_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num'].'\\log';
+			$ans_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num'].'\\answer';
 			
 			if (!is_dir($problem_dir))
 				mkdir($problem_dir);
@@ -63,26 +64,32 @@
 				$command = 'g++ '.$upfile.' -o '.$exefile.'  2>> '.$compile_logfile;
 				system($command, $return);
 				if ($return == 0){	       //如果成功編譯出.exe檔 執行.exe 輸入測資為$testfile 標準輸出轉向至$outputfile 標準錯誤轉向至$run_logfile
-					
 					$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2>> '.$run_logfile;
 					system($command, $return);
 					if ($return == 0){      //如果執行成功  比對結果
-						$command = 'python judge.py '.$_SESSION['account'].' '.$_POST['problem_num'];
+						$command = 'python judge.py '.$acc.' '.$_POST['problem_num'];
 						$score = exec($command,$return);
-						$status = 'Success';
+						$query_score = "SELECT total_score FROM pd_hw WHERE p_id = '".$_POST['problem_num']."'";
+						$s = mysql_query($query_score);
+						$fetch_s = mysql_fetch_row($s);
+						if ($score == $fetch_s[0]){
+							$status = 'Accepted';
+						} else {
+							$status = 'Wrong answer';
+						}
 					} else {
 						//runtime error
-						$status = 'Runtime Error';
+						$status = 'Runtime error';
 					}
 				} else {
 					//compile error
-					$status = 'Compile Error';
+					$status = 'Compilation error';
 				}
 			} else {
 				//upload error
-				$status = 'System Upload Error';
+				$status = 'System upload error';
 			}
-			$query = "SELECT s_id FROM student WHERE account = '".$_SESSION['account']."'" ;
+			$query = "SELECT s_id FROM student WHERE account = '".$acc."'" ;
 			$id = mysql_query($query);
 			$fetch_id = mysql_fetch_row($id);
 			//echo $_POST['problem_num'][4];
@@ -110,16 +117,22 @@
 				<?php 
 						
 					$query_rec = "SELECT p_id, status, exec_time, time, score FROM pd_score NATURAL JOIN student 
-					              WHERE account = '".$_SESSION['account']."' ORDER BY time DESC";
+					              WHERE account = '".$acc."' ORDER BY time DESC";
 					$rec = mysql_query($query_rec);
 					$fetch_rec = mysql_fetch_row($rec);
 					$append = substr('PD000', 0, -strlen($fetch_rec[0]));
-					if ($fetch_rec[1] == 'Success'){
-						?><tr class="success"><?php
-					} else if ($fetch_rec[1] == 'Compile Error'){
-						?><tr class="warning"><?php
-					} else if ($fetch_rec[1] == 'Runtime Error'){
-						?><tr class="error"><?php
+					if ($fetch_rec[1] == 'Accepted'){
+						?><tr class="accept"><?php
+					} else if ($fetch_rec[1] == 'Compilation error'){
+						?><tr class="compile_error"><?php
+					} else if ($fetch_rec[1] == 'Runtime error'){
+						?><tr class="runtime_error"><?php
+					} else if ($fetch_rec[1] == 'Time limit exceed'){
+						?><tr class="time_exceed"><?php
+					} else if ($fetch_rec[1] == 'Wrong answer'){
+						?><tr class="wrong_answer"><?php
+					} else if ($fetch_rec[1] == 'System upload error'){
+						?><tr class="upload_error"><?php
 					} ?>
 						<td><?php echo $append.$fetch_rec[0];?></td>
 						<td><?php echo $fetch_rec[1];?></td>

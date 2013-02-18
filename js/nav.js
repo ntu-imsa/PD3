@@ -10,7 +10,8 @@
          // success: function(response) {
                    $('.nav').children('.active').removeClass('active');
                    $('#main-content').html("");
-                   $('#home-btn').addClass('active');  
+                   $('#home-btn').addClass('active'); 
+				   $('#footer').html("<div class='container'><p class='muted credit'>© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p></div>");				   
      //     }
      // });
   }); 
@@ -28,7 +29,8 @@
          success: function(response) {
                    $('.nav').children('.active').removeClass('active');
                    $('#main-content').html(response);
-                   $('#problem-btn').addClass('active');  
+                   $('#problem-btn').addClass('active'); 
+				   $('#footer').html("<div class='container'><p class='muted credit'>© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p></div>");
           }
       });
   }); 
@@ -51,6 +53,7 @@
                    $('#main-content').html(response);
                    $('.hw-btn').parent().parent().addClass('active');
                    $('.hw-id').html(hw_id+"<input type='hidden' name='problem_num' value='"+id+"'>");
+				   $('#footer').html("<div class='container'><p class='muted credit'>© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p></div>");
          }
      });
   });
@@ -73,6 +76,7 @@
                    $('#main-content').html(response);
                    $('.lab-btn').parent().parent().addClass('active');
                    $('.hw-id').html(hw_id+"<input type='hidden' name='problem_num' value='"+id+"'>");
+				   $('#footer').html("<div class='container'><p class='muted credit'>© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p></div>");
          }
      });
   });

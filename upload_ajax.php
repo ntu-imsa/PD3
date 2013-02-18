@@ -19,6 +19,8 @@
 		<form method="POST" action="result.php" id="fileUploadForm" enctype="multipart/form-data">
 			<div class="hero-unit upload_section">
 				<p class="hw-id"> 作業序號放這裡 </p>		  
+				<p> File format: .c or .cpp </p>
+				<p> File size: max 3MBs</p>
 				<div class="fileupload fileupload-new" data-provides="fileupload">
 					<div class="input-append">
 						<div class="uneditable-input span3">

@@ -1,7 +1,7 @@
 <?php
-	$acc = $_POST["account"] ;
-	$pw = md5($_POST["password"]) ;
-	$cpw = md5($_POST["cpw"]) ;
+	$acc = mysql_real_escape_string($_POST["account"]) ;
+	$pw = md5(mysql_real_escape_string($_POST["password"])) ;
+	$cpw = md5(mysql_real_escape_string($_POST["cpw"])) ;
 	
 	$db_host = 'localhost' ;
 	$db_database = 'pd course' ;

@@ -12,8 +12,8 @@
 	if (!$selection)
 		die ("selection failed".mysql_error()) ;
 	
-	$acc = $_POST['account'] ;
-	$pw = md5($_POST['password']);
+	$acc = mysql_real_escape_string($_POST['account'] );
+	$pw = md5(mysql_real_escape_string($_POST['password']));
 	//$pw = $_POST['password'];
 	
 	$query = "SELECT * FROM student

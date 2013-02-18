@@ -30,7 +30,7 @@
 				<div id="wrap">
 					<div class="container">	
 						<header>
-							<h1>Program Design<strong> Online Judge</strong> System</h1>
+							<h1>Programming Design<strong> Online Grading</strong> System</h1>
 							<h2>First time visit? Please <span class="signup">Sign Up</span> with your Student ID or <span class="login">Login</span></h2>
 							<?php if (isset ($_GET['fail'])) echo 'Login fail !<br>'; ?>
 							<?php if (isset ($_GET['empty'])) echo 'Enter your account or pw !<br>'; ?>
@@ -68,7 +68,7 @@
 				</div>
 				<div id="footer">
 					<div class="foot-container">
-						<p class="muted credit">© Copyright NTUIM 2013 Spring Program Design Course | All Rights Reserved.</p>
+						<p class="muted credit">© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p>
 					</div>
 				</div>
 				<script src="http://code.jquery.com/jquery.js"></script>
@@ -94,11 +94,11 @@
 				<div id="wrap"> <!--把footer推到最底下的div-->
 					<div class="container"> 
 						<div class="page-header">
-							<h2>Program Design Online Judge System</h2>
+							<h2>Programming Design Online Grading System</h2>
 						</div>
 						<div class="navbar">
 							<div class="navbar-inner">
-								<a class="brand" >PDOJS</a>
+								<a class="brand" >PDOGS</a>
 								<ul class="nav">
 									
 									<li id="home-btn" class="active"><a>Home</a></li>
@@ -106,7 +106,7 @@
 									<li id="problem-btn"><a>Problem Set</a></li>
 									
 									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">繳交課堂作業<b class="caret"></b></a>
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Upload Class HW<b class="caret"></b></a>
 										<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 										<?php 
 											$query_pd = 'SELECT p_id FROM pd_hw';
@@ -122,7 +122,7 @@
 									</li>
 									
 									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">繳交實習課作業<b class="caret"></b></a>
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Upload Lab HW<b class="caret"></b></a>
 										<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 										<?php 
 											$query_lab = 'SELECT lab_id FROM lab_hw';
@@ -137,7 +137,9 @@
 										</ul>
 									</li>
 						 
-									<li id="record-btn"><a>查閱上傳紀錄</a></li>
+									<li id="record-btn"><a>Records</a></li>
+									
+									<li id="score-btn"><a>Scores</a></li>
 								</ul>
 								
 								<ul class="nav pull-right">
@@ -145,9 +147,9 @@
 									<li class="dropdown">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi, <?php echo $_SESSION['account'];?><b class="caret"></b></a>
 										<ul class="dropdown-menu">
-										<li><a href="#">修改密碼</a></li>
+										<li><a href="#">Change Password</a></li>
 										<li class="divider"></li>
-										<li><a href="logout.php">登出</a></li>
+										<li><a href="logout.php">Logout</a></li>
 										</ul>
 									</li>
 								</ul>
@@ -161,7 +163,7 @@
 				</div>
 				<div id="footer">
 					<div class="container">
-						<p class="muted credit">© Copyright NTUIM 2013 Spring Program Design Course | All Rights Reserved.</p>
+						<p class="muted credit">© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p>
 					</div>
 				</div>
 			</body>

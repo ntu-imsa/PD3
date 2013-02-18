@@ -2241,27 +2241,27 @@ table th[class*="span"],
   margin-left: 0;
 }
 
-.table tbody tr.success > td {
+.table tbody tr.accept > td {
   background-color: #dff0d8;
 }
 
-.table tbody tr.error > td {
+.table tbody tr.compile_error > td {
   background-color: #f2dede;
 }
 
-.table tbody tr.warning > td {
+.table tbody tr.runtime_error > td {
   background-color: #fcf8e3;
 }
 
-.table tbody tr.info > td {
+.table tbody tr.time_exceed > td {
   background-color: #d9edf7;
 }
 
-.table tbody tr.wtf > td {
+.table tbody tr.wrong_answer > td {
   background-color: #FFF7EF;
 }
 
-.table tbody tr.omg >td {
+.table tbody tr.upload_error >td {
   background-color: #EBD6FF;
 }
 
@@ -2269,27 +2269,27 @@ table th[class*="span"],
   background-color: #B2E0E0;
 }
 
-.table-hover tbody tr.success:hover > td {
+.table-hover tbody tr.accept:hover > td {
   background-color: #d0e9c6;
 }
 
-.table-hover tbody tr.error:hover > td {
+.table-hover tbody tr.compile_error:hover > td {
   background-color: #ebcccc;
 }
 
-.table-hover tbody tr.warning:hover > td {
+.table-hover tbody tr.runtime_error:hover > td {
   background-color: #faf2cc;
 }
 
-.table-hover tbody tr.info:hover > td {
+.table-hover tbody tr.time_exceed:hover > td {
   background-color: #c4e3f3;
 }
 
-.table-hover tbody tr.wtf:hover > td {
+.table-hover tbody tr.wrong_answer:hover > td {
   background-color: #FFEEDE;
 }
 
-.table-hover tbody tr.omg:hover > td {
+.table-hover tbody tr.upload_error:hover > td {
   background-color: #DBB8FF;
 }
 .table-hover tbody tr.damn:hover > td {
