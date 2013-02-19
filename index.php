@@ -19,7 +19,7 @@
 				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 				<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 				<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-				<title>Program Design Course Site</title>
+				<title>Programming Design Online Grading System</title>
 				<link rel="shortcut icon" href="../favicon.ico">
 				<link rel="stylesheet" type="text/css" href="css/style.css"/>
 				<link rel="stylesheet" type="text/css" href="css/sticky-footer.css"  media="screen"/>
@@ -61,8 +61,11 @@
 										<button type="submit" name="submit"><i class="icon-arrow-right icon-large"></i></button>
 									</p>
 								</form>
+								
 							</section>
 						
+							
+							
 						</div>
 					</div>
 				</div>
@@ -84,7 +87,7 @@
 		<html>
 			<head>
 				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
-				<title>Program Design Course Site</title>
+				<title>Programming Design Online Grading System</title>
 				<link href="css/bootstrap.css" rel="stylesheet" media="screen">
 				<link href="css/sticky-footer.css" rel="stylesheet" media="screen">
 				<link href="css/main.css" rel="stylesheet" media="screen">
@@ -106,7 +109,7 @@
 									<li id="problem-btn"><a>Problem Set</a></li>
 									
 									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Upload Class HW<b class="caret"></b></a>
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Submit Class HW<b class="caret"></b></a>
 										<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 										<?php 
 											$query_pd = 'SELECT p_id FROM pd_hw';
@@ -122,7 +125,7 @@
 									</li>
 									
 									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Upload Lab HW<b class="caret"></b></a>
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Submit Lab HW<b class="caret"></b></a>
 										<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 										<?php 
 											$query_lab = 'SELECT lab_id FROM lab_hw';

@@ -99,3 +99,22 @@
          }
      });
   });  
+  
+  $('#score-btn').click(function (){
+         $.ajax({
+         url: 'score.php',
+         cache: false,
+         dataType: 'html',
+             type:'GET',
+         error: function(xhr) {
+           alert('Ajax request 發生錯誤');
+         },
+         success: function(response) {
+                   $('.nav').children('.active').removeClass('active');
+				   $('#footer').html("");
+                   $('#main-content').html(response);
+                   $('#score-btn').addClass('active');
+                   
+         }
+     });
+  });  

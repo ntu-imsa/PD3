@@ -42,7 +42,7 @@
 					} else if ($fetch_rec[1] == 'Time limit exceed'){
 						?><tr class="time_exceed"><?php
 					} else if ($fetch_rec[1] == 'Wrong answer'){
-						?><tr class="wrong_answer"><?php
+						?><tr class="damn"><?php
 					} else if ($fetch_rec[1] == 'System upload error'){
 						?><tr class="upload_error"><?php
 					} ?>
