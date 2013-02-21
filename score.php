@@ -21,11 +21,11 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						 <th>上傳題號</th>
-						 <th>狀態</th>
-						 <th>執行時間</th>
-						 <th>上傳時間</th>
-						 <th>分數</th>
+						 <th>Problem</th>
+						 <th>Status</th>
+						 <th>Run time</th>
+						 <th>Submission date</th>
+						 <th>Score</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -94,11 +94,11 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						 <th>上傳題號</th>
-						 <th>狀態</th>
-						 <th>執行時間</th>
-						 <th>上傳時間</th>
-						 <th>分數</th>
+						 <th>Problem</th>
+						 <th>Status</th>
+						 <th>Run time</th>
+						 <th>Submission date</th>
+						 <th>Score</th>
 					</tr>
 				</thead>
 				<tbody>
