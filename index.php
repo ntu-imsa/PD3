@@ -169,6 +169,8 @@
 						<p class="muted credit">© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p>
 					</div>
 				</div>
+				<div id="footer2">
+				</div>
 			</body>
 			<script src="http://code.jquery.com/jquery.js"></script>
 			<script src="js/bootstrap.min.js"></script>

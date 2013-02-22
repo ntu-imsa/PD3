@@ -46,7 +46,7 @@
 					}
 					$problem_set = $problem_set."'".$fetch_num[0]."'";
 					//查詢使用者每個題目最新上傳的狀態和成績
-					$query_score = "SELECT p_id, status, time, exec_time, score FROM pd_score WHERE time IN (SELECT MAX(time) FROM pd_score WHERE s_id = ".$fetch_id[0]." AND p_id IN (".$problem_set.") GROUP BY p_id) ORDER BY p_id ";
+					$query_score = "SELECT p_id, status, exec_time, time, score FROM pd_score WHERE time IN (SELECT MAX(time) FROM pd_score WHERE s_id = ".$fetch_id[0]." AND p_id IN (".$problem_set.") GROUP BY p_id) ORDER BY p_id ";
 					$score = mysql_query($query_score);
 					
 					//將結果顯示在畫面
@@ -55,6 +55,7 @@
 					for ($i = 1; $i <= (int)$fetch_num[0]; $i++){
 						$append = substr('PD000', 0, -strlen((string)$i));
 						if ( $fetch_score != NULL and $i == (int)$fetch_score[0]){
+							//如果該題有上傳紀錄 顯示最新一次上傳成績與狀態
 							if ($fetch_score[1] == 'Accepted'){
 								?><tr class="accept"><?php
 							} else if ($fetch_score[1] == 'Compilation error'){
@@ -76,7 +77,7 @@
 							</tr><?php
 							$fetch_score = mysql_fetch_row($score);
 						} else {
-							
+							//如果該題沒有上傳紀錄 顯示No submit
 							?><tr>
 								<td><?php echo $append.$i;?></td>
 								<td><?php echo "No submit"; ?></td>
@@ -113,7 +114,7 @@
 					}
 					$problem_set = $problem_set."'".$fetch_num[0]."'";
 					//查詢使用者每個題目最新上傳的狀態和成績
-					$query_score = "SELECT lab_id, status, time, exec_time, score FROM lab_score WHERE time IN (SELECT MAX(time) FROM lab_score WHERE s_id = ".$fetch_id[0]." AND lab_id IN (".$problem_set.") GROUP BY lab_id ) ORDER BY lab_id ";
+					$query_score = "SELECT lab_id, status, exec_time, time, score FROM lab_score WHERE time IN (SELECT MAX(time) FROM lab_score WHERE s_id = ".$fetch_id[0]." AND lab_id IN (".$problem_set.") GROUP BY lab_id ) ORDER BY lab_id ";
 					$score = mysql_query($query_score);
 					
 					//將結果顯示在畫面
@@ -122,6 +123,7 @@
 					for ($i = 1; $i <= (int)$fetch_num[0]; $i++){
 						$append = substr('LAB000', 0, -strlen((string)$i));
 						if ( $fetch_score != NULL and $i == (int)$fetch_score[0]){
+							//如果該題有上傳紀錄 顯示最新一次上傳成績與狀態
 							if ($fetch_score[1] == 'Accepted'){
 								?><tr class="accept"><?php
 							} else if ($fetch_score[1] == 'Compilation error'){
@@ -143,7 +145,7 @@
 							</tr><?php
 							$fetch_score = mysql_fetch_row($score);
 						} else {
-							
+							//如果該題沒有上傳紀錄 顯示No submit
 							?><tr>
 								<td><?php echo $append.$i;?></td>
 								<td><?php echo "No submit"; ?></td>
@@ -158,11 +160,7 @@
 			</table>
 		</div>
 		
-		<div id="footer">
-			<div class="container">
-				<p class="muted credit">© Copyright NTUIM 2013 Spring Program Design Course | All Rights Reserved.</p>
-			</div>
-		</div>
+
 <?php		
 	}
 ?>

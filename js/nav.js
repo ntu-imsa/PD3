@@ -94,6 +94,7 @@
                    $('.nav').children('.active').removeClass('active');
 				   $('#footer').html("");
                    $('#main-content').html(response);
+				   $('#footer').html("<div class='container'><p class='muted credit'>© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p></div>");
                    $('#record-btn').addClass('active');
                    
          }
@@ -113,6 +114,7 @@
                    $('.nav').children('.active').removeClass('active');
 				   $('#footer').html("");
                    $('#main-content').html(response);
+				   $('#footer').html("<div class='container'><p class='muted credit'>© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p></div>");
                    $('#score-btn').addClass('active');
                    
          }

@@ -59,11 +59,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div id="footer">
-			<div class="container">
-				<p class="muted credit">© Copyright NTUIM 2013 Spring Program Design Course | All Rights Reserved.</p>
-			</div>
-		</div>
+		
 <?php		
 	}
 ?>

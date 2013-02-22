@@ -63,11 +63,13 @@
 				//$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2>> '.$compile_logfile;
 				$command = 'g++ '.$upfile.' -o '.$exefile.'  2>> '.$compile_logfile;
 				system($command, $return);
-				if ($return == 0){	       //如果成功編譯出.exe檔 執行.exe 輸入測資為$testfile 標準輸出轉向至$outputfile 標準錯誤轉向至$run_logfile
-					$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2>> '.$run_logfile;
+				if ($return == 0){	       
+					//如果成功編譯出.exe檔 執行程式
+					//ex. hw.exe < testing_data.txt > output.txt 2>> log.txt
+					$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2>> '.$run_logfile;  
 					system($command, $return);
 					if ($return == 0){      //如果執行成功  比對結果
-						$command = 'python judge.py '.$acc.' '.$_POST['problem_num'];
+						$command = 'python judge.py '.$acc.' '.$_POST['problem_num'];   //ex. python judge.py b01705001 PD001
 						$score = exec($command,$return);
 						$query_score = "SELECT total_score FROM pd_hw WHERE p_id = '".$_POST['problem_num']."'";
 						$s = mysql_query($query_score);
