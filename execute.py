@@ -25,14 +25,18 @@ def command(cmd, timeout=60):
             if is_linux:
                 os.killpg(p.pid, signal.SIGTERM)
             else:
-                p.terminate()
+				print p.pid
+				os.system("taskkill /im infinite_loop.exe /f")
+                #os.kill(p.pid, 3)
+                #p.kill()
+                #p.terminate()
             raise TimeoutError(cmd, timeout)
         time.sleep(0.1)
     return p.stdout.read()
 
 if __name__ == '__main__':
     try:
-        result = command('infinite loop.exe', timeout=2)
+        result = command('infinite_loop.exe', timeout=10)
     except TimeoutError:
         print 'Run command timeout.'
     else:
