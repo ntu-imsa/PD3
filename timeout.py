@@ -3,11 +3,12 @@ import platform
 import subprocess
 import signal
 import time
+import sys
 
 class TimeoutError(Exception):
     pass
 
-def command(cmd, timeout=60):
+def command(cmd, exe, timeout=60):
     """Run command and return the output
     cmd - the command to run
     timeout - max seconds to wait for
@@ -25,15 +26,21 @@ def command(cmd, timeout=60):
             if is_linux:
                 os.killpg(p.pid, signal.SIGTERM)
             else:
-                p.terminate()
+		#print p.pid
+                #os.system("taskkill /im execute.py /f")
+                #os.system("taskkill /im infinite_loop.exe /f")
+                os.system("taskkill /im "+exe+ " /f")
+                
             raise TimeoutError(cmd, timeout)
-        time.sleep(0.1)
-    return p.stdout.read()
+        time.sleep(0.001)
+    return  p.stdout.read()
 
 if __name__ == '__main__':
+    exe = sys.argv[6]
     try:
-        result = command('infinite loop.exe', timeout=2)
+        result = command('python execute.py '+sys.argv[1]+' '+sys.argv[2]+' '+sys.argv[5]+' > '+sys.argv[3]+' 2>> '+sys.argv[4], exe, timeout=10)
     except TimeoutError:
-        print 'Run command timeout.'
+        print 'Time limit exceed'
     else:
-        print result
+        timefile = open(sys.argv[5],'r').read()
+        print timefile

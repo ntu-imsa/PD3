@@ -33,12 +33,14 @@
 				mkdir($ans_dir);
 			
 			$judge_dir = '.\\judgement\\'.$_POST['problem_num'];
-			$upfile = $problem_dir.'\\hw.cpp';
-			$exefile = $problem_dir.'\\hw.exe';
+			$upfile = $problem_dir.'\\'.$acc.'-'.$_POST['problem_num'].'.cpp';
+			$exefile = $problem_dir.'\\'.$acc.'-'.$_POST['problem_num'].'.exe';
+			$exename = $acc.'-'.$_POST['problem_num'].'.exe';
 			$compile_logfile = $problem_dir.'\\log\\compile_err_log.txt';
 			$run_logfile = $problem_dir.'\\log\\run_err_log.txt';
 			$outputfile = $problem_dir.'\\answer\\output.txt';
 			$resultfile = $problem_dir.'\\answer\\score.txt';
+			$exec_timefile = $problem_dir.'\\answer\\exec_time.txt';
 			$testfile = $judge_dir.'\\testing_data.txt';
 			
 			if (file_exists($upfile)) unlink($upfile);
@@ -49,8 +51,11 @@
 		
 			$status = '';
 			$score = 0;
+			$exec_result = 0;
 			$return = -1;
-			$num = (int)$_POST['problem_num'][2].$_POST['problem_num'][3].$_POST['problem_num'][4];
+			$len = strlen($_POST['problem_num']);
+			//根據是PD作業或是LAB作業取出題號
+			$num = (int)$_POST['problem_num'][$len-3].$_POST['problem_num'][$len-2].$_POST['problem_num'][$len-1];
 			
 			//編譯.cpp檔
 			if (file_exists($upfile)){
@@ -62,22 +67,30 @@
 				fclose($fp);
 				//$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2>> '.$compile_logfile;
 				$command = 'g++ '.$upfile.' -o '.$exefile.'  2>> '.$compile_logfile;
+				//$command = 'gzip --version  2>> '.$compile_logfile;
 				system($command, $return);
 				if ($return == 0){	       
 					//如果成功編譯出.exe檔 執行程式
 					//ex. hw.exe < testing_data.txt > output.txt 2>> log.txt
-					$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2>> '.$run_logfile;  
-					system($command, $return);
-					if ($return == 0){      //如果執行成功  比對結果
-						$command = 'python judge.py '.$acc.' '.$_POST['problem_num'];   //ex. python judge.py b01705001 PD001
-						$score = exec($command,$return);
-						$query_score = "SELECT total_score FROM pd_hw WHERE p_id = '".$_POST['problem_num']."'";
-						$s = mysql_query($query_score);
-						$fetch_s = mysql_fetch_row($s);
-						if ($score == $fetch_s[0]){
-							$status = 'Accepted';
+					//$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2>> '.$run_logfile;  
+					$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename;
+					
+					
+					if ($exec_result = exec($command, $return)){      //如果執行成功  比對結果
+						if ($exec_result != NULL and $exec_result == 'Time limit exceed'){
+							$status = 'Time limit exceed';
+							$exec_result = 10;
 						} else {
-							$status = 'Wrong answer';
+							$command = 'python judge.py '.$acc.' '.$_POST['problem_num'];   //ex. python judge.py b01705001 PD001
+							$score = exec($command, $return);
+							$query_score = "SELECT total_score FROM pd_hw WHERE p_id = '".$num."'";
+							$s = mysql_query($query_score);
+							$fetch_s = mysql_fetch_row($s);
+							if ($score == $fetch_s[0]){
+								$status = 'Accepted';
+							} else {
+								$status = 'Wrong answer';
+							}
 						}
 					} else {
 						//runtime error
@@ -94,9 +107,9 @@
 			$query = "SELECT s_id FROM student WHERE account = '".$acc."'" ;
 			$id = mysql_query($query);
 			$fetch_id = mysql_fetch_row($id);
-			//echo $_POST['problem_num'][4];
-			$insert = "INSERT INTO pd_score(s_id, p_id, status, time, score) 
-				VALUES ('$fetch_id[0]', '$num', '$status', '$datetime', '$score')" ;
+			//echo $_POST['problem_num'][4];			
+			$insert = "INSERT INTO pd_score(s_id, p_id, status, time, exec_time, score) 
+				VALUES ('$fetch_id[0]', '$num', '$status', '$datetime', '$exec_result', '$score')" ;
 			$success = mysql_query($insert);
 			}
 		else if (!isset($POST['upload']) ){
