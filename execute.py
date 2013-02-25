@@ -23,10 +23,9 @@ if __name__ == '__main__':
 
 
     #result = execute('hello.exe > output.txt')
-    result = execute(sys.argv[1])
     #result = execute('infinite_loop.exe')
+	result = execute(sys.argv[1])
 
-    #print '%.3f' % result
     outfile = open(sys.argv[3],'w')
     outfile.write('%.3f' % result)
     outfile.close()

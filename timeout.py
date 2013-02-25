@@ -26,13 +26,9 @@ def command(cmd, exe, timeout=60):
             if is_linux:
                 os.killpg(p.pid, signal.SIGTERM)
             else:
-		#print p.pid
-                #os.system("taskkill /im execute.py /f")
-                #os.system("taskkill /im infinite_loop.exe /f")
                 os.system("taskkill /im "+exe+ " /f")
-                
             raise TimeoutError(cmd, timeout)
-        time.sleep(0.001)
+        time.sleep(0.5)
     return  p.stdout.read()
 
 if __name__ == '__main__':

@@ -73,9 +73,7 @@
 					//如果成功編譯出.exe檔 執行程式
 					//ex. hw.exe < testing_data.txt > output.txt 2>> log.txt
 					//$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2>> '.$run_logfile;  
-					$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename;
-					
-					
+					$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename.' 2>> '.$run_logfile;
 					if ($exec_result = exec($command, $return)){      //如果執行成功  比對結果
 						if ($exec_result != NULL and $exec_result == 'Time limit exceed'){
 							$status = 'Time limit exceed';
