@@ -89,6 +89,7 @@
 				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 				<title>Programming Design Online Grading System</title>
 				<link href="css/bootstrap.css" rel="stylesheet" media="screen">
+				<link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
 				<link href="css/sticky-footer.css" rel="stylesheet" media="screen">
 				<link href="css/main.css" rel="stylesheet" media="screen">
 				<link href="css/bootstrap-fileupload.css" rel="stylesheet" media="screen">
@@ -158,9 +159,12 @@
 								</ul>
 							</div>
 						</div>
-						
+						<div id="load" > 
+							<span class="spin"><i class="icon-spinner icon-spin icon-2x pull-left"></i>Uploading... </span>
+						</div>
 						<!-- 以下放公告等等的 -->
 						<div id="main-content">
+							
 						</div>
 					</div>
 				</div>
@@ -177,6 +181,7 @@
 			<script src="js/bootstrap-fileupload.min.js"></script>
 			<script src="js/jquery.form.js"></script>
 			<script src="js/nav.js"></script>
+			
 		</html>
 <?php
 	}

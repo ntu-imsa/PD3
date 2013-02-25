@@ -38,7 +38,7 @@
 				</div>
 			</div>
 		</form>
-		
+		<script src="js/spin.js" type="text/javascript"></script>
 		<script src="js/upload.js"></script>
 <?php
 	}

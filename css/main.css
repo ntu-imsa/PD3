@@ -1,3 +1,15 @@
 .nav >li{
  cursor: pointer;
 }
+.spin{
+  display:none;
+}
+.loading .spin{
+  display: inline-block;
+}
+.loading 
+{
+  pointer-events: none;
+  display: inline-block;
+  z-index: 2000;
+}
