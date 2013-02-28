@@ -140,10 +140,8 @@
 					$append = substr('PD000', 0, -strlen($fetch_rec[0]));
 					if ($fetch_rec[1] == 'Accepted'){
 						?><tr class="accept"><?php
-					} else if ($fetch_rec[1] == 'Compilation error'){
-						?><tr class="compile_error"><?php
-					} else if ($fetch_rec[1] == 'Runtime error'){
-						?><tr class="runtime_error"><?php
+					} else if ($fetch_rec[1] == 'Compilation error' or $fetch_rec[1] == 'Runtime error'){
+						?><tr class="some_error"><?php
 					} else if ($fetch_rec[1] == 'Time limit exceed'){
 						?><tr class="time_exceed"><?php
 					} else if ($fetch_rec[1] == 'Wrong answer'){

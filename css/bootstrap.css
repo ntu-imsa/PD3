@@ -2242,27 +2242,27 @@ table th[class*="span"],
 }
 
 .table tbody tr.accept > td {
-  background-color: #dff0d8;
+  background-color: #dff0d8;/*青綠色*/
 }
 
-.table tbody tr.compile_error > td {
-  background-color: #f2dede;
-}
-
-.table tbody tr.runtime_error > td {
-  background-color: #fcf8e3;
-}
-
-.table tbody tr.time_exceed > td {
-  background-color: #d9edf7;
+.table tbody tr.error > td {
+  background-color: #f2dede;/*淺紅色*/
 }
 
 .table tbody tr.wrong_answer > td {
-  background-color: #FFF7EF;
+  background-color: #fcf8e3;/*鵝黃色*/
+}
+
+.table tbody tr.time_exceed > td {
+  background-color: #d9edf7;/*淺藍色*/
+}
+
+.table tbody tr.kerker > td {
+  background-color: #FFF7EF;/*深藍色*/
 }
 
 .table tbody tr.upload_error >td {
-  background-color: #EBD6FF;
+  background-color: #EBD6FF;/*紫色*/
 }
 
 .table tbody tr.damn >td {
@@ -2273,11 +2273,11 @@ table th[class*="span"],
   background-color: #d0e9c6;
 }
 
-.table-hover tbody tr.compile_error:hover > td {
+.table-hover tbody tr.error:hover > td {
   background-color: #ebcccc;
 }
 
-.table-hover tbody tr.runtime_error:hover > td {
+.table-hover tbody tr.wrong_answer:hover > td {
   background-color: #faf2cc;
 }
 
@@ -2285,7 +2285,7 @@ table th[class*="span"],
   background-color: #c4e3f3;
 }
 
-.table-hover tbody tr.wrong_answer:hover > td {
+.table-hover tbody tr.kerker:hover > td {
   background-color: #FFEEDE;
 }
 

@@ -58,11 +58,9 @@
 							//如果該題有上傳紀錄 顯示最新一次上傳成績與狀態
 							if ($fetch_score[1] == 'Accepted'){
 								?><tr class="accept"><?php
-							} else if ($fetch_score[1] == 'Compilation error'){
-								?><tr class="compile_error"><?php
-							} else if ($fetch_score[1] == 'Runtime error'){
-								?><tr class="runtime_error"><?php
-							} else if ($fetch_score[1] == 'Time limit exceed'){
+							} else if ($fetch_score[1] == 'Compilation error' or $fetch_score[1] == 'Runtime error'){
+								?><tr class="error"><?php
+							}  else if ($fetch_score[1] == 'Time limit exceed'){
 								?><tr class="time_exceed"><?php
 							} else if ($fetch_score[1] == 'Wrong answer'){
 								?><tr class="wrong_answer"><?php
@@ -126,10 +124,8 @@
 							//如果該題有上傳紀錄 顯示最新一次上傳成績與狀態
 							if ($fetch_score[1] == 'Accepted'){
 								?><tr class="accept"><?php
-							} else if ($fetch_score[1] == 'Compilation error'){
-								?><tr class="compile_error"><?php
-							} else if ($fetch_score[1] == 'Runtime error'){
-								?><tr class="runtime_error"><?php
+							} else if ($fetch_score[1] == 'Compilation error' or $fetch_score[1] == 'Runtime error'){
+								?><tr class="error"><?php
 							} else if ($fetch_score[1] == 'Time limit exceed'){
 								?><tr class="time_exceed"><?php
 							} else if ($fetch_score[1] == 'Wrong answer'){
