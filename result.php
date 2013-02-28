@@ -19,7 +19,7 @@
 	} else {
 		if (isset($_FILES['upload'])){   // 選取檔案上傳
 			$acc = mysql_real_escape_string($_SESSION['account']);
-			$problem_dir = '.\student\\'.$acc.'\\'.$_POST['problem_num']; 
+			$problem_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num']; 
 			$log_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num'].'\\log';
 			$ans_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num'].'\\answer';
 			
@@ -73,12 +73,16 @@
 					//如果成功編譯出.exe檔 執行程式
 					//ex. hw.exe < testing_data.txt > output.txt 2>> log.txt
 					//$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2>> '.$run_logfile;  
-					$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename.' 2>> '.$run_logfile;
+					//$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename.' 2>> '.$run_logfile;
+					$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename;
 					if ($exec_result = exec($command, $return)){      //如果執行成功  比對結果
 						if ($exec_result != NULL and $exec_result == 'Time limit exceed'){
 							$status = 'Time limit exceed';
 							$exec_result = 10;
-						} else {
+						} else if ($exec_result != NULL and $exec_result == 'Runtime error'){
+							$status = 'Runtime error';
+							$exec_result = 0;
+						} else{
 							$command = 'python judge.py '.$acc.' '.$_POST['problem_num'];   //ex. python judge.py b01705001 PD001
 							$score = exec($command, $return);
 							$query_score = "SELECT total_score FROM pd_hw WHERE p_id = '".$num."'";

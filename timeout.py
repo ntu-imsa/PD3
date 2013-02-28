@@ -38,5 +38,9 @@ if __name__ == '__main__':
     except TimeoutError:
         print 'Time limit exceed'
     else:
-        timefile = open(sys.argv[5],'r').read()
-        print timefile
+	timefile = open(sys.argv[5],'r').read()
+        if timefile == 'Runtime error':
+            print 'Runtime error'
+        else:
+            print timefile
+

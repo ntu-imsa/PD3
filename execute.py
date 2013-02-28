@@ -15,17 +15,17 @@ def execute(cmd):
     t_end = time.time()
     exec_time = t_end - t_beginning
     print outdata[0]
-    return exec_time
-    
+    if outdata[1] == '':
+        return '%.3f' % exec_time
+    else:
+        return 'Runtime error '    
 
 
 if __name__ == '__main__':
 
-
-    #result = execute('hello.exe > output.txt')
-    #result = execute('infinite_loop.exe')
-	result = execute(sys.argv[1])
+    result = execute(sys.argv[1])
 
     outfile = open(sys.argv[3],'w')
-    outfile.write('%.3f' % result)
+    outfile.write(result)
     outfile.close()
+
