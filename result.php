@@ -109,9 +109,14 @@
 			$query = "SELECT s_id FROM student WHERE account = '".$acc."'" ;
 			$id = mysql_query($query);
 			$fetch_id = mysql_fetch_row($id);
-			//echo $_POST['problem_num'][4];			
-			$insert = "INSERT INTO pd_score(s_id, p_id, status, time, exec_time, score) 
-				VALUES ('$fetch_id[0]', '$num', '$status', '$datetime', '$exec_result', '$score')" ;
+			//echo $_POST['problem_num'][4];	
+			if ($len == 5){
+				$insert = "INSERT INTO pd_score(s_id, p_id, status, time, exec_time, score) 
+					VALUES ('$fetch_id[0]', '$num', '$status', '$datetime', '$exec_result', '$score')" ;
+			} else if($len == 6){
+				$insert = "INSERT INTO lab_score(s_id, lab_id, status, time, exec_time, score) 
+					VALUES ('$fetch_id[0]', '$num', '$status', '$datetime', '$exec_result', '$score')" ;
+			}
 			$success = mysql_query($insert);
 			}
 		else if (!isset($POST['upload']) ){
@@ -132,12 +137,21 @@
 				</thead>
 				<tbody>
 				<?php 
-						
-					$query_rec = "SELECT p_id, status, exec_time, time, score FROM pd_score NATURAL JOIN student 
-					              WHERE account = '".$acc."' ORDER BY time DESC";
+					
+					if ($len == 5){
+						$query_rec = "SELECT p_id, status, exec_time, time, score FROM pd_score NATURAL JOIN student 
+									WHERE account = '".$acc."' ORDER BY time DESC";
+					} else if ($len == 6){
+						$query_rec = "SELECT lab_id, status, exec_time, time, score FROM lab_score NATURAL JOIN student 
+									WHERE account = '".$acc."' ORDER BY time DESC";
+					}
 					$rec = mysql_query($query_rec);
 					$fetch_rec = mysql_fetch_row($rec);
-					$append = substr('PD000', 0, -strlen($fetch_rec[0]));
+					if ($len == 5){
+						$append = substr('PD000', 0, -strlen($fetch_rec[0]));
+					} else if ($len == 6){
+						$append = substr('LAB000', 0, -strlen($fetch_rec[0]));
+					}
 					if ($fetch_rec[1] == 'Accepted'){
 						?><tr class="accept"><?php
 					} else if ($fetch_rec[1] == 'Compilation error' or $fetch_rec[1] == 'Runtime error'){

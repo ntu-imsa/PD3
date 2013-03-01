@@ -29,8 +29,10 @@
 				</thead>
 				<tbody>
 				<?php 
+					
 					$query_rec = "SELECT p_id, status, exec_time, time, score FROM pd_score NATURAL JOIN student 
-								  WHERE account = '".mysql_real_escape_string($_SESSION['account'])."' ORDER BY time DESC LIMIT 0, 15";
+								 WHERE account = '".mysql_real_escape_string($_SESSION['account'])."' ORDER BY time DESC LIMIT 0, 15";
+					
 					$rec = mysql_query($query_rec);
 					while ($fetch_rec = mysql_fetch_row($rec)){
 						$append = substr('PD000', 0, -strlen($fetch_rec[0]));
