@@ -119,6 +119,7 @@
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Submit Class HW<b class="caret"></b></a>
 										<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 										<?php 
+											$pd_count = 0;
 											$query_pd = 'SELECT p_id, deadline FROM pd_hw ';
 											$pd = mysql_query($query_pd);
 											while ($fetch_pd = mysql_fetch_row($pd)){
@@ -126,7 +127,11 @@
 													$append = substr('PD000', 0, -strlen($fetch_pd[0]));
 													?><li class="hw-btn" role = "presentation" name="<?php echo $append.$fetch_pd[0]; ?>">
 													<a role="menuitem"  tabindex="-1" ><?php echo $append.$fetch_pd[0]; ?></a></li> <?php									
+													$pd_count++;
 												} 
+											}
+											if ( $pd_count == 0 ){
+												?><li role = "presentation"><a role="menuitem" tabindex="-1" >No problem available</a></li><?php
 											}
 										?>	
 										</ul>
@@ -136,6 +141,7 @@
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Submit Lab HW<b class="caret"></b></a>
 										<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 										<?php 
+											$lab_count = 0;
 											$query_lab = 'SELECT lab_id, deadline FROM lab_hw';
 											$lab = mysql_query($query_lab);
 											while ($fetch_lab = mysql_fetch_row($lab)){
@@ -143,7 +149,11 @@
 													$append = substr('LAB000', 0, -strlen($fetch_lab[0]));
 													?><li class="lab-btn" role = "presentation" name="<?php echo $append.$fetch_lab[0]; ?>">
 													<a role="menuitem" tabindex="-1" ><?php echo $append.$fetch_lab[0]; ?></a></li><?php 
+													$lab_count++;
 												}
+											}
+											if ( $lab_count == 0 ){
+												?><li role = "presentation"><a role="menuitem" tabindex="-1" >No problem available</a></li><?php
 											}
 										?>	
 										</ul>
