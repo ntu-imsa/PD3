@@ -57,122 +57,130 @@
 			//根據是PD作業或是LAB作業取出題號
 			$num = (int)$_POST['problem_num'][$len-3].$_POST['problem_num'][$len-2].$_POST['problem_num'][$len-1];
 			
-			//編譯.cpp檔
-			if (file_exists($upfile)){
-				$fp = fopen($compile_logfile, 'a');
-				fwrite($fp, '['.$datetime.'] :'."\n");
-				fclose($fp);
-				$fp = fopen($run_logfile, 'a');
-				fwrite($fp, '['.$datetime.'] :'."\n");
-				fclose($fp);
-				//$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2>> '.$compile_logfile;
-				$command = 'g++ '.$upfile.' -o '.$exefile.'  2>> '.$compile_logfile;
-				//$command = 'gzip --version  2>> '.$compile_logfile;
-				system($command, $return);
-				if ($return == 0){	       
-					//如果成功編譯出.exe檔 執行程式
-					//ex. hw.exe < testing_data.txt > output.txt 2>> log.txt
-					//$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2>> '.$run_logfile;  
-					//$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename.' 2>> '.$run_logfile;
-					$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename;
-					if ($exec_result = exec($command, $return)){      //如果執行成功  比對結果
-						if ($exec_result != NULL and $exec_result == 'Time limit exceed'){
-							$status = 'Time limit exceed';
-							$exec_result = 10;
-						} else if ($exec_result != NULL and $exec_result == 'Runtime error'){
-							$status = 'Runtime error';
-							$exec_result = 0;
-						} else{
-							$command = 'python judge.py '.$acc.' '.$_POST['problem_num'];   //ex. python judge.py b01705001 PD001
-							$score = exec($command, $return);
-							$query_score = "SELECT total_score FROM pd_hw WHERE p_id = '".$num."'";
-							$s = mysql_query($query_score);
-							$fetch_s = mysql_fetch_row($s);
-							if ($score == $fetch_s[0]){
-								$status = 'Accepted';
-							} else {
-								$status = 'Wrong answer';
+			if ($len == 5){
+				$query = "SELECT deadline FROM pd_hw WHERE p_id = '".$_POST['problem_num']."'";
+			} else if($len == 6){
+				$query = "SELECT deadline FROM lab_hw WHERE p_id = '".$_POST['problem_num']."'";
+			}
+			$time = mysql_query($query);
+			$fetch_time = mysql_fetch_row($time);
+			
+			if ( $fetch_time[0] > $datetime ){
+				//編譯.cpp檔
+				if (file_exists($upfile)){
+					$fp = fopen($compile_logfile, 'a');
+					fwrite($fp, '['.$datetime.'] :'."\n");
+					fclose($fp);
+					$fp = fopen($run_logfile, 'a');
+					fwrite($fp, '['.$datetime.'] :'."\n");
+					fclose($fp);
+					//$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2>> '.$compile_logfile;
+					$command = 'g++ '.$upfile.' -o '.$exefile.'  2>> '.$compile_logfile;
+					//$command = 'gzip --version  2>> '.$compile_logfile;
+					system($command, $return);
+					if ($return == 0){	       
+						//如果成功編譯出.exe檔 執行程式
+						//ex. hw.exe < testing_data.txt > output.txt 2>> log.txt
+						//$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2>> '.$run_logfile;  
+						//$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename.' 2>> '.$run_logfile;
+						$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename;
+						if ($exec_result = exec($command, $return)){      //如果執行成功  比對結果
+							if ($exec_result != NULL and $exec_result == 'Time limit exceed'){
+								$status = 'Time limit exceed';
+								$exec_result = 10;
+							} else if ($exec_result != NULL and $exec_result == 'Runtime error'){
+								$status = 'Runtime error';
+								$exec_result = 0;
+							} else{
+								$command = 'python judge.py '.$acc.' '.$_POST['problem_num'];   //ex. python judge.py b01705001 PD001
+								$score = exec($command, $return);
+								$query_score = "SELECT total_score FROM pd_hw WHERE p_id = '".$num."'";
+								$s = mysql_query($query_score);
+								$fetch_s = mysql_fetch_row($s);
+								if ($score == $fetch_s[0]){
+									$status = 'Accepted';
+								} else {
+									$status = 'Wrong answer';
+								}
 							}
+						} else {
+							//runtime error
+							$status = 'Runtime error';
 						}
 					} else {
-						//runtime error
-						$status = 'Runtime error';
+						//compile error
+						$status = 'Compilation error';
 					}
 				} else {
-					//compile error
-					$status = 'Compilation error';
+					//upload error
+					$status = 'System upload error';
 				}
+				$query = "SELECT s_id FROM student WHERE account = '".$acc."'" ;
+				$id = mysql_query($query);
+				$fetch_id = mysql_fetch_row($id);
+				//echo $_POST['problem_num'][4];	
+				if ($len == 5){
+					$insert = "INSERT INTO pd_score(s_id, p_id, status, time, exec_time, score) 
+						VALUES ('$fetch_id[0]', '$num', '$status', '$datetime', '$exec_result', '$score')" ;
+				} else if($len == 6){
+					$insert = "INSERT INTO lab_score(s_id, lab_id, status, time, exec_time, score) 
+						VALUES ('$fetch_id[0]', '$num', '$status', '$datetime', '$exec_result', '$score')" ;
+				}
+				$success = mysql_query($insert);
+				?>	<!-- 改作業序號看這裡 -->
+				<div class="hero-unit upload_section">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Problem</th>
+								<th>Status</th>
+								<th>Run time</th>
+								<th>Submission date</th>
+								<th>Score</th>
+							</tr>
+						</thead>
+						<tbody>
+						<?php 
+							
+							if ($len == 5){
+								$query_rec = "SELECT p_id, status, exec_time, time, score FROM pd_score NATURAL JOIN student 
+											WHERE account = '".$acc."' ORDER BY time DESC";
+							} else if ($len == 6){
+								$query_rec = "SELECT lab_id, status, exec_time, time, score FROM lab_score NATURAL JOIN student 
+											WHERE account = '".$acc."' ORDER BY time DESC";
+							}
+							$rec = mysql_query($query_rec);
+							$fetch_rec = mysql_fetch_row($rec);
+							if ($len == 5){
+								$append = substr('PD000', 0, -strlen($fetch_rec[0]));
+							} else if ($len == 6){
+								$append = substr('LAB000', 0, -strlen($fetch_rec[0]));
+							}
+							if ($fetch_rec[1] == 'Accepted'){
+								?><tr class="accept"><?php
+							} else if ($fetch_rec[1] == 'Compilation error' or $fetch_rec[1] == 'Runtime error'){
+								?><tr class="error"><?php
+							} else if ($fetch_rec[1] == 'Time limit exceed'){
+								?><tr class="time_exceed"><?php
+							} else if ($fetch_rec[1] == 'Wrong answer'){
+								?><tr class="wrong_answer"><?php
+							} else if ($fetch_rec[1] == 'System upload error'){
+								?><tr class="upload_error"><?php
+							} ?>
+								<td><?php echo $append.$fetch_rec[0];?></td>
+								<td><?php echo $fetch_rec[1];?></td>
+								<td><?php echo $fetch_rec[2].'s';?></td>
+								<td><?php echo $fetch_rec[3];?></td>
+								<td><?php echo $fetch_rec[4];?></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>  <?php
 			} else {
-				//upload error
-				$status = 'System upload error';
+				echo "<div class='hero-unit upload_section'><p>deadline is passed!</p></div>";
 			}
-			$query = "SELECT s_id FROM student WHERE account = '".$acc."'" ;
-			$id = mysql_query($query);
-			$fetch_id = mysql_fetch_row($id);
-			//echo $_POST['problem_num'][4];	
-			if ($len == 5){
-				$insert = "INSERT INTO pd_score(s_id, p_id, status, time, exec_time, score) 
-					VALUES ('$fetch_id[0]', '$num', '$status', '$datetime', '$exec_result', '$score')" ;
-			} else if($len == 6){
-				$insert = "INSERT INTO lab_score(s_id, lab_id, status, time, exec_time, score) 
-					VALUES ('$fetch_id[0]', '$num', '$status', '$datetime', '$exec_result', '$score')" ;
-			}
-			$success = mysql_query($insert);
-			}
-		else if (!isset($POST['upload']) ){
+		} else if (!isset($POST['upload']) ){
 			echo 'no upload';
 		}
-	
-?>      <!-- 改作業序號看這裡 -->
-		<div class="hero-unit upload_section">
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>Problem</th>
-						<th>Status</th>
-						<th>Run time</th>
-						<th>Submission date</th>
-						<th>Score</th>
-					</tr>
-				</thead>
-				<tbody>
-				<?php 
-					
-					if ($len == 5){
-						$query_rec = "SELECT p_id, status, exec_time, time, score FROM pd_score NATURAL JOIN student 
-									WHERE account = '".$acc."' ORDER BY time DESC";
-					} else if ($len == 6){
-						$query_rec = "SELECT lab_id, status, exec_time, time, score FROM lab_score NATURAL JOIN student 
-									WHERE account = '".$acc."' ORDER BY time DESC";
-					}
-					$rec = mysql_query($query_rec);
-					$fetch_rec = mysql_fetch_row($rec);
-					if ($len == 5){
-						$append = substr('PD000', 0, -strlen($fetch_rec[0]));
-					} else if ($len == 6){
-						$append = substr('LAB000', 0, -strlen($fetch_rec[0]));
-					}
-					if ($fetch_rec[1] == 'Accepted'){
-						?><tr class="accept"><?php
-					} else if ($fetch_rec[1] == 'Compilation error' or $fetch_rec[1] == 'Runtime error'){
-						?><tr class="error"><?php
-					} else if ($fetch_rec[1] == 'Time limit exceed'){
-						?><tr class="time_exceed"><?php
-					} else if ($fetch_rec[1] == 'Wrong answer'){
-						?><tr class="wrong_answer"><?php
-					} else if ($fetch_rec[1] == 'System upload error'){
-						?><tr class="upload_error"><?php
-					} ?>
-						<td><?php echo $append.$fetch_rec[0];?></td>
-						<td><?php echo $fetch_rec[1];?></td>
-						<td><?php echo $fetch_rec[2].'s';?></td>
-						<td><?php echo $fetch_rec[3];?></td>
-						<td><?php echo $fetch_rec[4];?></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		
-<?php
 	}
 ?>

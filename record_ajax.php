@@ -82,6 +82,8 @@
 							$fetch_lab = mysql_fetch_row($lab);
 						}
 						$count++;
+						if ($fetch_pd == null and $fetch_lab == null)
+							break;
 					}		
 				?>
 				</tbody>

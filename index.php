@@ -10,7 +10,10 @@
 	$selection = mysql_select_db($db_database) ;
 	if (!$selection)
 		die ("selection failed".mysql_error()) ;
-
+	
+	date_default_timezone_set('Asia/Taipei');
+	$datetime = date ("Y-m-d H:i:s");
+	
 	if (!isset($_SESSION['account'])){
 ?>
 		<!DOCTYPE html>
@@ -116,13 +119,14 @@
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Submit Class HW<b class="caret"></b></a>
 										<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 										<?php 
-											$query_pd = 'SELECT p_id FROM pd_hw';
+											$query_pd = 'SELECT p_id, deadline FROM pd_hw ';
 											$pd = mysql_query($query_pd);
 											while ($fetch_pd = mysql_fetch_row($pd)){
-												$append = substr('PD000', 0, -strlen($fetch_pd[0]));
-												?><li class="hw-btn" role = "presentation" name="<?php echo $append.$fetch_pd[0]; ?>">
-												<a role="menuitem"  tabindex="-1" ><?php echo $append.$fetch_pd[0]; ?></a></li>
-										<?php									
+												if ( $fetch_pd[1] > $datetime ){
+													$append = substr('PD000', 0, -strlen($fetch_pd[0]));
+													?><li class="hw-btn" role = "presentation" name="<?php echo $append.$fetch_pd[0]; ?>">
+													<a role="menuitem"  tabindex="-1" ><?php echo $append.$fetch_pd[0]; ?></a></li> <?php									
+												} 
 											}
 										?>	
 										</ul>
@@ -132,13 +136,14 @@
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Submit Lab HW<b class="caret"></b></a>
 										<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 										<?php 
-											$query_lab = 'SELECT lab_id FROM lab_hw';
+											$query_lab = 'SELECT lab_id, deadline FROM lab_hw';
 											$lab = mysql_query($query_lab);
 											while ($fetch_lab = mysql_fetch_row($lab)){
-												$append = substr('LAB000', 0, -strlen($fetch_lab[0]));
-												?><li class="lab-btn" role = "presentation" name="<?php echo $append.$fetch_lab[0]; ?>">
-												<a role="menuitem" tabindex="-1" ><?php echo $append.$fetch_lab[0]; ?></a></li>
-										<?php 
+												if ( $fetch_lab[1] > $datetime ){
+													$append = substr('LAB000', 0, -strlen($fetch_lab[0]));
+													?><li class="lab-btn" role = "presentation" name="<?php echo $append.$fetch_lab[0]; ?>">
+													<a role="menuitem" tabindex="-1" ><?php echo $append.$fetch_lab[0]; ?></a></li><?php 
+												}
 											}
 										?>	
 										</ul>
