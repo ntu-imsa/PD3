@@ -67,6 +67,9 @@
 							
 							
 						</div>
+						<div  class="container">
+                            <img id="dog_img" src="images/dogs3.jpg" />
+					    </div>
 					</div>
 				</div>
 				<div id="footer">
@@ -160,7 +163,7 @@
 							</div>
 						</div>
 						<div id="load" > 
-							<span class="spin"><i class="icon-spinner icon-spin icon-2x pull-left"></i>Uploading... </span>
+							<span class="spin"><i class="icon-spinner icon-spin icon-2x pull-left"></i>Loading... </span>
 						</div>
 						<!-- 以下放公告等等的 -->
 						<div id="main-content">

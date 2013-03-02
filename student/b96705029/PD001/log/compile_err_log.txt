@@ -1,0 +1,9 @@
+[2013/03/02 15:00:33] :
+.\student\b96705029\PD001\b96705029-PD001.cpp:12:2: warning: no newline at end of file
+Warning: .drectve `-aligncomm:"___hexdig_D2A",5' unrecognized
+[2013/03/02 15:02:14] :
+.\student\b96705029\PD001\b96705029-PD001.cpp:12:2: warning: no newline at end of file
+Warning: .drectve `-aligncomm:"___hexdig_D2A",5' unrecognized
+[2013/03/02 15:02:35] :
+.\student\b96705029\PD001\b96705029-PD001.cpp:12:2: warning: no newline at end of file
+Warning: .drectve `-aligncomm:"___hexdig_D2A",5' unrecognized

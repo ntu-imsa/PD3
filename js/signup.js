@@ -10,5 +10,3 @@ $('.login').click(function (e) {
 console.log("click");
    $('.main').html(loginView);
 })
-
-
