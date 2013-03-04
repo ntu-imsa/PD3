@@ -12,7 +12,7 @@
 		die ("selection failed".mysql_error()) ;
 
 	date_default_timezone_set('Asia/Taipei');
-	$datetime = date ("Y/m/d H:i:s");
+	$datetime = date ("Y-m-d H:i:s");
 
 	if (!isset($_SESSION['account'])){
 		header ("Location:index.php") ;
@@ -38,6 +38,7 @@
 			$exename = $acc.'-'.$_POST['problem_num'].'.exe';
 			$compile_logfile = $problem_dir.'\\log\\compile_err_log.txt';
 			$run_logfile = $problem_dir.'\\log\\run_err_log.txt';
+			$all_logfile = '.\\judgement\\upload_log.txt';
 			$outputfile = $problem_dir.'\\answer\\output.txt';
 			$resultfile = $problem_dir.'\\answer\\score.txt';
 			$exec_timefile = $problem_dir.'\\answer\\exec_time.txt';
@@ -58,13 +59,14 @@
 			$num = (int)$_POST['problem_num'][$len-3].$_POST['problem_num'][$len-2].$_POST['problem_num'][$len-1];
 			
 			if ($len == 5){
-				$query = "SELECT deadline FROM pd_hw WHERE p_id = '".$_POST['problem_num']."'";
+				$query = "SELECT deadline FROM pd_hw WHERE p_id = '".$_POST['problem_num'][$len-1]."'";
 			} else if($len == 6){
-				$query = "SELECT deadline FROM lab_hw WHERE p_id = '".$_POST['problem_num']."'";
+				$query = "SELECT deadline FROM lab_hw WHERE lab_id = '".$_POST['problem_num'][$len-1]."'";
 			}
 			$time = mysql_query($query);
 			$fetch_time = mysql_fetch_row($time);
 			
+			//如果繳交的題目還沒超過死線
 			if ( $fetch_time[0] > $datetime ){
 				//編譯.cpp檔
 				if (file_exists($upfile)){
@@ -115,6 +117,9 @@
 					//upload error
 					$status = 'System upload error';
 				}
+				$fp = fopen($all_logfile, 'a');
+				fwrite($fp, '['.$datetime.'] : '.$acc.' submits a file for problem '.$_POST['problem_num']."\n");
+				fclose($fp);
 				$query = "SELECT s_id FROM student WHERE account = '".$acc."'" ;
 				$id = mysql_query($query);
 				$fetch_id = mysql_fetch_row($id);
@@ -176,7 +181,10 @@
 						</tbody>
 					</table>
 				</div>  <?php
-			} else {
+			} else {   //超過死線
+				//echo 'num:'.$_POST['problem_num'].'  len:'.$len.'<br>';
+				//echo 'datetime is :'.$datetime.'<br>';
+				//echo 'deadline is :'.$fetch_time[0];
 				echo "<div class='hero-unit upload_section'><p>deadline is passed!</p></div>";
 			}
 		} else if (!isset($POST['upload']) ){
