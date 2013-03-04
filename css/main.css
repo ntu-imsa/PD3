@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Strait);@import url(http://fonts.googleapis.com/css?family=Strait);
 .nav >li{
  cursor: pointer;
 }
@@ -12,4 +13,13 @@
   pointer-events: none;
   display: inline-block;
   z-index: 2000;
+}
+
+.hw-id{
+	font-family: 'Strait', sans-serif;
+}
+.hw{
+font-family: 'Strait', sans-serif;
+color:#666;
+text-shadow:0 1px 1px rgba(255,255,255,0.6);
 }
