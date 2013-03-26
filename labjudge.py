@@ -14,7 +14,7 @@ if __name__ == '__main__':
         a = answerfile.readline().strip()
         o = outputfile.readline().strip()
         if a == o:
-            total_score += 70 / test_num
+            total_score += 92 / test_num
     outfile = open(hw_path + 'score.txt', 'w')
     #outfile.write("total_score is : " + str(total_score))
     outfile.write(str(total_score))

@@ -60,8 +60,12 @@
 			
 			if ($len == 5){
 				$query = "SELECT deadline FROM pd_hw WHERE p_id = '".$_POST['problem_num'][$len-1]."'";
+				$command_judge = 'python judge.py '.$acc.' '.$_POST['problem_num'];   
+				$query_score = "SELECT total_score FROM pd_hw WHERE p_id = '".$num."'";
 			} else if($len == 6){
 				$query = "SELECT deadline FROM lab_hw WHERE lab_id = '".$_POST['problem_num'][$len-1]."'";
+				$command_judge = 'python labjudge.py '.$acc.' '.$_POST['problem_num'];  
+				$query_score = "SELECT total_score FROM lab_hw WHERE lab_id = '".$num."'";
 			}
 			$time = mysql_query($query);
 			$fetch_time = mysql_fetch_row($time);
@@ -89,14 +93,14 @@
 						if ($exec_result = exec($command, $return)){      //如果執行成功  比對結果
 							if ($exec_result != NULL and $exec_result == 'Time limit exceed'){
 								$status = 'Time limit exceed';
-								$exec_result = 10;
+								$exec_result = 3;
 							} else if ($exec_result != NULL and $exec_result == 'Runtime error'){
 								$status = 'Runtime error';
 								$exec_result = 0;
 							} else{
-								$command = 'python judge.py '.$acc.' '.$_POST['problem_num'];   //ex. python judge.py b01705001 PD001
-								$score = exec($command, $return);
-								$query_score = "SELECT total_score FROM pd_hw WHERE p_id = '".$num."'";
+								//$command_judge = 'python judge.py '.$acc.' '.$_POST['problem_num'];   //ex. python judge.py b01705001 PD001
+								$score = exec($command_judge, $return);
+								//$query_score = "SELECT total_score FROM pd_hw WHERE p_id = '".$num."'";
 								$s = mysql_query($query_score);
 								$fetch_s = mysql_fetch_row($s);
 								if ($score == $fetch_s[0]){

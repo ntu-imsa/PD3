@@ -33,7 +33,7 @@
 				<div id="wrap">
 					<div class="container">	
 						<header>
-							<h1>Programming Design<strong> Online Grading</strong> System</h1>
+							<h1><strong>PDOGS</strong> Programming Design Online Grading System</h1>
 							<h2>First time visit? Please <span class="signup">Sign Up</span> with your Student ID or <span class="login">Login</span></h2>
 							<?php if (isset ($_GET['fail'])) echo 'Login fail !<br>'; ?>
 							<?php if (isset ($_GET['empty'])) echo 'Enter your account or pw !<br>'; ?>

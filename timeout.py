@@ -34,7 +34,7 @@ def command(cmd, exe, timeout=60):
 if __name__ == '__main__':
     exe = sys.argv[6]
     try:
-        result = command('python execute.py '+sys.argv[1]+' '+sys.argv[2]+' '+sys.argv[5]+' > '+sys.argv[3]+' 2>> '+sys.argv[4], exe, timeout=10)
+        result = command('python execute.py '+sys.argv[1]+' '+sys.argv[2]+' '+sys.argv[5]+' > '+sys.argv[3]+' 2>> '+sys.argv[4], exe, timeout=3)
     except TimeoutError:
         print 'Time limit exceed'
     else:
