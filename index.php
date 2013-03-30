@@ -14,6 +14,7 @@
 	date_default_timezone_set('Asia/Taipei');
 	$datetime = date ("Y-m-d H:i:s");
 	
+	//使用者尚未登入 顯示登入頁面
 	if (!isset($_SESSION['account'])){
 ?>
 		<!DOCTYPE html>
@@ -86,7 +87,7 @@
 		</html>
 			
 <?php
-	} else {
+	} else {   //使用者登入成功 顯示PDOGS主頁面
 	//echo 'have session<br>';
 ?>
 		<!DOCTYPE html>
@@ -101,7 +102,7 @@
 				<link href="css/bootstrap-fileupload.css" rel="stylesheet" media="screen">
 			</head>
 			<body>
-				<div id="wrap"> <!--把footer推到最底下的div-->
+				<div id="wrap"> 
 					<div class="container"> 
 						<div class="page-header">
 							<h2>Programming Design Online Grading System</h2>
@@ -180,7 +181,8 @@
 						<div id="load" > 
 							<span class="spin"><i class="icon-spinner icon-spin icon-2x pull-left"></i>Loading... </span>
 						</div>
-						<!-- 以下放公告等等的 -->
+						
+						<!-- 使用ajax刷新 將所有各功能頁面更新於此div區塊 -->
 						<div id="main-content">
 							
 						</div>

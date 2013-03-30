@@ -1,5 +1,6 @@
 import os
 import sys
+import MySQLdb
 
 if __name__ == '__main__':
     #python judge.py  s_id  p_id

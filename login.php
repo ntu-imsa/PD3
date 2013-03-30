@@ -26,9 +26,8 @@
 		
 		 header ("Location:index.php") ;
 	}
-	else{
-     
+	else
+	{
 		header ("Location:index.php?fail=1") ;
-
-		}
+	}
 ?>

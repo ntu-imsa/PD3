@@ -60,11 +60,11 @@
 			
 			if ($len == 5){
 				$query = "SELECT deadline FROM pd_hw WHERE p_id = '".$_POST['problem_num'][$len-1]."'";
-				$command_judge = 'python judge.py '.$acc.' '.$_POST['problem_num'];   
+				$command_judge = 'python judge.py '.$acc.' '.$_POST['problem_num'].' '.$num;   
 				$query_score = "SELECT total_score FROM pd_hw WHERE p_id = '".$num."'";
 			} else if($len == 6){
 				$query = "SELECT deadline FROM lab_hw WHERE lab_id = '".$_POST['problem_num'][$len-1]."'";
-				$command_judge = 'python labjudge.py '.$acc.' '.$_POST['problem_num'];  
+				$command_judge = 'python labjudge.py '.$acc.' '.$_POST['problem_num'].' '.$num;  
 				$query_score = "SELECT total_score FROM lab_hw WHERE lab_id = '".$num."'";
 			}
 			$time = mysql_query($query);
@@ -82,7 +82,6 @@
 					fclose($fp);
 					//$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2>> '.$compile_logfile;
 					$command = 'g++ '.$upfile.' -o '.$exefile.'  2>> '.$compile_logfile;
-					//$command = 'gzip --version  2>> '.$compile_logfile;
 					system($command, $return);
 					if ($return == 0){	       
 						//如果成功編譯出.exe檔 執行程式
@@ -98,9 +97,8 @@
 								$status = 'Runtime error';
 								$exec_result = 0;
 							} else{
-								//$command_judge = 'python judge.py '.$acc.' '.$_POST['problem_num'];   //ex. python judge.py b01705001 PD001
+								//ex. python judge.py b01705001 PD001
 								$score = exec($command_judge, $return);
-								//$query_score = "SELECT total_score FROM pd_hw WHERE p_id = '".$num."'";
 								$s = mysql_query($query_score);
 								$fetch_s = mysql_fetch_row($s);
 								if ($score == $fetch_s[0]){
