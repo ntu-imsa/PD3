@@ -13,7 +13,7 @@ if __name__ == '__main__':
 	
     n = cursor.execute("SELECT total_score FROM pd_hw WHERE p_id = '" + sys.argv[3] + "'")
     row = cursor.fetchall() 
-    print row[0][0]
+    #print row[0][0]
     total_score = 0
     test_num = int(answerfile.readline().strip())
     for i in range(test_num):
