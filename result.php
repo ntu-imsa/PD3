@@ -17,58 +17,66 @@
 	if (!isset($_SESSION['account'])){
 		header ("Location:index.php") ;
 	} else {
-		if (isset($_FILES['upload'])){   // 選取檔案上傳
-			$acc = mysql_real_escape_string($_SESSION['account']);
-			$problem_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num']; 
-			$log_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num'].'\\log';
-			$ans_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num'].'\\answer';
+		$acc = mysql_real_escape_string($_SESSION['account']);
+		$problem_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num']; 
+		$log_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num'].'\\log';
+		$ans_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num'].'\\answer';
 			
-			if (!is_dir($problem_dir))
-				mkdir($problem_dir);
+		if (!is_dir($problem_dir))
+			mkdir($problem_dir);
 				
-			if (!is_dir($log_dir))
-				mkdir($log_dir);
+		if (!is_dir($log_dir))
+			mkdir($log_dir);
 				
-			if (!is_dir($ans_dir))
-				mkdir($ans_dir);
+		if (!is_dir($ans_dir))
+			mkdir($ans_dir);
 			
-			$judge_dir = '.\\judgement\\'.$_POST['problem_num'];
-			$upfile = $problem_dir.'\\'.$acc.'-'.$_POST['problem_num'].'.cpp';
-			$exefile = $problem_dir.'\\'.$acc.'-'.$_POST['problem_num'].'.exe';
-			$exename = $acc.'-'.$_POST['problem_num'].'.exe';
-			$compile_logfile = $problem_dir.'\\log\\compile_err_log.txt';
-			$run_logfile = $problem_dir.'\\log\\run_err_log.txt';
-			$all_logfile = '.\\judgement\\upload_log.txt';
-			$outputfile = $problem_dir.'\\answer\\output.txt';
-			$resultfile = $problem_dir.'\\answer\\score.txt';
-			$exec_timefile = $problem_dir.'\\answer\\exec_time.txt';
-			$testfile = $judge_dir.'\\testing_data.txt';
+		$judge_dir = '.\\judgement\\'.$_POST['problem_num'];
+		$upfile = $problem_dir.'\\'.$acc.'-'.$_POST['problem_num'].'.cpp';
+		$pdffile = $problem_dir.'\\'.$acc.'-'.$_POST['problem_num'].'.pdf';
+		$exefile = $problem_dir.'\\'.$acc.'-'.$_POST['problem_num'].'.exe';
+		$exename = $acc.'-'.$_POST['problem_num'].'.exe';
+		$compile_logfile = $problem_dir.'\\log\\compile_err_log.txt';
+		$run_logfile = $problem_dir.'\\log\\run_err_log.txt';
+		$all_logfile = '.\\judgement\\upload_log.txt';
+		$outputfile = $problem_dir.'\\answer\\output.txt';
+		$resultfile = $problem_dir.'\\answer\\score.txt';
+		$exec_timefile = $problem_dir.'\\answer\\exec_time.txt';
+		$testfile = $judge_dir.'\\testing_data.txt';
 			
-			if (file_exists($upfile)) unlink($upfile);
-			if (file_exists($exefile)) unlink($exefile);
-			if (file_exists($outputfile)) unlink($outputfile);
-			if (file_exists($resultfile)) unlink($resultfile);
-			move_uploaded_file($_FILES['upload']['tmp_name'], $upfile);
+		if (file_exists($upfile)) unlink($upfile);
+		if (file_exists($exefile)) unlink($exefile);
+		if (file_exists($outputfile)) unlink($outputfile);
+		if (file_exists($resultfile)) unlink($resultfile);
+		if (file_exists($pdffile)) unlink($pdffile);	
 		
-			$status = '';
-			$score = 0;
-			$exec_result = 0;
-			$return = -1;
-			$len = strlen($_POST['problem_num']);
-			//根據是PD作業或是LAB作業取出題號
-			$num = (int)$_POST['problem_num'][$len-3].$_POST['problem_num'][$len-2].$_POST['problem_num'][$len-1];
+		$status = '';
+		$score = 0;
+		$exec_result = 0;
+		$return = -1;
+		$len = strlen($_POST['problem_num']);
+		//根據是PD作業或是LAB作業取出題號
+		$num = (int)$_POST['problem_num'][$len-3].$_POST['problem_num'][$len-2].$_POST['problem_num'][$len-1];
 			
-			if ($len == 5){
-				$query = "SELECT deadline FROM pd_hw WHERE p_id = '".$_POST['problem_num'][$len-1]."'";
-				$command_judge = 'python judge.py '.$acc.' '.$_POST['problem_num'].' '.$num;   
-				$query_score = "SELECT total_score FROM pd_hw WHERE p_id = '".$num."'";
-			} else if($len == 6){
-				$query = "SELECT deadline FROM lab_hw WHERE lab_id = '".$_POST['problem_num'][$len-1]."'";
-				$command_judge = 'python labjudge.py '.$acc.' '.$_POST['problem_num'].' '.$num;  
-				$query_score = "SELECT total_score FROM lab_hw WHERE lab_id = '".$num."'";
+		if ($len == 5){
+			$query = "SELECT deadline FROM pd_hw WHERE p_id = '".$_POST['problem_num'][$len-1]."'";
+			$command_judge = 'python judge.py '.$acc.' '.$_POST['problem_num'].' '.$num;   
+			$query_score = "SELECT total_score FROM pd_hw WHERE p_id = '".$num."'";
+		} else if($len == 6){
+			$query = "SELECT deadline FROM lab_hw WHERE lab_id = '".$_POST['problem_num'][$len-1]."'";
+			$command_judge = 'python labjudge.py '.$acc.' '.$_POST['problem_num'].' '.$num;  
+			$query_score = "SELECT total_score FROM lab_hw WHERE lab_id = '".$num."'";
+		}
+		$time = mysql_query($query);
+		$fetch_time = mysql_fetch_row($time);
+		
+		if (isset($_FILES['pdfupload'])){  //pdf 檔案上傳	
+			if ( $fetch_time[0] > $datetime ){  //如果還沒超過死線
+				move_uploaded_file($_FILES['pdfupload']['tmp_name'], $pdffile);
 			}
-			$time = mysql_query($query);
-			$fetch_time = mysql_fetch_row($time);
+		}
+		if (isset($_FILES['upload'])){   // 程式碼檔案上傳
+			move_uploaded_file($_FILES['upload']['tmp_name'], $upfile);
 			
 			//如果繳交的題目還沒超過死線
 			if ( $fetch_time[0] > $datetime ){
@@ -134,9 +142,19 @@
 						VALUES ('$fetch_id[0]', '$num', '$status', '$datetime', '$exec_result', '$score')" ;
 				}
 				$success = mysql_query($insert);
-				?>	<!-- 改作業序號看這裡 -->
+			} else {   //超過死線
+				echo "<div class='hero-unit upload_section'><p>deadline is passed!</p></div>";
+			}
+		}
+		if (isset($_FILES['upload']) or isset($_FILES['pdfupload'])){
+			?>	<!-- 改作業序號看這裡 -->
 				<div class="hero-unit upload_section">
-					<table class="table table-hover">
+					<table class="table table-hover"><?php 
+					if (isset($_FILES['pdfupload'])){ ?>
+						<p>PDF file is submitted successfully!</p>
+						<br> <?php 
+					} 
+					if (isset($_FILES['upload'])){?>
 						<thead>
 							<tr>
 								<th>Problem</th>
@@ -146,9 +164,7 @@
 								<th>Score</th>
 							</tr>
 						</thead>
-						<tbody>
-						<?php 
-							
+						<tbody> <?php 
 							if ($len == 5){
 								$query_rec = "SELECT p_id, status, exec_time, time, score FROM pd_score NATURAL JOIN student 
 											WHERE account = '".$acc."' ORDER BY time DESC";
@@ -180,16 +196,12 @@
 								<td><?php echo $fetch_rec[3];?></td>
 								<td><?php echo $fetch_rec[4];?></td>
 							</tr>
-						</tbody>
+						</tbody> <?php 
+					} ?>
 					</table>
 				</div>  <?php
-			} else {   //超過死線
-				//echo 'num:'.$_POST['problem_num'].'  len:'.$len.'<br>';
-				//echo 'datetime is :'.$datetime.'<br>';
-				//echo 'deadline is :'.$fetch_time[0];
-				echo "<div class='hero-unit upload_section'><p>deadline is passed!</p></div>";
-			}
-		} else if (!isset($POST['upload']) ){
+		}
+		if (!isset($_FILES['upload']) and !isset($_FILES['pdfupload']) ){ //沒有上傳 理論上不會發生 因為沒辦法按下upload鈕
 			echo 'no upload';
 		}
 	}

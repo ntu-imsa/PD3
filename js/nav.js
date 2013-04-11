@@ -51,7 +51,7 @@
          cache: false,
          dataType: 'html',
              type:'POST',
-         data:{ hwID: hw_id}, //可以在upload_ajax.php裡面用$_POST['hwID']接
+         data:{ hwID: id}, //可以在upload_ajax.php裡面用$_POST['hwID']接
          error: function(xhr) {
            alert('Ajax request 發生錯誤');
          },
@@ -78,7 +78,7 @@
          cache: false,
          dataType: 'html',
              type:'POST',
-	     data:{ hwID: hw_id}, //可以在upload_ajax.php裡面用$_POST['hwID']接
+	     data:{ hwID: id}, //可以在upload_ajax.php裡面用$_POST['hwID']接
          error: function(xhr) {
            alert('Ajax request 發生錯誤');
          },
