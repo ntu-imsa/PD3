@@ -59,11 +59,11 @@
 		$num = (int)$_POST['problem_num'][$len-3].$_POST['problem_num'][$len-2].$_POST['problem_num'][$len-1];
 			
 		if ($len == 5){
-			$query = "SELECT deadline FROM pd_hw WHERE p_id = '".$_POST['problem_num'][$len-1]."'";
+			$query = "SELECT deadline FROM pd_hw WHERE p_id = '".$num."'";
 			$command_judge = 'python judge.py '.$acc.' '.$_POST['problem_num'].' '.$num;   
 			$query_score = "SELECT total_score FROM pd_hw WHERE p_id = '".$num."'";
 		} else if($len == 6){
-			$query = "SELECT deadline FROM lab_hw WHERE lab_id = '".$_POST['problem_num'][$len-1]."'";
+			$query = "SELECT deadline FROM lab_hw WHERE lab_id = '".$num."'";
 			$command_judge = 'python labjudge.py '.$acc.' '.$_POST['problem_num'].' '.$num;  
 			$query_score = "SELECT total_score FROM lab_hw WHERE lab_id = '".$num."'";
 		}
