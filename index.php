@@ -111,9 +111,9 @@
 							<div class="navbar-inner">
 								<a class="brand" >PDOGS</a>
 								<ul class="nav">
-									
+									<!--
 									<li id="home-btn" class="active"><a>Home</a></li>
-									
+									-->
 									<li id="problem-btn"><a>Problem Set</a></li>
 									
 									<li class="dropdown">
@@ -126,7 +126,7 @@
 											while ($fetch_pd = mysql_fetch_row($pd)){
 												if ( $fetch_pd[1] > $datetime ){
 													$append = substr('PD000', 0, -strlen($fetch_pd[0]));
-													?><li class="hw-btn" role = "presentation" name="<?php echo $append.$fetch_pd[0]; ?>">
+													?><li class="hw-btn" role = "presentation" name="<?php echo $append,$fetch_pd[0]; ?>">
 													<a role="menuitem"  tabindex="-1" ><?php echo $append.$fetch_pd[0]; ?></a></li> <?php									
 													$pd_count++;
 												} 
@@ -148,7 +148,7 @@
 											while ($fetch_lab = mysql_fetch_row($lab)){
 												if ( $fetch_lab[1] > $datetime ){
 													$append = substr('LAB000', 0, -strlen($fetch_lab[0]));
-													?><li class="lab-btn" role = "presentation" name="<?php echo $append.$fetch_lab[0]; ?>">
+													?><li class="lab-btn" role = "presentation" name="<?php echo $append,$fetch_lab[0]; ?>">
 													<a role="menuitem" tabindex="-1" ><?php echo $append.$fetch_lab[0]; ?></a></li><?php 
 													$lab_count++;
 												}
@@ -159,7 +159,26 @@
 										?>	
 										</ul>
 									</li>
-						 
+						 			
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Project<b class="caret"></b></a>
+										<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">	
+										<?php
+											$query_project = 'SELECT deadline FROM project WHERE onjudge = 1';
+											$project = mysql_query($query_project);
+											$fetch_project = mysql_fetch_row($project);
+											if ( $fetch_project[0] > $datetime ){?>
+											<li class="project-btn" role = "presentation" name="Submit">
+												<a role="menuitem" tabindex="-1" >Submit</a>
+											</li><?php 
+											}
+										?>
+											<li class="project-btn" role = "presentation" name="Ranking">
+												<a role="menuitem" tabindex="-1" >Ranking</a>
+											</li>
+										</ul>
+									</li>
+
 									<li id="record-btn"><a>Records</a></li>
 									
 									<li id="score-btn"><a>Scores</a></li>

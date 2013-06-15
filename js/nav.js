@@ -94,6 +94,54 @@
      });
   });
 
+  $('.project-btn').click(function (){
+    var fun_name = $(this).attr("name");
+    $('#load').addClass('loading');
+    console.log(fun_name); 
+    $("#main-content").css("display","none");
+    if (fun_name == "Submit"){
+      $.ajax({
+        url: 'project.php',
+        cache: false,
+        dataType: 'html',
+        type:'GET',
+        error: function(xhr) {
+          alert('Ajax request 發生錯誤');
+        },
+        success: function(response) {
+          $('.nav').children('.active').removeClass('active');
+          $("#main-content").css("display","block");
+          $('#main-content').html(response);
+          $('#load').removeClass('loading');
+          $('#footer').html("<div class='container'><p class='muted credit'>© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p></div>");
+          $('#project-btn').addClass('active');
+                   
+        }
+      });
+    }
+    else if (fun_name == "Ranking"){
+      $.ajax({
+        url: 'ranking.php',
+        cache: false,
+        dataType: 'html',
+        type:'GET',
+        error: function(xhr) {
+          alert('Ajax request 發生錯誤');
+        },
+        success: function(response) {
+          $('.nav').children('.active').removeClass('active');
+          $("#main-content").css("display","block");
+          $('#main-content').html(response);
+          $('#load').removeClass('loading');
+          $('#footer').html("<div class='container'><p class='muted credit'>© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p></div>");
+          $('#project-btn').addClass('active');
+                   
+        }
+      });
+
+    }
+  });  
+
  $('#record-btn').click(function (){
         $('#load').addClass('loading');
         $("#main-content").css("display","none");
