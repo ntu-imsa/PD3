@@ -29,7 +29,7 @@ if (!isset($_SESSION['account'])){
 	$append = substr('PJ000', 0, -strlen($fetch_project[0]));
 	$project_id = $append.$fetch_project[0];
 
-	$exist_query = "SELECT count(*) FROM group WHERE group_num = ".$group_num ;
+	$exist_query = "SELECT count(*) FROM `group` WHERE group_num = ".$group_num ;
 	$exist = mysql_query($exist_query);
 	$fetch_exist = mysql_fetch_row($exist);
 	if ($fetch_exist[0] == '0'){
@@ -144,6 +144,8 @@ if (!isset($_SESSION['account'])){
 				fclose($fp);
 				$update = "UPDATE project_group SET status = '$status', time = '$datetime', exec_time = '$exec_result' WHERE group_num = '$group_num'";
 				//echo $update;
+				$success = mysql_query($update);
+				$update = "UPDATE project SET isUpdate = 1";
 				$success = mysql_query($update);
 
 			} else {   //超過死線

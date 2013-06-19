@@ -29,18 +29,12 @@ def rankdata(a):
     return newarray
 
 if __name__ == '__main__':
-    #sys.argv[1] 為project ID
-    #sys.argv[2] 為組別
-    #hw_path = './student/' + sys.argv[1] + '/' + sys.argv[2] + '/answer/'
-    #judge_path = './judgement/' + sys.argv[2] + '/'
-    #outputfile = open(hw_path + 'output.txt', 'r')
-    #answerfile = open(judge_path + 'answer.txt', 'r')
     conn = MySQLdb.connect(host="127.0.0.1", user="root", passwd="", db="pd course")  
     conn.autocommit(True)
     cursor = conn.cursor()   
 	
-    #n = cursor.execute("SELECT * FROM project_group WHERE project_id =  " + sys.argv[1][4] + " ORDER BY group_num")
-    n = cursor.execute("SELECT * FROM project_group WHERE project_id =  1 ORDER BY group_num")
+    n = cursor.execute("SELECT * FROM project_group WHERE project_id =  " + sys.argv[1][4] + " ORDER BY group_num")
+    #n = cursor.execute("SELECT * FROM project_group WHERE project_id =  1 ORDER BY group_num")
     row = cursor.fetchall() 
     data = list(row)
 
@@ -53,9 +47,11 @@ if __name__ == '__main__':
     for i in range(5, 25):
         sortByColumn(data, i)
         D1 = float(data[0][i])
-        for check in range(n):
+        for check in range(1, n):
             if D1 == -1:
                 D1 = float(data[check][i])
+            else:
+                break
         
         Dm = float(data[n-1][i])
         if Dm != D1:
@@ -84,8 +80,7 @@ if __name__ == '__main__':
 
 
     rank = rankdata(score)
-    #print score
-    #print rank
+
 
     for group_num in range(n):
         update = "UPDATE `group` SET `rank` = " + str(int(rank[group_num])) 
@@ -93,8 +88,6 @@ if __name__ == '__main__':
         update += ", `worst_score` = " + str(worst[group_num]) 
         update += ", `total_score` = " + str(score[group_num])
         update +=  " WHERE `group_num` = " + str(group_num) 
-        #print update
-        #update = "SELECT * FROM project_group"
         success = cursor.execute(update)
 
     change = cursor.execute("UPDATE `project` SET isUpdate = 0 WHERE project_id = 1")

@@ -12,9 +12,6 @@ if (!$selection)
 	die ("selection failed".mysql_error()) ;
 
 $acc = mysql_real_escape_string($_SESSION['account']);
-//$problem_dir = '.\\student\\'.$acc.'\\'.$_POST['hwID']; 
-//$upfile = $problem_dir.'\\'.$acc.'-'.$_POST['hwID'].'.cpp';
-//$pdffile = $problem_dir.'\\'.$acc.'-'.$_POST['hwID'].'.pdf';
 
 if (!isset($_SESSION['account'])){
 	header ("Location:index.php") ;
@@ -68,8 +65,8 @@ if (!isset($_SESSION['account'])){
 						 <th>Rank</th>
 						 <th>Group ID</th>
 						 <th>Status</th>
-						 <th>Best ranking</th>
-						 <th>Worst ranking</th>
+						 <th>Best score</th>
+						 <th>Worst score</th>
 						 <th>Run time</th>
 						 <th>Score</th>
 					</tr>
@@ -92,8 +89,8 @@ if (!isset($_SESSION['account'])){
 							<td><?php echo $fetch_score['rank'];?></td>
 							<td><?php echo $fetch_score['group_num'];?></td>
 							<td><?php echo $fetch_score['status'];?></td>
-							<td><?php echo $fetch_score['best_score'];?></td>
-							<td><?php echo $fetch_score['worst_score'];?></td>
+							<td><?php echo number_format($fetch_score['best_score'],2);?></td>
+							<td><?php echo number_format($fetch_score['worst_score'],2);?></td>
 							<td><?php echo $fetch_score['exec_time'],'s';?></td>
 							<td><?php echo number_format(0.0-(float)$fetch_score['total_score'],2),'/50';?></td>
 						</tr><?php
@@ -123,9 +120,11 @@ if (!isset($_SESSION['account'])){
 					<tr>
 						 <th>Rank</th>
 						 <th>Group ID</th>
+						 <!--
 						 <th>Student ID</th>
-						 <th><?php echo "";?></th>
-						 <th><?php echo "";?></th>
+						 <th><?php //echo "";?></th>
+						 <th><?php //echo "";?></th>
+						 -->
 						 <th>Run time</th>
 						 <th>Score</th>
 					</tr>
@@ -154,6 +153,7 @@ if (!isset($_SESSION['account'])){
 
 								<?php
 								//列出前三高分組別的學生學號
+								/*
 								if ($i <= 3){
 									$id_query = "SELECT account FROM student WHERE group_num = ".$fetch_rank['group_num'];
 									$id = mysql_query($id_query);
@@ -169,7 +169,7 @@ if (!isset($_SESSION['account'])){
 									<td><?php echo " ";?></td>
 									<td><?php echo " ";?></td>
 									<td><?php echo " ";?></td><?php
-								}?>
+								}*/?>
 								<td><?php echo $fetch_rank['exec_time'].'s';?></td>
 								<td><?php echo number_format(0.0-(float)$fetch_rank['total_score'],2),'/50';?></td>
 							</tr><?php

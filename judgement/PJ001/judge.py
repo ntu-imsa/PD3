@@ -10,17 +10,13 @@ if __name__ == '__main__':
 
     outputfile = open(project_path + 'output.txt', 'r')
     testfile = open(judge_path + 'testing_data.txt', 'r')
-    #answerfile = open(judge_path + 'answer.txt', 'r')
     
     conn = MySQLdb.connect(host="127.0.0.1",user="root",passwd="",db="pd course")
     conn.autocommit(True)
     cursor = conn.cursor()
-    #cursor2 = conn.cursor()
     a = 0
     b = 0
-    #n2 = cursor2.execute("SELECT * FROM pd_hw WHERE p_id = 1")
-    #n2 = cursor.execute("SELECT ")
-    #row = cursor2.fetchall() 
+
     
     isDefect = False
     distance = range(20)
