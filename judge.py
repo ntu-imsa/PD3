@@ -14,13 +14,15 @@ if __name__ == '__main__':
     n = cursor.execute("SELECT total_score FROM pd_hw WHERE p_id = '" + sys.argv[3] + "'")
     row = cursor.fetchall() 
     #print row[0][0]
-    total_score = 0
+    total_score = 0.0
     test_num = int(answerfile.readline().strip())
+    single_score = float(row[0][0]) / float(test_num)
     for i in range(test_num):
         a = answerfile.readline().strip()
         o = outputfile.readline().strip()
         if a == o:
-            total_score += row[0][0] / test_num
+            total_score += single_score
+            #print row[0][0] / test_num
     outfile = open(hw_path + 'score.txt', 'w')
     outfile.write(str(total_score))
     outputfile.close()

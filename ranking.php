@@ -28,12 +28,17 @@ if (!isset($_SESSION['account'])){
 	$append = substr('PJ000', 0, -strlen($fetch_project['project_id']));
 	$project_id = $append.$fetch_project['project_id'];
 	
-
-	$return = -1;
+	
+	#$return = -1;
 	#如果有人上傳後才會執行更新分數和排名的動作
 	if ($fetch_project['isUpdate'] == 1){
-		$command_count = 'python .\\judgement\\'.$project_id.'\\count_ranking.py '.$project_id.' '.$group_num;
-		$return = exec($command_count, $return);
+		$command_count = 'python .\\judgement\\'.$project_id.'\\count_ranking.py '.$fetch_project['project_id'].' '.$group_num;
+		try{
+			$return = exec($command_count);
+		} catch (Exception $e){
+			echo $e;
+		}
+		
 	}
 	#查詢組內成績
 	$score_query = "SELECT group_num, rank, best_score, worst_score, total_score, status, exec_time

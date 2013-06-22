@@ -33,9 +33,13 @@ if (!isset($_SESSION['account'])){
 	$exist = mysql_query($exist_query);
 	$fetch_exist = mysql_fetch_row($exist);
 	if ($fetch_exist[0] == '0'){
-		$insert = "INSERT INTO group(group_num) 
-						VALUES ($group_num')" ;
-		mysql_query($insert);
+		
+		$insert = "INSERT INTO `group`(group_num) 
+						VALUES ('$group_num')" ;
+		$result = mysql_query($insert);
+		if (!$result) {
+    		die('Invalid query: ' . mysql_error());
+		}
 		$insert = "INSERT INTO project_group(project_id, group_num) 
 						VALUES ('$fetch_project[0]', '$group_num')" ;
 		mysql_query($insert);
@@ -110,8 +114,9 @@ if (!isset($_SESSION['account'])){
 						//$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2>> '.$run_logfile;  
 						//$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename.' 2>> '.$run_logfile;
 						$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename.' 10';
-						if ($exec_result = exec($command, $return)){      //如果執行成功  比對結果
+						if ($exec_result = exec($command, $return)){     //如果執行成功  比對結果
 							if ($exec_result != NULL and $exec_result == 'Time limit exceed'){
+
 								$status = 'Time limit exceed';
 								$exec_result = 10;
 							} else if ($exec_result != NULL and $exec_result == 'Runtime error'){
@@ -145,8 +150,14 @@ if (!isset($_SESSION['account'])){
 				$update = "UPDATE project_group SET status = '$status', time = '$datetime', exec_time = '$exec_result' WHERE group_num = '$group_num'";
 				//echo $update;
 				$success = mysql_query($update);
+				if (!$success) {
+    				die('Invalid query: ' . mysql_error());
+				}
 				$update = "UPDATE project SET isUpdate = 1";
 				$success = mysql_query($update);
+				if (!$success) {
+    				die('Invalid query: ' . mysql_error());
+				}
 
 			} else {   //超過死線
 				echo "<div class='hero-unit upload_section'><p>deadline is passed!</p></div>";
