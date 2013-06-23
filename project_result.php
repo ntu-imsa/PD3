@@ -147,6 +147,21 @@ if (!isset($_SESSION['account'])){
 				$fp = fopen($all_logfile, 'a');
 				fwrite($fp, '['.$datetime.'] : '.$acc.' in group '.$group_num.' submits a file for problem '.$project_id."\n");
 				fclose($fp);
+				if ($status != 'Accepted' and $status != 'Wrong answer'){
+					$update = "UPDATE project_group SET ";
+					for ($temp = 1; $temp <= 20; $temp++){
+						$update = $update.'distance'.mysql_real_escape_string($temp).'= -1';
+						if ($temp != 20)
+							$update = $update.', ';
+					}
+					$update = $update." WHERE group_num = '$group_num' AND project_id = ".$fetch_project[0];
+					$success = mysql_query($update);
+					if (!$success) {
+	    				die('Invalid query: ' . mysql_error());
+					}
+				}
+				
+				
 				$update = "UPDATE project_group SET status = '$status', time = '$datetime', exec_time = '$exec_result' WHERE group_num = '$group_num'";
 				//echo $update;
 				$success = mysql_query($update);

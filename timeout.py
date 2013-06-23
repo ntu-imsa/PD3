@@ -8,7 +8,7 @@ import sys
 class TimeoutError(Exception):
     pass
 
-def command(cmd, exe, timeout=60):
+def command(cmd, exe, timeout=10):
     """Run command and return the output
     cmd - the command to run
     timeout - max seconds to wait for
