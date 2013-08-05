@@ -15,9 +15,11 @@
 	$datetime = date ("Y-m-d H:i:s");
 
 	$acc = mysql_real_escape_string($_SESSION['account']);
-	$query_t = "SELECT type FROM student WHERE account = $acc";
-	$type = 0; 
-	//mysql_query($query_t);
+	$query_t = "SELECT type FROM student WHERE account = '".$acc."'";
+	//$type = 0; 
+	$q_type = mysql_query($query_t);
+	$type = mysql_fetch_row($q_type);
+
 	//使用者尚未登入 顯示登入頁面
 	if (!isset($_SESSION['account'])){
 ?>
@@ -91,7 +93,7 @@
 		</html>
 			
 <?php
-	}else if( $type == 1 ) {   //使用者登入成功 顯示PDOGS主頁面
+	}else if( $type[0] == 1 ) {   //使用者登入成功 顯示PDOGS主頁面
 	//echo 'have session<br>';
 ?>
 		<!DOCTYPE html>
@@ -227,7 +229,7 @@
 			
 		</html>
 <?php
-	} else if ($type== 0 ) {
+	} else if ($type[0] == 0 ) {
     //使用者登入成功 顯示PDOGS主頁面
 	//進入助教頁面
 	//echo 'have session<br>';
