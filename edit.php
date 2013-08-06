@@ -22,6 +22,9 @@
 		$pdf = $problem_dir.'\\'.$_POST['problem_num'].'.pdf';
 		$testingdata = $problem_dir.'\\'.$_POST['problem_num'].'.txt';
 		$answer = $problem_dir.'\\'.$_POST['problem_num'].'.cpp';
+
+		if (!is_dir($problem_dir))
+			mkdir($problem_dir);
 ?>
 		<div class="hero-unit upload_section">
 	<?php
