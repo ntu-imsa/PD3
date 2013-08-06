@@ -15,8 +15,7 @@
 	$datetime = date ("Y-m-d H:i:s");
 
 	$acc = mysql_real_escape_string($_SESSION['account']);
-	$query_t = "SELECT type FROM student WHERE account = '".$acc."'";
-	//$type = 0; 
+	$query_t = "SELECT type FROM student WHERE account = '".$acc."'"; 
 	$q_type = mysql_query($query_t);
 	$type = mysql_fetch_row($q_type);
 

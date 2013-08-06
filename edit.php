@@ -22,56 +22,46 @@
 		$pdf = $problem_dir.'\\'.$_POST['problem_num'].'.pdf';
 		$testingdata = $problem_dir.'\\'.$_POST['problem_num'].'.txt';
 		$answer = $problem_dir.'\\'.$_POST['problem_num'].'.cpp';
-
-		if (!is_dir($problem_dir))
-			mkdir($problem_dir);
-		?>
+?>
 		<div class="hero-unit upload_section">
-		<?php
-		if (isset($_FILES['pdfupload']))
+	<?php
+		if (isset($_FILES['pdfupload'])){
+			if (file_exists($pdf)) unlink($pdf);
 			move_uploaded_file($_FILES['pdfupload']['tmp_name'], $pdf);
-		else{ 
-			echo "G_G!!  You didn't upload pdf file.";
-			echo "<br>";
-		}
-		if (isset($_FILES['tdupload']))
-			move_uploaded_file($_FILES['tdupload']['tmp_name'], $testingdata);
-		else{
-			echo "G_G!!  You didn't upload testing data.";
-			echo "<br>";
-		} 
-		if (isset($_FILES['ansupload']))
-			move_uploaded_file($_FILES['ansupload']['tmp_name'], $answer);
-		else
-			echo "G_G!!  You didn't upload answer.";
+			echo "PDF is uploaded. <br>";
 
-	?>
-		<?php
+		}
+		if (isset($_FILES['tdupload'])){
+			if (file_exists($testingdata)) unlink($testingdata);
+			move_uploaded_file($_FILES['tdupload']['tmp_name'], $testingdata);
+			echo "Testing Data is uploaded. <br>";
+		}
+		if (isset($_FILES['ansupload'])){
+			if (file_exists($answer)) unlink($answer);
+			move_uploaded_file($_FILES['ansupload']['tmp_name'], $answer);
+			echo "Answer is uploaded. <br>";
+		}
+
 			$submitcode = @$_POST ['submitcode']; 
 			$submitpdf = @$_POST ['submitpdf']; 
 			$score = $_POST ['score'];
 			$len = strlen($_POST['problem_num']);
-			$hw_id = substr($_POST['problem_num'],-2);
+			$num = (int)($_POST['problem_num'][$len-3].$_POST['problem_num'][$len-2].$_POST['problem_num'][$len-1]);
 
-		if (isset($_FILES['pdfupload']) or isset($_FILES['tdupload']) or isset($_FILES['ansupload'])){
-			if ($len == 5){
-				$insert = "INSERT INTO pd_hw(p_id, submit_code, submit_pdf, total_score) 
-							VALUES ('$hw_id', '$submitcode', '$submitpdf', '$score')" ;
-			}
-			else if ($len == 6){					
-				$insert = "INSERT INTO lab_hw(lab_id, submit_code, submit_pdf, total_score) 
-							VALUES ('$hw_id', '$submitcode', '$submitpdf', '$score')" ;
-			}
-			$success = mysql_query($insert);  ?>
-			<p><?php echo $_POST['problem_num'] ?> is created !</p>
-		</div> 
-
-		<?php 
-		}else{   ?>
-			<p>G_G!! Please try again</p>
-		</div>
-<?php
+		if ($len == 5){
+			$update = "UPDATE pd_hw 
+					SET submit_code = '$submitcode', submit_pdf = '$submitpdf', total_score = '$score'
+					WHERE p_id = '".$num."' " ;
+		}else if ($len == 6){
+			$update = "UPDATE lab_hw 
+					SET submit_code = '$submitcode', submit_pdf = '$submitpdf', total_score = '$score'
+					WHERE lab_id = '".$num."' " ;
 		}
-	}
-?>		
+		$success = mysql_query($update);
+		?>
+			<p><?php echo $_POST['problem_num'] ?> is updated !</p>
+		</div>
 
+<?php
+	}
+?>

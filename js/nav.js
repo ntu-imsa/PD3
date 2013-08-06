@@ -265,36 +265,9 @@
      });
   });
 
-  $(".createlabpro-btn").click(function (){
-        var hw_id=$(this).html();
-    var id = $(this).attr("name");
-        console.log(id);
-    $('#load').addClass('loading');
-    $("#main-content").css("display","none");  
-         $.ajax({
-         url: 'create_labpro.php',
-         cache: false,
-         dataType: 'html',
-             type:'POST',
-         data:{ hwID: id}, //可以在upload_ajax.php裡面用$_POST['hwID']接
-         error: function(xhr) {
-           alert('Ajax request 發生錯誤');
-         },
-         success: function(response) {
-                   $('.nav').children('.active').removeClass('active');
-                   $("#main-content").css("display","block");
-                   $('#main-content').html(response);
-                   $('#load').removeClass('loading');
-                   $('.createlabpro-btn').parent().parent().addClass('active');
-                   $('.createlabpro-id').html(hw_id+"<input type='hidden' name='problem_num' value='"+id+"'>");
-           $('#footer').html("<div class='container'><p class='muted credit'>© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p></div>");
-         }
-     });
-  });
-
   $(".editproblem-btn").click(function (){
         var hw_id=$(this).html();
-    var hwid = $(this).attr("name");
+    var id = $(this).attr("name"); //name = "<?php echo $append.$fetch_p[0]; ?>"
         console.log(id);
     $('#load').addClass('loading');
     $("#main-content").css("display","none");  
@@ -303,7 +276,7 @@
          cache: false,
          dataType: 'html',
              type:'POST',
-         data:{ edit: hwid}, //可以在edit_problem.php裡面用$_POST['edit']接
+         data:{ hwID: id}, //可以在edit_problem.php裡面用$_POST['hwID']接
          error: function(xhr) {
            alert('Ajax request 發生錯誤');
          },
@@ -313,7 +286,7 @@
                    $('#main-content').html(response);
                    $('#load').removeClass('loading');
                    $('.editproblem-btn').parent().parent().addClass('active');
-                   $('.hw-id').html(hw_id+"<input type='hidden' name='problem_num' value='"+id+"'>");
+                   $('.hw-id').html(id+"<input type='hidden' name='problem_num' value='"+id+"'>");//可以在edit.php裡面用$_POST['problem_num']接?
            $('#footer').html("<div class='container'><p class='muted credit'>© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p></div>");
          }
      });

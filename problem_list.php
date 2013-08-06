@@ -59,7 +59,7 @@
 								echo '</td>';								
 							}
 							echo '<td>'; ?>
-								<a href = "./edit_problem.php" class = "editproblem-btn" name = "<?php echo $append.$fetch_p[0]; ?>">Edit</a>
+								<a href= "#" class = "editproblem-btn" name = "<?php echo $append.$fetch_p[0]; ?>">Edit</a>
 							
 					<?php 
 							echo '</td>';
@@ -110,8 +110,9 @@
 									echo $fetch_l[$i];
 								echo '</td>';								
 							}
-							echo '<td>';
-							echo '<a href= "./edit_problem.php" >Edit</a>';
+							echo '<td>';?>
+								<a href= "#" class = "editproblem-btn" name = "<?php echo $append.$fetch_l[0]; ?>">Edit</a>							
+					<?php 
 							echo '</td>';
 							echo '<tr>';						
 						}
@@ -119,6 +120,7 @@
 				</tbody>
 		</table>
 	</div>
+	<script src="js/nav.js"></script>	
 <?php
 	}
 ?>

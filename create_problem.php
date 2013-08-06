@@ -12,8 +12,6 @@
 		die ("selection failed".mysql_error()) ;
 	
 	$acc = mysql_real_escape_string($_SESSION['account']);
-	//$problem_dir = '.\\problem\\'.$append.($max +1); 
-	
 
 	if (!isset($_SESSION['account'])){
 		header ("Location:index.php") ;
