@@ -11,10 +11,10 @@
 	if (!$selection)
 		die ("selection failed".mysql_error()) ;
 
-		$problem_dir = '.\\problem\\'.$_POST['hwID']; 
-		$pdf = $problem_dir.'\\'.$_POST['hwID'].'.pdf';
-		$testingdata = $problem_dir.'\\'.$_POST['hwID'].'.txt';
-		$answer = $problem_dir.'\\'.$_POST['hwID'].'.cpp';
+		
+	$pdf = '.\\problem\\'.$_POST['hwID'].'.pdf';
+	$testingdata = '.\\judgement\\'.$_POST['hwID'].'\\testing_data.txt';
+	$answer = '.\\judgement\\'.$_POST['hwID'].'\\answer.txt';
 
 	//使用者尚未登入 顯示登入頁面
 	if (!isset($_SESSION['account'])){
@@ -55,20 +55,20 @@
 		</div>
 		<br>
 		<div class="checkbox">
-      		<label>
-        	<input type="checkbox" name="submitcode" value="1"
-        	<?php if ($fetch_status[0] == 1) 
-        				echo "checked";   ?>
-        		> Submit code
-      		</label>   
-      		<label>
-        	<input type="checkbox"  name="submitpdf" value="1"
-        	<?php if ($fetch_status[1] == 1) 
-        				echo "checked";   ?>
-        		> Submit pdf
-      		</label>      		   		
-    	</div>
-    	<br>
+			<label>
+				<input type="checkbox" name="submitcode" value="1"
+				<?php if ($fetch_status[0] == 1) 
+					echo "checked";   ?>
+				> Submit code
+			</label>   
+			<label>
+				<input type="checkbox"  name="submitpdf" value="1"
+				<?php if ($fetch_status[1] == 1) 
+					echo "checked";   ?>
+				> Submit pdf
+			</label>      		   		
+		</div>
+		<br>
     	<p class="hw"> Total Score </p>
     	<input class="form-control" id="focusedInput" type="text" value="<?php echo $fetch_status[2]; ?>" name="score">
     	<br>
