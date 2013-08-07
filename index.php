@@ -263,7 +263,7 @@
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Create Problem<b class="caret"></b></a>
 										<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 											<?php
-												$query_pd = 'SELECT p_id FROM pd_hw ';
+												$query_pd = 'SELECT p_id FROM pd_hw ORDER BY p_id';
 												$pd = mysql_query($query_pd);
 												$max = 0 ;
 												while ($fetch_pd = mysql_fetch_row($pd)){
@@ -271,7 +271,7 @@
 												}
 												$append = substr('PD000', 0, -strlen($max+1));
 
-												$query_lab = 'SELECT lab_id FROM lab_hw ';
+												$query_lab = 'SELECT lab_id FROM lab_hw ORDER BY lab_id';
 												$lab = mysql_query($query_lab);
 												$max2 = 0 ;
 												while ($fetch_lab = mysql_fetch_row($lab)){
