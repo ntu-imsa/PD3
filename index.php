@@ -13,7 +13,11 @@
 	
 	date_default_timezone_set('Asia/Taipei');
 	$datetime = date ("Y-m-d H:i:s");
-	
+
+	$acc = mysql_real_escape_string($_SESSION['account']);
+	$query_t = "SELECT type FROM student WHERE account = $acc";
+	$type = 0; 
+	//mysql_query($query_t);
 	//使用者尚未登入 顯示登入頁面
 	if (!isset($_SESSION['account'])){
 ?>
@@ -87,7 +91,7 @@
 		</html>
 			
 <?php
-	} else {   //使用者登入成功 顯示PDOGS主頁面
+	}else if( $type == 1 ) {   //使用者登入成功 顯示PDOGS主頁面
 	//echo 'have session<br>';
 ?>
 		<!DOCTYPE html>
@@ -126,7 +130,7 @@
 											while ($fetch_pd = mysql_fetch_row($pd)){
 												if ( $fetch_pd[1] > $datetime ){
 													$append = substr('PD000', 0, -strlen($fetch_pd[0]));
-													?><li class="hw-btn" role = "presentation" name="<?php echo $append,$fetch_pd[0]; ?>">
+													?><li class="hw-btn" role = "presentation" name="<?php echo $append.$fetch_pd[0]; ?>">
 													<a role="menuitem"  tabindex="-1" ><?php echo $append.$fetch_pd[0]; ?></a></li> <?php									
 													$pd_count++;
 												} 
@@ -222,6 +226,107 @@
 			<script src="js/nav.js"></script>
 			
 		</html>
+<?php
+	} else if ($type== 0 ) {
+    //使用者登入成功 顯示PDOGS主頁面
+	//進入助教頁面
+	//echo 'have session<br>';
+?>
+		<!DOCTYPE html>
+		<html>
+			<head>
+				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+				<title>Programming Design Online Grading System</title>
+				<link href="css/bootstrap.css" rel="stylesheet" media="screen">
+				<link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
+				<link href="css/sticky-footer.css" rel="stylesheet" media="screen">
+				<link href="css/main.css" rel="stylesheet" media="screen">
+				<link href="css/bootstrap-fileupload.css" rel="stylesheet" media="screen">
+			</head>
+			<body>
+				<div id="wrap"> 
+					<div class="container"> 
+						<div class="page-header">
+							<h2>Programming Design Online Grading System</h2>
+						</div>
+						<div class="navbar">
+							<div class="navbar-inner">
+								<a class="brand" >PDOGS</a>
+								<ul class="nav">
+									<!--
+									<li id="home-btn" class="active"><a>Home</a></li>
+									-->
+									<li id="users-btn"><a>Users</a></li>
+			
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Create Problem<b class="caret"></b></a>
+										<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+											<?php
+												$query_pd = 'SELECT p_id FROM pd_hw ';
+												$pd = mysql_query($query_pd);
+												$max = 0 ;
+												while ($fetch_pd = mysql_fetch_row($pd)){
+													$max ++ ;
+												}
+												$append = substr('PD000', 0, -strlen($max+1));
+
+												$query_lab = 'SELECT lab_id FROM lab_hw ';
+												$lab = mysql_query($query_lab);
+												$max2 = 0 ;
+												while ($fetch_lab = mysql_fetch_row($lab)){
+													$max2 ++ ;
+												}
+												$append2 = substr('LAB000', 0, -strlen($max2+1));
+											?>
+											<li class="createproblem-btn" role = "presentation" name="<?php echo $append.($max +1); ?>">
+												<a role="menuitem"  tabindex="-1" ><?php echo $append.($max +1); ?></a>
+											</li>
+											<li class="createproblem-btn" role = "presentation" name="<?php echo $append2.($max2 +1); ?>">
+												<a role="menuitem"  tabindex="-1" ><?php echo $append2.($max2 +1); ?></a>
+											</li>												
+										</ul>
+									</li>
+								    <li id="problemlist-btn"><a>Problem List</a></li>
+								    <li id="users-btn"><a>Upload Records</a></li>
+								    <li id="users-btn"><a>All Scores</a></li>
+								</ul>
+								<ul class="nav pull-right">
+									<li class="divider-vertical"></li>
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi, <?php echo $_SESSION['account'];?><b class="caret"></b></a>
+										<ul class="dropdown-menu">
+										<li><a href="#">Change Password</a></li>
+										<li class="divider"></li>
+										<li><a href="logout.php">Logout</a></li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div id="load" > 
+							<span class="spin"><i class="icon-spinner icon-spin icon-2x pull-left"></i>Loading... </span>
+						</div>
+						
+						<!-- 使用ajax刷新 將所有各功能頁面更新於此div區塊 -->
+						<div id="main-content">
+							
+						</div>
+					</div>
+				</div>
+				<div id="footer">
+					<div class="container">
+						<p class="muted credit">© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p>
+					</div>
+				</div>
+				<div id="footer2">
+				</div>
+			</body>
+			<script src="http://code.jquery.com/jquery.js"></script>
+			<script src="js/bootstrap.min.js"></script>
+			<script src="js/bootstrap-fileupload.min.js"></script>
+			<script src="js/jquery.form.js"></script>
+			<script src="js/nav.js"></script>					
+		</html>	
 <?php
 	}
 ?>

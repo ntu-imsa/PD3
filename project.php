@@ -11,7 +11,7 @@ $selection = mysql_select_db($db_database) ;
 if (!$selection)
 	die ("selection failed".mysql_error()) ;
 
-$acc = mysql_real_escape_string($_SESSION['account']);
+$acc = mysql_real_escape_string($_SESSION['account']); 
 //$problem_dir = '.\\student\\'.$acc.'\\'.$_POST['hwID']; 
 //$upfile = $problem_dir.'\\'.$acc.'-'.$_POST['hwID'].'.cpp';
 //$pdffile = $problem_dir.'\\'.$acc.'-'.$_POST['hwID'].'.pdf';
