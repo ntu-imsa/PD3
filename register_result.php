@@ -12,7 +12,7 @@
 	elseif ($pw != $cpw)
 		header ("Location:index.php?same=1") ;
 	else{
-	$connection = mysql_connect($db_host, $db_username, '');
+	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
 	if (!$connection)
 		die ("connection failed".mysql_error()) ;
 	$selection = mysql_select_db($db_database) ;

@@ -19,7 +19,7 @@
   $('#problem-btn').click(function (){
     $('#load').addClass('loading');
     $("#main-content").css("display","none");  
-        console.log("problem");
+        console.log("problem.php");
 
 		 $.ajax({
          url: 'problem.php',
@@ -39,11 +39,60 @@
           }
       });
   }); 
+
+  $('#past-problem-btn').click(function (){
+    $('#load').addClass('loading');
+    $("#main-content").css("display","none");  
+        console.log("past_problem.php");
+
+     $.ajax({
+         url: 'past_problem.php',
+         cache: false,
+         dataType: 'html',
+             type:'GET',
+         error: function(xhr) {
+           alert('Ajax request 發生錯誤');
+         },
+         success: function(response) {
+           $('.nav').children('.active').removeClass('active');
+           $("#main-content").css("display","block");
+           $('#main-content').html(response);
+           $('#load').removeClass('loading');
+           $('#past-problem-btn').addClass('active'); 
+           $('#footer').html("<div class='container'><p class='muted credit'>© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p></div>");
+          }
+      });
+  }); 
   
+  $('#submit-past-btn').click(function (){
+    $('#load').addClass('loading');
+    $("#main-content").css("display","none");  
+        console.log("upload_past.php");
+
+     $.ajax({
+         url: 'upload_past.php',
+         cache: false,
+         dataType: 'html',
+             type:'GET',
+         error: function(xhr) {
+           alert('Ajax request 發生錯誤');
+         },
+         success: function(response) {
+           $('.nav').children('.active').removeClass('active');
+           $("#main-content").css("display","block");
+           $('#main-content').html(response);
+           $('#load').removeClass('loading');
+           $('#submit-past-btn').addClass('active'); 
+           $('#footer').html("<div class='container'><p class='muted credit'>© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p></div>");
+          }
+      });
+  }); 
+
  $(".hw-btn").click(function (){
-        var hw_id=$(this).html();
+    var hw_id=$(this).html();
 		var id = $(this).attr("name");
-        console.log(id);
+    console.log("upload_ajax.php");
+    console.log(id);
     $('#load').addClass('loading');
     $("#main-content").css("display","none");  
          $.ajax({
@@ -68,9 +117,10 @@
   });
   
   $('.lab-btn').click(function (){
-        var hw_id=$(this).html();
+    var hw_id=$(this).html();
 		var id = $(this).attr("name");
-		console.log(id);
+		console.log("upload_ajax.php");
+    console.log(id);
     $('#load').addClass('loading');
     $("#main-content").css("display","none");
          $.ajax({
@@ -97,9 +147,11 @@
   $('.project-btn').click(function (){
     var fun_name = $(this).attr("name");
     $('#load').addClass('loading');
-    console.log(fun_name); 
+
+    //console.log(fun_name); 
     $("#main-content").css("display","none");
     if (fun_name == "Submit"){
+      console.log("project.php");
       $.ajax({
         url: 'project.php',
         cache: false,
@@ -120,6 +172,7 @@
       });
     }
     else if (fun_name == "Ranking"){
+      console.log("ranking.php");
       $.ajax({
         url: 'ranking.php',
         cache: false,
@@ -145,6 +198,7 @@
  $('#record-btn').click(function (){
         $('#load').addClass('loading');
         $("#main-content").css("display","none");
+        console.log("record_ajax.php");
          $.ajax({
          url: 'record_ajax.php',
          cache: false,
@@ -169,6 +223,7 @@
   $('#score-btn').click(function (){
     $('#load').addClass('loading');
     $("#main-content").css("display","none");
+    console.log("score.php");
          $.ajax({
          url: 'score.php',
          cache: false,
@@ -193,10 +248,10 @@
  $('#users-btn').click(function (){
     $('#load').addClass('loading');
     $("#main-content").css("display","none");  
-    console.log("users");
+    console.log("student.php");
 
     $.ajax({
-     url: 'student.php',
+     url: 'TA/student.php',
      cache: false,
      dataType: 'html',
      type:'GET',
@@ -217,10 +272,10 @@
  $('#problemlist-btn').click(function (){
     $('#load').addClass('loading');
     $("#main-content").css("display","none");  
-    console.log("users");
+    console.log("problem_list.php");
 
     $.ajax({
-     url: 'problem_list.php',
+     url: 'TA/problem_list.php',
      cache: false,
      dataType: 'html',
      type:'GET',
@@ -241,11 +296,12 @@
  $(".createproblem-btn").click(function (){
         var hw_id=$(this).html();
     var id = $(this).attr("name"); //name="<?php echo $append.($max +1); ?>
+        console.log("create_problem.php")
         console.log(id);
     $('#load').addClass('loading');
     $("#main-content").css("display","none");  
          $.ajax({
-         url: 'create_problem.php',
+         url: 'TA/create_problem.php',
          cache: false,
          dataType: 'html',
              type:'POST',
@@ -266,13 +322,14 @@
   });
 
   $(".editproblem-btn").click(function (){
-        var hw_id=$(this).html();
+    var hw_id=$(this).html();
     var id = $(this).attr("name"); //name = "<?php echo $append.$fetch_p[0]; ?>"
-        console.log(id);
+    console.log("edit_problem.php")
+    console.log(id);
     $('#load').addClass('loading');
     $("#main-content").css("display","none");  
          $.ajax({
-         url: 'edit_problem.php',
+         url: 'TA/edit_problem.php',
          cache: false,
          dataType: 'html',
              type:'POST',

@@ -4,7 +4,7 @@
 	$db_host = 'localhost' ;
 	$db_database = 'pd course' ;
 	$db_username = 'root' ;
-	$connection = mysql_connect($db_host, $db_username, '');
+	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
 	if (!$connection)
 		die ("connection failed".mysql_error()) ;
 	mysql_query("SET NAMES 'utf8'");
@@ -22,9 +22,9 @@
 	if ($result_row = mysql_fetch_row(($result)))
 	{
 
-	$_SESSION['account'] = $acc ;
+		$_SESSION['account'] = $acc ;
 		
-		 header ("Location:index.php") ;
+		header ("Location:index.php") ;
 	}
 	else
 	{

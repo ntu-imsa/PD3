@@ -3,7 +3,7 @@
 	$db_host = 'localhost' ;
 	$db_database = 'pd course' ;
 	$db_username = 'root' ;
-	$connection = mysql_connect($db_host, $db_username, '');
+	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
 	if (!$connection)
 		die ("connection failed".mysql_error()) ;
 	mysql_query("SET NAMES 'utf8'");
@@ -14,10 +14,8 @@
 	date_default_timezone_set('Asia/Taipei');
 	$datetime = date ("Y-m-d H:i:s");
 
-	$acc = mysql_real_escape_string($_SESSION['account']);
-	$query_t = "SELECT type FROM student WHERE account = '".$acc."'"; 
-	$q_type = mysql_query($query_t);
-	$type = mysql_fetch_row($q_type);
+	
+	
 
 	//使用者尚未登入 顯示登入頁面
 	if (!isset($_SESSION['account'])){
@@ -92,242 +90,250 @@
 		</html>
 			
 <?php
-	}else if( $type[0] == 1 ) {   //使用者登入成功 顯示PDOGS主頁面
-	//echo 'have session<br>';
-?>
-		<!DOCTYPE html>
-		<html>
-			<head>
-				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
-				<title>Programming Design Online Grading System</title>
-				<link href="css/bootstrap.css" rel="stylesheet" media="screen">
-				<link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
-				<link href="css/sticky-footer.css" rel="stylesheet" media="screen">
-				<link href="css/main.css" rel="stylesheet" media="screen">
-				<link href="css/bootstrap-fileupload.css" rel="stylesheet" media="screen">
-			</head>
-			<body>
-				<div id="wrap"> 
-					<div class="container"> 
-						<div class="page-header">
-							<h2>Programming Design Online Grading System</h2>
-						</div>
-						<div class="navbar">
-							<div class="navbar-inner">
-								<a class="brand" >PDOGS</a>
-								<ul class="nav">
-									<!--
-									<li id="home-btn" class="active"><a>Home</a></li>
-									-->
-									<li id="problem-btn"><a>Problem Set</a></li>
-									
-									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Submit Class HW<b class="caret"></b></a>
-										<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-										<?php 
-											$pd_count = 0;
-											$query_pd = 'SELECT p_id, deadline FROM pd_hw ';
-											$pd = mysql_query($query_pd);
-											while ($fetch_pd = mysql_fetch_row($pd)){
-												if ( $fetch_pd[1] > $datetime ){
-													$append = substr('PD000', 0, -strlen($fetch_pd[0]));
-													?><li class="hw-btn" role = "presentation" name="<?php echo $append.$fetch_pd[0]; ?>">
-													<a role="menuitem"  tabindex="-1" ><?php echo $append.$fetch_pd[0]; ?></a></li> <?php									
-													$pd_count++;
-												} 
-											}
-											if ( $pd_count == 0 ){
-												?><li role = "presentation"><a role="menuitem" tabindex="-1" >No problem available</a></li><?php
-											}
-										?>	
-										</ul>
-									</li>
-									
-									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Submit Lab HW<b class="caret"></b></a>
-										<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-										<?php 
-											$lab_count = 0;
-											$query_lab = 'SELECT lab_id, deadline FROM lab_hw';
-											$lab = mysql_query($query_lab);
-											while ($fetch_lab = mysql_fetch_row($lab)){
-												if ( $fetch_lab[1] > $datetime ){
-													$append = substr('LAB000', 0, -strlen($fetch_lab[0]));
-													?><li class="lab-btn" role = "presentation" name="<?php echo $append,$fetch_lab[0]; ?>">
-													<a role="menuitem" tabindex="-1" ><?php echo $append.$fetch_lab[0]; ?></a></li><?php 
-													$lab_count++;
-												}
-											}
-											if ( $lab_count == 0 ){
-												?><li role = "presentation"><a role="menuitem" tabindex="-1" >No problem available</a></li><?php
-											}
-										?>	
-										</ul>
-									</li>
-						 			
-									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Project<b class="caret"></b></a>
-										<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">	
-										<?php
-											$query_project = 'SELECT deadline FROM project WHERE onjudge = 1';
-											$project = mysql_query($query_project);
-											$fetch_project = mysql_fetch_row($project);
-											if ( $fetch_project[0] > $datetime ){?>
-											<li class="project-btn" role = "presentation" name="Submit">
-												<a role="menuitem" tabindex="-1" >Submit</a>
-											</li><?php 
-											}
-										?>
-											<li class="project-btn" role = "presentation" name="Ranking">
-												<a role="menuitem" tabindex="-1" >Ranking</a>
-											</li>
-										</ul>
-									</li>
+	}else{
+		$acc = mysql_real_escape_string($_SESSION['account']);
+		$query_t = "SELECT type FROM student WHERE account = '".$acc."'"; 
+		$q_type = mysql_query($query_t);
+		$type = mysql_fetch_row($q_type);
 
-									<li id="record-btn"><a>Records</a></li>
-									
-									<li id="score-btn"><a>Scores</a></li>
-								</ul>
-								
-								<ul class="nav pull-right">
-									<li class="divider-vertical"></li>
-									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi, <?php echo $_SESSION['account'];?><b class="caret"></b></a>
-										<ul class="dropdown-menu">
-										<li><a href="#">Change Password</a></li>
-										<li class="divider"></li>
-										<li><a href="logout.php">Logout</a></li>
-										</ul>
-									</li>
-								</ul>
+		if( $type[0] == 1 or $type[0] == 2) {   //使用者登入成功 顯示PDOGS主頁面
+		//echo 'have session<br>';
+	?>
+			<!DOCTYPE html>
+			<html>
+				<head>
+					<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+					<title>Programming Design Online Grading System</title>
+					<link href="css/bootstrap.css" rel="stylesheet" media="screen">
+					<link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
+					<link href="css/sticky-footer.css" rel="stylesheet" media="screen">
+					<link href="css/main.css" rel="stylesheet" media="screen">
+					<link href="css/bootstrap-fileupload.css" rel="stylesheet" media="screen">
+				</head>
+				<body>
+					<div id="wrap"> 
+						<div class="container"> 
+							<div class="page-header">
+								<h2>Programming Design Online Grading System</h2>
 							</div>
-						</div>
-						<div id="load" > 
-							<span class="spin"><i class="icon-spinner icon-spin icon-2x pull-left"></i>Loading... </span>
-						</div>
-						
-						<!-- 使用ajax刷新 將所有各功能頁面更新於此div區塊 -->
-						<div id="main-content">
-							
-						</div>
-					</div>
-				</div>
-				<div id="footer">
-					<div class="container">
-						<p class="muted credit">© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p>
-					</div>
-				</div>
-				<div id="footer2">
-				</div>
-			</body>
-			<script src="http://code.jquery.com/jquery.js"></script>
-			<script src="js/bootstrap.min.js"></script>
-			<script src="js/bootstrap-fileupload.min.js"></script>
-			<script src="js/jquery.form.js"></script>
-			<script src="js/nav.js"></script>
-			
-		</html>
-<?php
-	} else if ($type[0] == 0 ) {
-    //使用者登入成功 顯示PDOGS主頁面
-	//進入助教頁面
-	//echo 'have session<br>';
-?>
-		<!DOCTYPE html>
-		<html>
-			<head>
-				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
-				<title>Programming Design Online Grading System</title>
-				<link href="css/bootstrap.css" rel="stylesheet" media="screen">
-				<link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
-				<link href="css/sticky-footer.css" rel="stylesheet" media="screen">
-				<link href="css/main.css" rel="stylesheet" media="screen">
-				<link href="css/bootstrap-fileupload.css" rel="stylesheet" media="screen">
-			</head>
-			<body>
-				<div id="wrap"> 
-					<div class="container"> 
-						<div class="page-header">
-							<h2>Programming Design Online Grading System</h2>
-						</div>
-						<div class="navbar">
-							<div class="navbar-inner">
-								<a class="brand" >PDOGS</a>
-								<ul class="nav">
-									<!--
-									<li id="home-btn" class="active"><a>Home</a></li>
-									-->
-									<li id="users-btn"><a>Users</a></li>
-			
-									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Create Problem<b class="caret"></b></a>
-										<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-											<?php
-												$query_pd = 'SELECT p_id FROM pd_hw ORDER BY p_id';
+							<div class="navbar">
+								<div class="navbar-inner">
+									<a class="brand" >PDOGS</a>
+									<ul class="nav">
+										<!--
+										<li id="home-btn" class="active"><a>Home</a></li>
+										-->
+										
+										<li id="problem-btn"><a>Problem Set</a></li>
+										
+										<li class="dropdown">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Submit Class HW<b class="caret"></b></a>
+											<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+											<?php 
+												$pd_count = 0;
+												$query_pd = 'SELECT p_id, deadline FROM pd_hw ';
 												$pd = mysql_query($query_pd);
-												$max = 0 ;
 												while ($fetch_pd = mysql_fetch_row($pd)){
-													$max ++ ;
+													if ( $fetch_pd[1] > $datetime ){
+														$append = substr('PD000', 0, -strlen($fetch_pd[0]));
+														?><li class="hw-btn" role = "presentation" name="<?php echo $append.$fetch_pd[0]; ?>">
+														<a role="menuitem"  tabindex="-1" ><?php echo $append.$fetch_pd[0]; ?></a></li> <?php									
+														$pd_count++;
+													} 
 												}
-												$append = substr('PD000', 0, -strlen($max+1));
-
-												$query_lab = 'SELECT lab_id FROM lab_hw ORDER BY lab_id';
+												if ( $pd_count == 0 ){
+													?><li role = "presentation"><a role="menuitem" tabindex="-1" >No problem available</a></li><?php
+												}
+											?>	
+											</ul>
+										</li>
+										
+										<li class="dropdown">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Submit Lab HW<b class="caret"></b></a>
+											<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+											<?php 
+												$lab_count = 0;
+												$query_lab = 'SELECT lab_id, deadline FROM lab_hw';
 												$lab = mysql_query($query_lab);
-												$max2 = 0 ;
 												while ($fetch_lab = mysql_fetch_row($lab)){
-													$max2 ++ ;
+													if ( $fetch_lab[1] > $datetime ){
+														$append = substr('LAB000', 0, -strlen($fetch_lab[0]));
+														?><li class="lab-btn" role = "presentation" name="<?php echo $append,$fetch_lab[0]; ?>">
+														<a role="menuitem" tabindex="-1" ><?php echo $append.$fetch_lab[0]; ?></a></li><?php 
+														$lab_count++;
+													}
 												}
-												$append2 = substr('LAB000', 0, -strlen($max2+1));
+												if ( $lab_count == 0 ){
+													?><li role = "presentation"><a role="menuitem" tabindex="-1" >No problem available</a></li><?php
+												}
+											?>	
+											</ul>
+										</li>
+							 			
+										<li class="dropdown">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Project<b class="caret"></b></a>
+											<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">	
+											<?php
+												$query_project = 'SELECT deadline FROM project WHERE onjudge = 1';
+												$project = mysql_query($query_project);
+												$fetch_project = mysql_fetch_row($project);
+												if ( $fetch_project[0] > $datetime ){?>
+												<li class="project-btn" role = "presentation" name="Submit">
+													<a role="menuitem" tabindex="-1" >Submit</a>
+												</li><?php 
+												}
 											?>
-											<li class="createproblem-btn" role = "presentation" name="<?php echo $append.($max +1); ?>">
-												<a role="menuitem"  tabindex="-1" ><?php echo $append.($max +1); ?></a>
-											</li>
-											<li class="createproblem-btn" role = "presentation" name="<?php echo $append2.($max2 +1); ?>">
-												<a role="menuitem"  tabindex="-1" ><?php echo $append2.($max2 +1); ?></a>
-											</li>												
-										</ul>
-									</li>
-								    <li id="problemlist-btn"><a>Problem List</a></li>
-								    <li id="users-btn"><a>Upload Records</a></li>
-								    <li id="users-btn"><a>All Scores</a></li>
-								</ul>
-								<ul class="nav pull-right">
-									<li class="divider-vertical"></li>
-									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi, <?php echo $_SESSION['account'];?><b class="caret"></b></a>
-										<ul class="dropdown-menu">
-										<li><a href="#">Change Password</a></li>
-										<li class="divider"></li>
-										<li><a href="logout.php">Logout</a></li>
-										</ul>
-									</li>
-								</ul>
+												<li class="project-btn" role = "presentation" name="Ranking">
+													<a role="menuitem" tabindex="-1" >Ranking</a>
+												</li>
+											</ul>
+										</li>
+
+									
+									</ul>
+									
+									<ul class="nav pull-right">
+										<li class="divider-vertical"></li>
+										<li class="dropdown">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi, <?php echo $_SESSION['account'];?><b class="caret"></b></a>
+											<ul class="dropdown-menu">
+											<li><a href="profile.php">My Profile</a></li>
+											<li><a href="#">Change Password</a></li>
+											<li class="divider"></li>
+											<li><a href="logout.php">Logout</a></li>
+											</ul>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div id="load" > 
+								<span class="spin"><i class="icon-spinner icon-spin icon-2x pull-left"></i>Loading... </span>
+							</div>
+							
+							<!-- 使用ajax刷新 將所有各功能頁面更新於此div區塊 -->
+							<div id="main-content">
+								
 							</div>
 						</div>
-						<div id="load" > 
-							<span class="spin"><i class="icon-spinner icon-spin icon-2x pull-left"></i>Loading... </span>
+					</div>
+					<div id="footer">
+						<div class="container">
+							<p class="muted credit">© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p>
 						</div>
-						
-						<!-- 使用ajax刷新 將所有各功能頁面更新於此div區塊 -->
-						<div id="main-content">
+					</div>
+					<div id="footer2">
+					</div>
+				</body>
+				<script src="http://code.jquery.com/jquery.js"></script>
+				<script src="js/bootstrap.min.js"></script>
+				<script src="js/bootstrap-fileupload.min.js"></script>
+				<script src="js/jquery.form.js"></script>
+				<script src="js/nav.js"></script>
+				<script src="js/upload.js"></script>
+			</html>
+	<?php
+		} else if ($type[0] == 0 ) {
+	    //使用者登入成功 顯示PDOGS主頁面
+		//進入助教頁面
+		//echo 'have session<br>';
+	?>
+			<!DOCTYPE html>
+			<html>
+				<head>
+					<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+					<title>Programming Design Online Grading System</title>
+					<link href="css/bootstrap.css" rel="stylesheet" media="screen">
+					<link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
+					<link href="css/sticky-footer.css" rel="stylesheet" media="screen">
+					<link href="css/main.css" rel="stylesheet" media="screen">
+					<link href="css/bootstrap-fileupload.css" rel="stylesheet" media="screen">
+				</head>
+				<body>
+					<div id="wrap"> 
+						<div class="container"> 
+							<div class="page-header">
+								<h2>Programming Design Online Grading System</h2>
+							</div>
+							<div class="navbar">
+								<div class="navbar-inner">
+									<a class="brand" >PDOGS</a>
+									<ul class="nav">
+										<!--
+										<li id="home-btn" class="active"><a>Home</a></li>
+										-->
+										<li id="users-btn"><a>Users</a></li>
+				
+										<li class="dropdown">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Create Problem<b class="caret"></b></a>
+											<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+												<?php
+													$query_pd = 'SELECT p_id FROM pd_hw ORDER BY p_id';
+													$pd = mysql_query($query_pd);
+													$max = 0 ;
+													while ($fetch_pd = mysql_fetch_row($pd)){
+														$max ++ ;
+													}
+													$append = substr('PD000', 0, -strlen($max+1));
+
+													$query_lab = 'SELECT lab_id FROM lab_hw ORDER BY lab_id';
+													$lab = mysql_query($query_lab);
+													$max2 = 0 ;
+													while ($fetch_lab = mysql_fetch_row($lab)){
+														$max2 ++ ;
+													}
+													$append2 = substr('LAB000', 0, -strlen($max2+1));
+												?>
+												<li class="createproblem-btn" role = "presentation" name="<?php echo $append.($max +1); ?>">
+													<a role="menuitem"  tabindex="-1" ><?php echo $append.($max +1); ?></a>
+												</li>
+												<li class="createproblem-btn" role = "presentation" name="<?php echo $append2.($max2 +1); ?>">
+													<a role="menuitem"  tabindex="-1" ><?php echo $append2.($max2 +1); ?></a>
+												</li>												
+											</ul>
+										</li>
+									    <li id="problemlist-btn"><a>Problem List</a></li>
+									    <li id="users-btn"><a>Upload Records</a></li>
+									    <li id="users-btn"><a>All Scores</a></li>
+									</ul>
+									<ul class="nav pull-right">
+										<li class="divider-vertical"></li>
+										<li class="dropdown">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi, <?php echo $_SESSION['account'];?><b class="caret"></b></a>
+											<ul class="dropdown-menu">
+											<li><a href="#">Change Password</a></li>
+											<li class="divider"></li>
+											<li><a href="logout.php">Logout</a></li>
+											</ul>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div id="load" > 
+								<span class="spin"><i class="icon-spinner icon-spin icon-2x pull-left"></i>Loading... </span>
+							</div>
 							
+							<!-- 使用ajax刷新 將所有各功能頁面更新於此div區塊 -->
+							<div id="main-content">
+								
+							</div>
 						</div>
 					</div>
-				</div>
-				<div id="footer">
-					<div class="container">
-						<p class="muted credit">© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p>
+					<div id="footer">
+						<div class="container">
+							<p class="muted credit">© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p>
+						</div>
 					</div>
-				</div>
-				<div id="footer2">
-				</div>
-			</body>
-			<script src="http://code.jquery.com/jquery.js"></script>
-			<script src="js/bootstrap.min.js"></script>
-			<script src="js/bootstrap-fileupload.min.js"></script>
-			<script src="js/jquery.form.js"></script>
-			<script src="js/nav.js"></script>					
-		</html>	
+					<div id="footer2">
+					</div>
+				</body>
+				<script src="http://code.jquery.com/jquery.js"></script>
+				<script src="js/bootstrap.min.js"></script>
+				<script src="js/bootstrap-fileupload.min.js"></script>
+				<script src="js/jquery.form.js"></script>
+				<script src="js/nav.js"></script>	
+				<script src="js/upload.js"></script>				
+			</html>	
 <?php
+		}
 	}
 ?>

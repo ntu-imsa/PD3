@@ -1,0 +1,40 @@
+[2013-06-16 17:57:01] :
+[2013-06-16 18:08:57] :
+[2013-06-20 01:54:16] :
+[2013-06-23 17:43:33] :
+.\project\PJ001\0\PJ001.cpp: In function 'int main()':
+.\project\PJ001\0\PJ001.cpp:15:3: error: 'd' was not declared in this scope
+.\project\PJ001\0\PJ001.cpp:16:2: error: expected ';' before 'return'
+[2013-06-23 17:44:15] :
+.\project\PJ001\0\PJ001.cpp: In function 'int main()':
+.\project\PJ001\0\PJ001.cpp:15:3: error: 'd' was not declared in this scope
+.\project\PJ001\0\PJ001.cpp:16:2: error: expected ';' before 'return'
+[2013-06-23 17:45:13] :
+.\project\PJ001\0\PJ001.cpp: In function 'int main()':
+.\project\PJ001\0\PJ001.cpp:15:3: error: 'd' was not declared in this scope
+.\project\PJ001\0\PJ001.cpp:16:2: error: expected ';' before 'return'
+[2013-06-23 17:46:13] :
+.\project\PJ001\0\PJ001.cpp: In function 'int main()':
+.\project\PJ001\0\PJ001.cpp:15:3: error: 'd' was not declared in this scope
+.\project\PJ001\0\PJ001.cpp:16:2: error: expected ';' before 'return'
+[2013-06-23 17:46:36] :
+.\project\PJ001\0\PJ001.cpp: In function 'int main()':
+.\project\PJ001\0\PJ001.cpp:15:3: error: 'd' was not declared in this scope
+.\project\PJ001\0\PJ001.cpp:16:2: error: expected ';' before 'return'
+[2013-06-23 17:47:36] :
+.\project\PJ001\0\PJ001.cpp: In function 'int main()':
+.\project\PJ001\0\PJ001.cpp:15:3: error: 'd' was not declared in this scope
+.\project\PJ001\0\PJ001.cpp:16:2: error: expected ';' before 'return'
+[2013-06-23 17:48:13] :
+.\project\PJ001\0\PJ001.cpp: In function 'int main()':
+.\project\PJ001\0\PJ001.cpp:15:3: error: 'd' was not declared in this scope
+.\project\PJ001\0\PJ001.cpp:16:2: error: expected ';' before 'return'
+[2013-06-23 17:49:49] :
+.\project\PJ001\0\PJ001.cpp: In function 'int main()':
+.\project\PJ001\0\PJ001.cpp:15:3: error: 'd' was not declared in this scope
+.\project\PJ001\0\PJ001.cpp:16:2: error: expected ';' before 'return'
+[2013-06-23 17:50:41] :
+.\project\PJ001\0\PJ001.cpp: In function 'int main()':
+.\project\PJ001\0\PJ001.cpp:15:3: error: 'd' was not declared in this scope
+.\project\PJ001\0\PJ001.cpp:16:2: error: expected ';' before 'return'
+[2013-06-27 06:35:49] :

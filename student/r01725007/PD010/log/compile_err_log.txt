@@ -1,0 +1,298 @@
+[2013-06-27 05:56:12] :
+[2013-06-27 05:59:12] :
+[2013-06-27 06:02:42] :
+[2013-06-27 06:05:22] :
+[2013-06-27 06:08:26] :
+[2013-06-27 06:10:04] :
+[2013-06-27 06:11:24] :
+[2013-06-27 06:13:35] :
+[2013-06-27 06:29:08] :
+[2013-06-27 06:32:22] :
+[2013-06-27 10:13:35] :
+[2013-06-27 10:15:42] :
+[2013-06-27 10:17:50] :
+[2013-06-27 10:20:04] :
+[2013-06-27 10:23:37] :
+[2013-06-27 10:26:23] :
+[2013-06-27 10:39:25] :
+[2013-06-27 10:40:33] :
+[2013-06-27 10:42:50] :
+[2013-06-27 10:44:34] :
+[2013-06-27 10:46:49] :
+[2013-06-27 10:48:08] :
+[2013-06-27 10:50:32] :
+[2013-06-27 10:53:06] :
+[2013-06-27 11:00:55] :
+.\student\r01725007\PD010\r01725007-PD010.cpp: In function 'int main()':
+.\student\r01725007\PD010\r01725007-PD010.cpp:37:20: error: no match for 'operator>>' in 'std::cin >> *(integer + ((sizetype)(((long long unsigned int)i) * 8ull)))'
+.\student\r01725007\PD010\r01725007-PD010.cpp:37:20: note: candidates are:
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:41:0,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:118:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(std::basic_istream<_CharT, _Traits>::__istream_type& (*)(std::basic_istream<_CharT, _Traits>::__istream_type&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:118:7: note:   no known conversion for argument 1 from 'Point' to 'std::basic_istream<char>::__istream_type& (*)(std::basic_istream<char>::__istream_type&) {aka std::basic_istream<char>& (*)(std::basic_istream<char>&)}'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:122:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(std::basic_istream<_CharT, _Traits>::__ios_type& (*)(std::basic_istream<_CharT, _Traits>::__ios_type&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>; std::basic_istream<_CharT, _Traits>::__ios_type = std::basic_ios<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:122:7: note:   no known conversion for argument 1 from 'Point' to 'std::basic_istream<char>::__ios_type& (*)(std::basic_istream<char>::__ios_type&) {aka std::basic_ios<char>& (*)(std::basic_ios<char>&)}'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:129:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(std::ios_base& (*)(std::ios_base&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:129:7: note:   no known conversion for argument 1 from 'Point' to 'std::ios_base& (*)(std::ios_base&)'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:166:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(bool&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:166:7: note:   no known conversion for argument 1 from 'Point' to 'bool&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:170:7: note: std::basic_istream<_CharT, _Traits>& std::basic_istream<_CharT, _Traits>::operator>>(short int&) [with _CharT = char; _Traits = std::char_traits<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:170:7: note:   no known conversion for argument 1 from 'Point' to 'short int&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:173:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(short unsigned int&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:173:7: note:   no known conversion for argument 1 from 'Point' to 'short unsigned int&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:177:7: note: std::basic_istream<_CharT, _Traits>& std::basic_istream<_CharT, _Traits>::operator>>(int&) [with _CharT = char; _Traits = std::char_traits<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:177:7: note:   no known conversion for argument 1 from 'Point' to 'int&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:180:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(unsigned int&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:180:7: note:   no known conversion for argument 1 from 'Point' to 'unsigned int&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:184:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(long int&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:184:7: note:   no known conversion for argument 1 from 'Point' to 'long int&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:188:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(long unsigned int&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:188:7: note:   no known conversion for argument 1 from 'Point' to 'long unsigned int&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:193:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(long long int&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:193:7: note:   no known conversion for argument 1 from 'Point' to 'long long int&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:197:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(long long unsigned int&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:197:7: note:   no known conversion for argument 1 from 'Point' to 'long long unsigned int&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:212:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(float&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:212:7: note:   no known conversion for argument 1 from 'Point' to 'float&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:216:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(double&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:216:7: note:   no known conversion for argument 1 from 'Point' to 'double&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:220:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(long double&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:220:7: note:   no known conversion for argument 1 from 'Point' to 'long double&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:233:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(void*&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:233:7: note:   no known conversion for argument 1 from 'Point' to 'void*&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:257:7: note: std::basic_istream<_CharT, _Traits>& std::basic_istream<_CharT, _Traits>::operator>>(std::basic_istream<_CharT, _Traits>::__streambuf_type*) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__streambuf_type = std::basic_streambuf<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:257:7: note:   no known conversion for argument 1 from 'Point' to 'std::basic_istream<char>::__streambuf_type* {aka std::basic_streambuf<char>*}'
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/string:55:0,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/locale_classes.h:42,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/ios_base.h:43,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/ios:43,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/ostream:40,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:40,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/basic_string.tcc:998:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_istream<_CharT, _Traits>& std::operator>>(std::basic_istream<_CharT, _Traits>&, std::basic_string<_CharT, _Traits, _Alloc>&)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/basic_string.tcc:998:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:37:20: note:   'Point' is not derived from 'std::basic_string<_CharT, _Traits, _Alloc>'
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:873:0,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:41,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/istream.tcc:957:5: note: template<class _CharT2, class _Traits2> std::basic_istream<_CharT, _Traits>& std::operator>>(std::basic_istream<_CharT, _Traits>&, _CharT2*)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/istream.tcc:957:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:37:20: note:   mismatched types '_CharT2*' and 'Point'
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:873:0,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:41,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/istream.tcc:925:5: note: template<class _CharT, class _Traits> std::basic_istream<_CharT, _Traits>& std::operator>>(std::basic_istream<_CharT, _Traits>&, _CharT&)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/istream.tcc:925:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:37:20: note:   deduced conflicting types for parameter '_CharT' ('char' and 'Point')
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:41:0,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:725:5: note: template<class _Traits> std::basic_istream<char, _Traits>& std::operator>>(std::basic_istream<char, _Traits>&, unsigned char&)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:725:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:37:20: note:   cannot convert '*(integer + ((sizetype)(((long long unsigned int)i) * 8ull)))' (type 'Point') to type 'unsigned char&'
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:41:0,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:730:5: note: template<class _Traits> std::basic_istream<char, _Traits>& std::operator>>(std::basic_istream<char, _Traits>&, signed char&)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:730:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:37:20: note:   cannot convert '*(integer + ((sizetype)(((long long unsigned int)i) * 8ull)))' (type 'Point') to type 'signed char&'
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:41:0,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:772:5: note: template<class _Traits> std::basic_istream<char, _Traits>& std::operator>>(std::basic_istream<char, _Traits>&, unsigned char*)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:772:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:37:20: note:   cannot convert '*(integer + ((sizetype)(((long long unsigned int)i) * 8ull)))' (type 'Point') to type 'unsigned char*'
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:41:0,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:777:5: note: template<class _Traits> std::basic_istream<char, _Traits>& std::operator>>(std::basic_istream<char, _Traits>&, signed char*)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:777:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:37:20: note:   cannot convert '*(integer + ((sizetype)(((long long unsigned int)i) * 8ull)))' (type 'Point') to type 'signed char*'
+.\student\r01725007\PD010\r01725007-PD010.cpp:41:23: error: no match for 'operator[]' in '* table1[* integer]'
+.\student\r01725007\PD010\r01725007-PD010.cpp:48:22: error: no match for 'operator-' in 'j - *(integer + ((sizetype)(((long long unsigned int)i) * 8ull)))'
+.\student\r01725007\PD010\r01725007-PD010.cpp:48:22: note: candidates are:
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_algobase.h:68:0,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/char_traits.h:41,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/ios:41,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/ostream:40,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:40,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_iterator.h:329:5: note: template<class _Iterator> typename std::reverse_iterator::difference_type std::operator-(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_Iterator>&)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_iterator.h:329:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:48:22: note:   mismatched types 'const std::reverse_iterator<_Iterator>' and 'int'
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_algobase.h:68:0,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/char_traits.h:41,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/ios:41,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/ostream:40,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:40,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_iterator.h:386:5: note: template<class _IteratorL, class _IteratorR> typename std::reverse_iterator<_IteratorL>::difference_type std::operator-(const std::reverse_iterator<_IteratorL>&, const std::reverse_iterator<_IteratorR>&)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_iterator.h:386:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:48:22: note:   mismatched types 'const std::reverse_iterator<_IteratorL>' and 'int'
+.\student\r01725007\PD010\r01725007-PD010.cpp:48:57: error: no match for 'operator-' in 'j - *(integer + ((sizetype)(((long long unsigned int)i) * 8ull)))'
+.\student\r01725007\PD010\r01725007-PD010.cpp:48:57: note: candidates are:
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_algobase.h:68:0,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/char_traits.h:41,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/ios:41,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/ostream:40,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:40,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_iterator.h:329:5: note: template<class _Iterator> typename std::reverse_iterator::difference_type std::operator-(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_Iterator>&)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_iterator.h:329:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:48:57: note:   mismatched types 'const std::reverse_iterator<_Iterator>' and 'int'
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_algobase.h:68:0,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/char_traits.h:41,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/ios:41,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/ostream:40,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:40,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_iterator.h:386:5: note: template<class _IteratorL, class _IteratorR> typename std::reverse_iterator<_IteratorL>::difference_type std::operator-(const std::reverse_iterator<_IteratorL>&, const std::reverse_iterator<_IteratorR>&)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_iterator.h:386:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:48:57: note:   mismatched types 'const std::reverse_iterator<_IteratorL>' and 'int'
+.\student\r01725007\PD010\r01725007-PD010.cpp:62:20: error: no match for 'operator>>' in 'std::cin >> *(integer + ((sizetype)(((long long unsigned int)i) * 8ull)))'
+.\student\r01725007\PD010\r01725007-PD010.cpp:62:20: note: candidates are:
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:41:0,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:118:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(std::basic_istream<_CharT, _Traits>::__istream_type& (*)(std::basic_istream<_CharT, _Traits>::__istream_type&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:118:7: note:   no known conversion for argument 1 from 'Point' to 'std::basic_istream<char>::__istream_type& (*)(std::basic_istream<char>::__istream_type&) {aka std::basic_istream<char>& (*)(std::basic_istream<char>&)}'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:122:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(std::basic_istream<_CharT, _Traits>::__ios_type& (*)(std::basic_istream<_CharT, _Traits>::__ios_type&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>; std::basic_istream<_CharT, _Traits>::__ios_type = std::basic_ios<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:122:7: note:   no known conversion for argument 1 from 'Point' to 'std::basic_istream<char>::__ios_type& (*)(std::basic_istream<char>::__ios_type&) {aka std::basic_ios<char>& (*)(std::basic_ios<char>&)}'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:129:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(std::ios_base& (*)(std::ios_base&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:129:7: note:   no known conversion for argument 1 from 'Point' to 'std::ios_base& (*)(std::ios_base&)'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:166:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(bool&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:166:7: note:   no known conversion for argument 1 from 'Point' to 'bool&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:170:7: note: std::basic_istream<_CharT, _Traits>& std::basic_istream<_CharT, _Traits>::operator>>(short int&) [with _CharT = char; _Traits = std::char_traits<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:170:7: note:   no known conversion for argument 1 from 'Point' to 'short int&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:173:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(short unsigned int&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:173:7: note:   no known conversion for argument 1 from 'Point' to 'short unsigned int&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:177:7: note: std::basic_istream<_CharT, _Traits>& std::basic_istream<_CharT, _Traits>::operator>>(int&) [with _CharT = char; _Traits = std::char_traits<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:177:7: note:   no known conversion for argument 1 from 'Point' to 'int&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:180:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(unsigned int&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:180:7: note:   no known conversion for argument 1 from 'Point' to 'unsigned int&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:184:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(long int&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:184:7: note:   no known conversion for argument 1 from 'Point' to 'long int&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:188:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(long unsigned int&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:188:7: note:   no known conversion for argument 1 from 'Point' to 'long unsigned int&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:193:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(long long int&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:193:7: note:   no known conversion for argument 1 from 'Point' to 'long long int&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:197:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(long long unsigned int&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:197:7: note:   no known conversion for argument 1 from 'Point' to 'long long unsigned int&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:212:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(float&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:212:7: note:   no known conversion for argument 1 from 'Point' to 'float&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:216:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(double&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:216:7: note:   no known conversion for argument 1 from 'Point' to 'double&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:220:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(long double&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:220:7: note:   no known conversion for argument 1 from 'Point' to 'long double&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:233:7: note: std::basic_istream<_CharT, _Traits>::__istream_type& std::basic_istream<_CharT, _Traits>::operator>>(void*&) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__istream_type = std::basic_istream<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:233:7: note:   no known conversion for argument 1 from 'Point' to 'void*&'
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:257:7: note: std::basic_istream<_CharT, _Traits>& std::basic_istream<_CharT, _Traits>::operator>>(std::basic_istream<_CharT, _Traits>::__streambuf_type*) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_istream<_CharT, _Traits>::__streambuf_type = std::basic_streambuf<char>]
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:257:7: note:   no known conversion for argument 1 from 'Point' to 'std::basic_istream<char>::__streambuf_type* {aka std::basic_streambuf<char>*}'
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/string:55:0,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/locale_classes.h:42,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/ios_base.h:43,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/ios:43,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/ostream:40,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:40,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/basic_string.tcc:998:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_istream<_CharT, _Traits>& std::operator>>(std::basic_istream<_CharT, _Traits>&, std::basic_string<_CharT, _Traits, _Alloc>&)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/basic_string.tcc:998:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:62:20: note:   'Point' is not derived from 'std::basic_string<_CharT, _Traits, _Alloc>'
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:873:0,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:41,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/istream.tcc:957:5: note: template<class _CharT2, class _Traits2> std::basic_istream<_CharT, _Traits>& std::operator>>(std::basic_istream<_CharT, _Traits>&, _CharT2*)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/istream.tcc:957:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:62:20: note:   mismatched types '_CharT2*' and 'Point'
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:873:0,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:41,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/istream.tcc:925:5: note: template<class _CharT, class _Traits> std::basic_istream<_CharT, _Traits>& std::operator>>(std::basic_istream<_CharT, _Traits>&, _CharT&)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/istream.tcc:925:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:62:20: note:   deduced conflicting types for parameter '_CharT' ('char' and 'Point')
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:41:0,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:725:5: note: template<class _Traits> std::basic_istream<char, _Traits>& std::operator>>(std::basic_istream<char, _Traits>&, unsigned char&)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:725:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:62:20: note:   cannot convert '*(integer + ((sizetype)(((long long unsigned int)i) * 8ull)))' (type 'Point') to type 'unsigned char&'
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:41:0,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:730:5: note: template<class _Traits> std::basic_istream<char, _Traits>& std::operator>>(std::basic_istream<char, _Traits>&, signed char&)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:730:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:62:20: note:   cannot convert '*(integer + ((sizetype)(((long long unsigned int)i) * 8ull)))' (type 'Point') to type 'signed char&'
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:41:0,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:772:5: note: template<class _Traits> std::basic_istream<char, _Traits>& std::operator>>(std::basic_istream<char, _Traits>&, unsigned char*)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:772:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:62:20: note:   cannot convert '*(integer + ((sizetype)(((long long unsigned int)i) * 8ull)))' (type 'Point') to type 'unsigned char*'
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:41:0,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:777:5: note: template<class _Traits> std::basic_istream<char, _Traits>& std::operator>>(std::basic_istream<char, _Traits>&, signed char*)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/istream:777:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:62:20: note:   cannot convert '*(integer + ((sizetype)(((long long unsigned int)i) * 8ull)))' (type 'Point') to type 'signed char*'
+.\student\r01725007\PD010\r01725007-PD010.cpp:66:23: error: no match for 'operator[]' in '* table2[* integer]'
+.\student\r01725007\PD010\r01725007-PD010.cpp:73:22: error: no match for 'operator-' in 'j - *(integer + ((sizetype)(((long long unsigned int)i) * 8ull)))'
+.\student\r01725007\PD010\r01725007-PD010.cpp:73:22: note: candidates are:
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_algobase.h:68:0,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/char_traits.h:41,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/ios:41,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/ostream:40,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:40,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_iterator.h:329:5: note: template<class _Iterator> typename std::reverse_iterator::difference_type std::operator-(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_Iterator>&)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_iterator.h:329:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:73:22: note:   mismatched types 'const std::reverse_iterator<_Iterator>' and 'int'
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_algobase.h:68:0,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/char_traits.h:41,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/ios:41,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/ostream:40,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:40,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_iterator.h:386:5: note: template<class _IteratorL, class _IteratorR> typename std::reverse_iterator<_IteratorL>::difference_type std::operator-(const std::reverse_iterator<_IteratorL>&, const std::reverse_iterator<_IteratorR>&)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_iterator.h:386:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:73:22: note:   mismatched types 'const std::reverse_iterator<_IteratorL>' and 'int'
+.\student\r01725007\PD010\r01725007-PD010.cpp:73:57: error: no match for 'operator-' in 'j - *(integer + ((sizetype)(((long long unsigned int)i) * 8ull)))'
+.\student\r01725007\PD010\r01725007-PD010.cpp:73:57: note: candidates are:
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_algobase.h:68:0,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/char_traits.h:41,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/ios:41,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/ostream:40,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:40,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_iterator.h:329:5: note: template<class _Iterator> typename std::reverse_iterator::difference_type std::operator-(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_Iterator>&)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_iterator.h:329:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:73:57: note:   mismatched types 'const std::reverse_iterator<_Iterator>' and 'int'
+In file included from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_algobase.h:68:0,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/char_traits.h:41,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/ios:41,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/ostream:40,
+                 from c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/iostream:40,
+                 from .\student\r01725007\PD010\r01725007-PD010.cpp:1:
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_iterator.h:386:5: note: template<class _IteratorL, class _IteratorR> typename std::reverse_iterator<_IteratorL>::difference_type std::operator-(const std::reverse_iterator<_IteratorL>&, const std::reverse_iterator<_IteratorR>&)
+c:\cygnus\cygwin-b20\h-i586-cygwin32\bin\../lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++/bits/stl_iterator.h:386:5: note:   template argument deduction/substitution failed:
+.\student\r01725007\PD010\r01725007-PD010.cpp:73:57: note:   mismatched types 'const std::reverse_iterator<_IteratorL>' and 'int'
+.\student\r01725007\PD010\r01725007-PD010.cpp:82:35: error: expected primary-expression before '=' token
+.\student\r01725007\PD010\r01725007-PD010.cpp:85:3: error: expected ';' before '{' token
+.\student\r01725007\PD010\r01725007-PD010.cpp:108:1: error: expected '}' at end of input
+.\student\r01725007\PD010\r01725007-PD010.cpp:108:1: error: expected '}' at end of input
+[2013-06-27 11:03:21] :
+[2013-06-27 11:05:04] :
+[2013-06-27 11:06:33] :
+[2013-06-27 11:10:10] :
+[2013-06-27 11:55:11] :
+[2013-06-27 12:01:28] :
+[2013-06-27 12:03:34] :
+[2013-06-27 12:08:15] :
+[2013-06-27 12:35:48] :
+[2013-06-27 12:45:32] :
+[2013-06-27 12:48:49] :
+[2013-06-27 20:51:06] :
+[2013-06-27 20:52:50] :
+[2013-06-27 20:54:16] :
+[2013-06-27 20:55:46] :
+[2013-06-27 20:57:40] :
+[2013-06-27 20:59:13] :
+[2013-06-27 21:03:27] :
+[2013-06-27 21:04:57] :
+[2013-06-27 21:08:05] :
+[2013-06-27 21:10:02] :
+[2013-06-27 21:11:37] :
+[2013-06-27 21:13:14] :
+[2013-06-27 21:17:47] :
+[2013-06-27 21:19:03] :
+[2013-06-28 00:20:38] :

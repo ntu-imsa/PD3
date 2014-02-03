@@ -1,0 +1,8 @@
+[2013-06-28 01:10:03] :
+Traceback (most recent call last):
+  File "execute.py", line 26, in <module>
+    result = execute(sys.argv[1])
+  File "execute.py", line 11, in execute
+    infile = open(sys.argv[2], 'r').read()
+IOError: [Errno 2] No such file or directory: '.\\judgement\\PD011\\testing_data.txt'
+[2013-06-28 01:10:36] :

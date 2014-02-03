@@ -1,0 +1,67 @@
+A Alice AABBB 7
+A Alice AACCC 8
+A Jane DDFFF 6
+R Alice AABBB 10
+G Alice AABBB 6
+I Alice AABBB
+I Alice AACCC
+A Alice AAAAA 9
+P Alice
+C Alice AAAAA Jane DDFFF
+R Jane DDFFF 50
+G Jane DDFFF 60
+I Jane DDFFF
+M
+L
+D Jane DDFFF
+M
+S Alice Jane AABBB
+A Mary COCO 20
+R Mary COCO 20
+G Mary COCO 2
+C Alice AAAAA Mary COCO
+L
+G Mary COCO 8
+M
+I Mary COCO
+W Mary COCO
+I Mary COCO
+W Mary COCO
+I Mary COCO
+G Mary COCO 5
+I Mary COCO
+S Mary Alice COCO 
+S Alice Jane AAAAA
+S Jane Mary AABBB
+P Alice
+P Jane
+P Mary
+R Mary AABBB 50
+I Mary AABBB
+G Mary AABBB 20
+I Mary AABBB
+L
+W Mary AABBB
+G Mary AABBB 4
+I Mary AABBB
+A Jane INA 11
+A Jane INB 12
+A Jane INC 13
+P Jane
+I Jane INB
+C Jane INC Jane INA
+C Alice AACCC Jane INC
+C Jane INC Alice AACCC
+R Jane INB 20
+G Jane INB 30
+I Jane INB
+G Mary AABBB 1
+I Mary AABBB
+G Mary AABBB 19
+L
+M
+P Jane
+D Mary AABBB
+M
+D Alice COCO
+M

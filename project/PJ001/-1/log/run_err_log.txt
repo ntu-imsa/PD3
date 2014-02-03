@@ -1,0 +1,48 @@
+[2013-06-13 17:08:36] :
+[2013-06-13 17:10:47] :
+Traceback (most recent call last):
+  File "execute.py", line 26, in <module>
+    result = execute(sys.argv[1])
+  File "execute.py", line 14, in execute
+    outdata = p.communicate(infile)
+  File "C:\Python27\lib\subprocess.py", line 754, in communicate
+    return self._communicate(input)
+  File "C:\Python27\lib\subprocess.py", line 974, in _communicate
+    self.stdin.write(input)
+IOError: [Errno 22] Invalid argument
+[2013-06-13 17:11:26] :
+Traceback (most recent call last):
+  File "execute.py", line 26, in <module>
+    result = execute(sys.argv[1])
+  File "execute.py", line 14, in execute
+    outdata = p.communicate(infile)
+  File "C:\Python27\lib\subprocess.py", line 754, in communicate
+    return self._communicate(input)
+  File "C:\Python27\lib\subprocess.py", line 974, in _communicate
+    self.stdin.write(input)
+IOError: [Errno 22] Invalid argument
+[2013-06-13 17:14:24] :
+Traceback (most recent call last):
+  File "execute.py", line 26, in <module>
+    result = execute(sys.argv[1])
+  File "execute.py", line 14, in execute
+    outdata = p.communicate(infile)
+  File "C:\Python27\lib\subprocess.py", line 754, in communicate
+    return self._communicate(input)
+  File "C:\Python27\lib\subprocess.py", line 974, in _communicate
+    self.stdin.write(input)
+IOError: [Errno 22] Invalid argument
+[2013-06-13 22:10:25] :
+Traceback (most recent call last):
+  File "execute.py", line 26, in <module>
+    result = execute(sys.argv[1])
+  File "execute.py", line 14, in execute
+    outdata = p.communicate(infile)
+  File "C:\Python27\lib\subprocess.py", line 754, in communicate
+    return self._communicate(input)
+  File "C:\Python27\lib\subprocess.py", line 974, in _communicate
+    self.stdin.write(input)
+IOError: [Errno 22] Invalid argument
+[2013-06-14 02:03:52] :
+[2013-06-14 02:05:23] :
+[2013-06-15 17:09:24] :
