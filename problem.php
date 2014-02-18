@@ -29,9 +29,8 @@
 				<?php
 				$count = 0;
 				while ($fetch_pd = mysql_fetch_row($pd_id)){ 
-					$append = substr('PD000', 0, -strlen($fetch_pd[0]));
 					if ($count%3 == 0) echo '<tr>';?>
-					<td><a href='./problem/<?php echo $append.$fetch_pd[0]; ?>.pdf' target='_blank'><?php echo $append.$fetch_pd[0]; ?></a></td>
+					<td><a href='./problem/<?php echo $fetch_pd[0]; ?>.pdf' target='_blank'><?php echo $fetch_pd[0]; ?></a></td>
 					<?php
 					if ($count%3 == 2){
 						echo '</tr>';
@@ -47,9 +46,8 @@
 				<?php
 				$count = 0;
 				while ($fetch_lab = mysql_fetch_row($lab_id)){ 
-					$append = substr('LAB000', 0, -strlen($fetch_lab[0]));
 					if ($count%3 == 0) echo '<tr>';?>
-					<td><a href='./problem/<?php echo $append.$fetch_lab[0]; ?>.pdf' target='_blank'><?php echo $append.$fetch_lab[0]; ?></a></td>
+					<td><a href='./problem/<?php echo $fetch_lab[0]; ?>.pdf' target='_blank'><?php echo $fetch_lab[0]; ?></a></td>
 					<?php
 					if ($count%3 == 2){
 						echo '</tr>';

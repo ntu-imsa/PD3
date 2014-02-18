@@ -41,7 +41,6 @@
 					$fetch_lab = mysql_fetch_row($lab);
 					while ( $count < 15 ){
 						if ($fetch_pd[3] > $fetch_lab[3]){
-							$append = substr('PD000', 0, -strlen($fetch_pd[0]));
 							if ($fetch_pd[1] == 'Accepted'){
 								?><tr class="accept"><?php
 							} else if ($fetch_pd[1] == 'Compilation error' or $fetch_pd[1] == 'Runtime error'){
@@ -53,7 +52,7 @@
 							} else if ($fetch_pd[1] == 'System upload error'){
 								?><tr class="upload_error"><?php
 							} ?>
-								<td><?php echo $append.$fetch_pd[0];?></td>
+								<td><?php echo $fetch_pd[0];?></td>
 								<td><?php echo $fetch_pd[1];?></td>
 								<td><?php echo $fetch_pd[2].'s';?></td>
 								<td><?php echo $fetch_pd[3];?></td>
@@ -61,7 +60,6 @@
 							</tr> <?php
 							$fetch_pd = mysql_fetch_row($pd);
 						} else {
-							$append = substr('LAB000', 0, -strlen($fetch_lab[0]));
 							if ($fetch_lab[1] == 'Accepted'){
 								?><tr class="accept"><?php
 							} else if ($fetch_lab[1] == 'Compilation error' or $fetch_lab[1] == 'Runtime error'){
@@ -73,7 +71,7 @@
 							} else if ($fetch_lab[1] == 'System upload error'){
 								?><tr class="upload_error"><?php
 							} ?>
-								<td><?php echo $append.$fetch_lab[0];?></td>
+								<td><?php echo $fetch_lab[0];?></td>
 								<td><?php echo $fetch_lab[1];?></td>
 								<td><?php echo $fetch_lab[2].'s';?></td>
 								<td><?php echo $fetch_lab[3];?></td>

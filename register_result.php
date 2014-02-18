@@ -28,7 +28,7 @@
 		$max = mysql_query($uid) ;
 		$fetch_max = mysql_fetch_row($max);
 		$value = $fetch_max[0]+1 ;
-		$query = "INSERT INTO student(s_id, account, password) VALUES ('$value', '$acc', '$pw') " ;
+		$query = "INSERT INTO student(s_id, account, password, type) VALUES ('$value', '$acc', '$pw', 1) " ;
 		$result = mysql_query($query) ;
 		$check = "SELECT * FROM student WHERE account = '$acc' AND password = '$pw' " ;
 		$success = mysql_query($check) ; 

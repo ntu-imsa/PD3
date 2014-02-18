@@ -130,9 +130,7 @@
 										
 										<li id=""><a>Past Scores</a></li>
 
-										<li id="record-btn"><a>Records</a></li>
 										
-										<li id="score-btn"><a>Scores</a></li>
 									</ul>
 									
 									<ul class="nav pull-right">

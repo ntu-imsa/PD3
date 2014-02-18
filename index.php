@@ -26,7 +26,7 @@
 				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 				<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 				<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-				<title>Programming Design Online Grading System</title>
+				<title>Programming Design Online Grading System Ver 2.0</title>
 				<link rel="shortcut icon" href="../favicon.ico">
 				<link rel="stylesheet" type="text/css" href="css/style.css"/>
 				<link rel="stylesheet" type="text/css" href="css/sticky-footer.css"  media="screen"/>
@@ -37,7 +37,7 @@
 				<div id="wrap">
 					<div class="container">	
 						<header>
-							<h1><strong>PDOGS</strong> Programming Design Online Grading System</h1>
+							<h1><strong>PDOGS</strong> Programming Design Online Grading System Ver 2.0</h1>
 							<h2>First time visit? Please <span class="signup">Sign Up</span> with your Student ID or <span class="login">Login</span></h2>
 							<?php if (isset ($_GET['fail'])) echo 'Login fail !<br>'; ?>
 							<?php if (isset ($_GET['empty'])) echo 'Enter your account or pw !<br>'; ?>
@@ -84,7 +84,8 @@
 						<p class="muted credit">© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p>
 					</div>
 				</div>
-				<script src="http://code.jquery.com/jquery.js"></script>
+				<!--<script src="http://code.jquery.com/jquery.js"></script>-->
+				<script src="js/jquery.js"></script>
 				<script src="js/signup.js"></script>
 			</body>
 		</html>
@@ -127,27 +128,43 @@
 										<li id="problem-btn"><a>Problem Set</a></li>
 										
 										<li class="dropdown">
-											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Submit Class HW<b class="caret"></b></a>
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Submit Homework<b class="caret"></b></a>
 											<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 											<?php 
 												$pd_count = 0;
 												$query_pd = 'SELECT p_id, deadline FROM pd_hw ';
 												$pd = mysql_query($query_pd);
+
+												$lab_count = 0;
+												$query_lab = 'SELECT lab_id, deadline FROM lab_hw';
+												$lab = mysql_query($query_lab);
+												
 												while ($fetch_pd = mysql_fetch_row($pd)){
 													if ( $fetch_pd[1] > $datetime ){
-														$append = substr('PD000', 0, -strlen($fetch_pd[0]));
-														?><li class="hw-btn" role = "presentation" name="<?php echo $append.$fetch_pd[0]; ?>">
-														<a role="menuitem"  tabindex="-1" ><?php echo $append.$fetch_pd[0]; ?></a></li> <?php									
+														?><li class="hw-btn" role = "presentation" name="<?php echo $fetch_pd[0]; ?>">
+														<a role="menuitem"  tabindex="-1" ><?php echo $fetch_pd[0]; ?></a></li> <?php									
 														$pd_count++;
 													} 
 												}
-												if ( $pd_count == 0 ){
+							
+												while ($fetch_lab = mysql_fetch_row($lab)){
+													if ( $lab_count == 0){
+														echo '<li class="divider" role = "presentation">';
+													}
+													if ( $fetch_lab[1] > $datetime ){
+														?><li class="lab-btn" role = "presentation" name="<?php echo $fetch_lab[0]; ?>">
+														<a role="menuitem" tabindex="-1" ><?php echo $fetch_lab[0]; ?></a></li><?php 
+														$lab_count++;
+													}
+												}
+
+												if ( $pd_count == 0 and $lab_count == 0 ){
 													?><li role = "presentation"><a role="menuitem" tabindex="-1" >No problem available</a></li><?php
 												}
 											?>	
 											</ul>
 										</li>
-										
+										<!--
 										<li class="dropdown">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Submit Lab HW<b class="caret"></b></a>
 											<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -157,9 +174,8 @@
 												$lab = mysql_query($query_lab);
 												while ($fetch_lab = mysql_fetch_row($lab)){
 													if ( $fetch_lab[1] > $datetime ){
-														$append = substr('LAB000', 0, -strlen($fetch_lab[0]));
-														?><li class="lab-btn" role = "presentation" name="<?php echo $append,$fetch_lab[0]; ?>">
-														<a role="menuitem" tabindex="-1" ><?php echo $append.$fetch_lab[0]; ?></a></li><?php 
+														?><li class="lab-btn" role = "presentation" name="<?php echo $fetch_lab[0]; ?>">
+														<a role="menuitem" tabindex="-1" ><?php echo $fetch_lab[0]; ?></a></li><?php 
 														$lab_count++;
 													}
 												}
@@ -169,7 +185,7 @@
 											?>	
 											</ul>
 										</li>
-							 			
+							 			-->
 										<li class="dropdown">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Project<b class="caret"></b></a>
 											<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">	
@@ -189,7 +205,10 @@
 											</ul>
 										</li>
 
-									
+										<li id="record-btn"><a>Records</a></li>
+										
+										<li id="score-btn"><a>Scores</a></li>
+										
 									</ul>
 									
 									<ul class="nav pull-right">
@@ -197,7 +216,7 @@
 										<li class="dropdown">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi, <?php echo $_SESSION['account'];?><b class="caret"></b></a>
 											<ul class="dropdown-menu">
-											<li><a href="profile.php">My Profile</a></li>
+											<li><a href="profile.php">Past Problems</a></li>
 											<li><a href="#">Change Password</a></li>
 											<li class="divider"></li>
 											<li><a href="logout.php">Logout</a></li>
@@ -224,7 +243,8 @@
 					<div id="footer2">
 					</div>
 				</body>
-				<script src="http://code.jquery.com/jquery.js"></script>
+				<!--<script src="http://code.jquery.com/jquery.js"></script>-->
+				<script src="js/jquery.js"></script>
 				<script src="js/bootstrap.min.js"></script>
 				<script src="js/bootstrap-fileupload.min.js"></script>
 				<script src="js/jquery.form.js"></script>
@@ -326,7 +346,8 @@
 					<div id="footer2">
 					</div>
 				</body>
-				<script src="http://code.jquery.com/jquery.js"></script>
+				<!--<script src="http://code.jquery.com/jquery.js"></script>-->
+				<script src="js/jquery.js"></script>
 				<script src="js/bootstrap.min.js"></script>
 				<script src="js/bootstrap-fileupload.min.js"></script>
 				<script src="js/jquery.form.js"></script>

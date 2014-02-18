@@ -23,12 +23,13 @@
 		<form method="POST" action="result.php" id="fileUploadForm" enctype="multipart/form-data">
 			<div class="hero-unit upload_section">
 				<p class="hw-id"> 作業序號放這裡 </p> <?php 
-				$len = strlen($_POST['hwID']);
-				$num = (int)($_POST['hwID'][$len-3].$_POST['hwID'][$len-2].$_POST['hwID'][$len-1]);
-				if ($len == 5)
-					$query = "SELECT submit_code, submit_pdf FROM pd_hw WHERE p_id = '".$num."'";
-				else if ($len == 6) 
-					$query = "SELECT submit_code, submit_pdf FROM lab_hw WHERE lab_id = '".$num."'";
+				if ($_POST['hwID'][0] == 'P'){
+					$query = "SELECT submit_code, submit_pdf FROM pd_hw WHERE p_id = '".$_POST['hwID']."'";
+				} else if ($_POST['hwID'][0] == 'L'){
+					$query = "SELECT submit_code, submit_pdf FROM lab_hw WHERE lab_id = '".$_POST['hwID']."'";
+				} else if ($_POST['hwID'][0] == 'E'){
+					$query = "SELECT submit_code, submit_pdf FROM exam WHERE exam_id = '".$_POST['hwID']."'";
+				}
 				$submit = mysql_query($query);
 				$fetch_submit = mysql_fetch_row($submit);
 				if ($fetch_submit[0] == true){ //需要上傳cpp檔 ?>
@@ -82,6 +83,7 @@
 				} ?>
 			</div>
 		</form>
+		<script src="js/upload.js"></script>
 <?php
 	}
 ?>
