@@ -54,18 +54,18 @@
 		$score = 0;
 		$exec_result = 0;
 		$return = -1;
-		$len = strlen($_POST['problem_num']);
+		$fc = $_POST['problem_num'][0];
+		$ID = $_POST['problem_num'];
 		//根據是PD作業或是LAB作業取出題號
-		$num = (int)$_POST['problem_num'][$len-3].$_POST['problem_num'][$len-2].$_POST['problem_num'][$len-1];
-			
-		if ($len == 5){
-			$query = "SELECT deadline FROM pd_hw WHERE p_id = '".$num."'";
-			$command_judge = 'python judge.py '.$acc.' '.$_POST['problem_num'].' '.$num;   
-			$query_score = "SELECT total_score FROM pd_hw WHERE p_id = '".$num."'";
-		} else if($len == 6){
-			$query = "SELECT deadline FROM lab_hw WHERE lab_id = '".$num."'";
-			$command_judge = 'python labjudge.py '.$acc.' '.$_POST['problem_num'].' '.$num;  
-			$query_score = "SELECT total_score FROM lab_hw WHERE lab_id = '".$num."'";
+		
+		if ($fc == "P"){
+			$query = "SELECT deadline FROM pd_hw WHERE p_id = '".$_POST['problem_num']."'";
+			$command_judge = 'python judge.py '.$acc.' '.$_POST['problem_num'];   
+			$query_score = "SELECT total_score FROM pd_hw WHERE p_id = '".$_POST['problem_num']."'";
+		} else if($fc == "L"){
+			$query = "SELECT deadline FROM lab_hw WHERE lab_id = '".$_POST['problem_num']."'";
+			$command_judge = 'python labjudge.py '.$acc.' '.$_POST['problem_num'];  
+			$query_score = "SELECT total_score FROM lab_hw WHERE lab_id = '".$_POST['problem_num']."'";
 		}
 		$time = mysql_query($query);
 		$fetch_time = mysql_fetch_row($time);
@@ -105,7 +105,7 @@
 								$status = 'Runtime error';
 								$exec_result = 0;
 							} else{
-								//ex. python judge.py b01705001 PD001
+								//ex. python judge.py b01705001 PD14-1
 								$score = exec($command_judge, $return);
 								$s = mysql_query($query_score);
 								$fetch_s = mysql_fetch_row($s);
@@ -134,12 +134,12 @@
 				$id = mysql_query($query);
 				$fetch_id = mysql_fetch_row($id);
 				//echo $_POST['problem_num'][4];	
-				if ($len == 5){
+				if ($fc == "P"){
 					$insert = "INSERT INTO pd_score(s_id, p_id, status, time, exec_time, score) 
-						VALUES ('$fetch_id[0]', '$num', '$status', '$datetime', '$exec_result', '$score')" ;
-				} else if($len == 6){
+						VALUES ('$fetch_id[0]', '$ID', '$status', '$datetime', '$exec_result', '$score')" ;
+				} else if($fc == "L"){
 					$insert = "INSERT INTO lab_score(s_id, lab_id, status, time, exec_time, score) 
-						VALUES ('$fetch_id[0]', '$num', '$status', '$datetime', '$exec_result', '$score')" ;
+						VALUES ('$fetch_id[0]', '$ID', '$status', '$datetime', '$exec_result', '$score')" ;
 				}
 				$success = mysql_query($insert);
 			} else {   //超過死線
@@ -165,20 +165,16 @@
 							</tr>
 						</thead>
 						<tbody> <?php 
-							if ($len == 5){
+							if ($fc == "P"){
 								$query_rec = "SELECT p_id, status, exec_time, time, score FROM pd_score NATURAL JOIN student 
 											WHERE account = '".$acc."' ORDER BY time DESC";
-							} else if ($len == 6){
+							} else if ($fc == "L"){
 								$query_rec = "SELECT lab_id, status, exec_time, time, score FROM lab_score NATURAL JOIN student 
 											WHERE account = '".$acc."' ORDER BY time DESC";
 							}
 							$rec = mysql_query($query_rec);
 							$fetch_rec = mysql_fetch_row($rec);
-							if ($len == 5){
-								$append = substr('PD000', 0, -strlen($fetch_rec[0]));
-							} else if ($len == 6){
-								$append = substr('LAB000', 0, -strlen($fetch_rec[0]));
-							}
+							
 							if ($fetch_rec[1] == 'Accepted'){
 								?><tr class="accept"><?php
 							} else if ($fetch_rec[1] == 'Compilation error' or $fetch_rec[1] == 'Runtime error'){
@@ -190,7 +186,7 @@
 							} else if ($fetch_rec[1] == 'System upload error'){
 								?><tr class="upload_error"><?php
 							} ?>
-								<td><?php echo $append.$fetch_rec[0];?></td>
+								<td><?php echo $fetch_rec[0];?></td>
 								<td><?php echo $fetch_rec[1];?></td>
 								<td><?php echo $fetch_rec[2].'s';?></td>
 								<td><?php echo $fetch_rec[3];?></td>

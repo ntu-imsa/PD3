@@ -11,7 +11,7 @@ if __name__ == '__main__':
     conn = MySQLdb.connect(host="127.0.0.1",user="root",passwd="pdogsserver",db="pd course")  
     cursor = conn.cursor()   
 	
-    n = cursor.execute("SELECT total_score FROM lab_hw WHERE lab_id = '" + sys.argv[3] + "'")
+    n = cursor.execute("SELECT total_score FROM lab_hw WHERE lab_id = '" + sys.argv[2] + "'")
     row = cursor.fetchall() 
     #print row[0][0]
     total_score = 0
