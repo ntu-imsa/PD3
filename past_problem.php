@@ -2,7 +2,7 @@
 	session_start() ;
 	$db_host = 'localhost' ;
 	$db_database = 'pd course' ;
-	$db_username = 'root' ;
+	$db_username = 'pdogsserver' ;
 	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
 	if (!$connection)
 		die ("connection failed".mysql_error()) ;
@@ -15,32 +15,70 @@
 	if (!isset($_SESSION['account'])){
 		header ("Location:index.php") ;
 	} else {
-		$query_past = "SELECT past_id FROM past_hw";
-		$past_id = mysql_query($query_past);
 		
 ?>      
 		
 		<div class="hero-unit upload_section">
-			<p>Past Problems</p>
-			<table class="table table-hover">	
+			<h3>Past Problems</h3>
+				
 				<?php
-				$count = 0;
-				while ($fetch_past = mysql_fetch_row($past_id)){ 
-					
-					if ($count%3 == 0) echo '<tr>';?>
-					<td>
-						<button type='button' class='btn btn-link btn-large past-btn' name='<?php echo $fetch_past[0]?>'><?php echo $fetch_past[0]; ?></button>
-					</td>
-					<?php
-					if ($count%3 == 2){
-						echo '</tr>';
+				$year = 13;
+				$gonext = True;
+				$yearcount = 0;
+				while ($gonext){
+					$query_past = "SELECT past_id FROM past_hw WHERE past_id LIKE 'PD".(string)$year."%'";
+					$past_id = mysql_query($query_past);
+					if (mysql_num_rows($past_id)){?>
+						<h4>PD 20<?php echo $year;?></h4>
+						<p>Class Homework</p>
+						<table class="table table-hover"><?php
 						$count = 0;
+						while ($fetch_past = mysql_fetch_row($past_id)){ 
+							
+							if ($count%3 == 0) echo '<tr>';?>
+							<td>
+								<button type='button' class='btn btn-link btn-large past-btn' name='<?php echo $fetch_past[0]?>'><?php echo $fetch_past[0]; ?></button>
+							</td>
+							<?php
+							if ($count%3 == 2){
+								echo '</tr>';
+								$count = 0;
+							} else {
+								$count++;
+							}
+						}
+						$query_past = "SELECT past_id FROM past_hw WHERE past_id LIKE 'EX".(string)$year."%'";
+						$past_id = mysql_query($query_past);
+						if (mysql_num_rows($past_id)){?>
+							</table> 
+							<p>Lab Exam</p>
+							<table class="table table-hover"><?php
+							$count = 0;
+							while ($fetch_past = mysql_fetch_row($past_id)){ 
+								
+								if ($count%3 == 0) echo '<tr>';?>
+								<td>
+									<button type='button' class='btn btn-link btn-large past-btn' name='<?php echo $fetch_past[0]?>'><?php echo $fetch_past[0]; ?></button>
+								</td>
+								<?php
+								if ($count%3 == 2){
+									echo '</tr>';
+									$count = 0;
+								} else {
+									$count++;
+								}	
+							}
+						}?>
+						</table><?php
+						$year++;
 					} else {
-						$count++;
+						$gonext = False;
 					}
+					
 				}
+
 				?>
-			</table>
+			
 			
 		</div>
 		<script src="js/past.js"></script>

@@ -5,7 +5,7 @@
 	
 	$db_host = 'localhost' ;
 	$db_database = 'pd course' ;
-	$db_username = 'root' ;
+	$db_username = 'pdogsserver' ;
 	$student_dir = '.\\student\\'.$acc;
 	if ($acc == NULL or $_POST["password"] == NULL or $_POST["cpw"] == NULL)
 		header ("Location:index.php?empty=1") ;

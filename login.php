@@ -3,7 +3,7 @@
 	
 	$db_host = 'localhost' ;
 	$db_database = 'pd course' ;
-	$db_username = 'root' ;
+	$db_username = 'pdogsserver' ;
 	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
 	if (!$connection)
 		die ("connection failed".mysql_error()) ;

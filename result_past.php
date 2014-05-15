@@ -2,7 +2,7 @@
 	session_start() ;
 	$db_host = 'localhost' ;
 	$db_database = 'pd course' ;
-	$db_username = 'root' ;
+	$db_username = 'pdogsserver' ;
 	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
 	if (!$connection)
 		die ("connection failed".mysql_error()) ;
@@ -32,10 +32,14 @@
 
 			//echo $_POST['past_id'];
 			$acc = mysql_real_escape_string($_SESSION['account']);
-			$problem_dir = '.\\student\\'.$acc.'\\Past\\'.$_POST['past_id']; 
+			$past = '.\\student\\'.$acc.'\\past\\';
+			$problem_dir = $past.$_POST['past_id']; 
 			$log_dir = $problem_dir.'\\log';
 			$ans_dir = $problem_dir.'\\answer';
-				
+			
+			if (!is_dir($past))
+				mkdir($past);
+
 			if (!is_dir($problem_dir))
 				mkdir($problem_dir);
 					

@@ -2,7 +2,7 @@
 	session_start() ;
 	$db_host = 'localhost' ;
 	$db_database = 'pd course' ;
-	$db_username = 'root' ;
+	$db_username = 'pdogsserver' ;
 	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
 	if (!$connection)
 		die ("connection failed".mysql_error()) ;
@@ -46,10 +46,10 @@
 					$query_ID = "SELECT p_id FROM pd_hw";
 					$ID = mysql_query($query_ID);
 					$fetch_ID = mysql_fetch_row($ID);
-
-					$problem_set = "";
+					
+					$problem_set = "'".$fetch_ID[0]."'";
 					while ($fetch_ID = mysql_fetch_row($ID)){
-						$problem_set =  $problem_set."'".$fetch_ID[0]."',";
+						$problem_set =  $problem_set.",'".$fetch_ID[0]."'";
 					}
 					
 					//查詢使用者每個題目最新上傳的狀態和成績
@@ -57,9 +57,10 @@
 					$score = mysql_query($query_score);
 					$fetch_score = NULL;
 					//將結果顯示在畫面
-					if ($score != False)
+					if ($score != False){
 						$fetch_score = mysql_fetch_row($score);
-					
+					}
+
 					$ID = mysql_query($query_ID);
 					for ($i = 1; $i <= (int)$fetch_num[0]; $i++){
 						$fetch_ID = mysql_fetch_row($ID);
@@ -120,9 +121,9 @@
 					$ID = mysql_query($query_ID);
 					$fetch_ID = mysql_fetch_row($ID);
 
-					$problem_set = "";
+					$problem_set = "'".$fetch_ID[0]."'";
 					while ($fetch_ID = mysql_fetch_row($ID)){
-						$problem_set =  $problem_set."'".$fetch_ID[0]."',";
+						$problem_set =  $problem_set.",'".$fetch_ID[0]."'";
 					}
 					
 					//查詢使用者每個題目最新上傳的狀態和成績

@@ -8,7 +8,7 @@ if __name__ == '__main__':
     judge_path = './past/' + sys.argv[2] + '/'
     outputfile = open(hw_path + 'output.txt', 'r')
     answerfile = open(judge_path + 'answer.txt', 'r')
-    conn = MySQLdb.connect(host="127.0.0.1",user="root",passwd="pdogsserver",db="pd course")  
+    conn = MySQLdb.connect(host="127.0.0.1",user="pdogsserver",passwd="pdogsserver",db="pd course")  
     cursor = conn.cursor()   
 	
     n = cursor.execute("SELECT total_score FROM past_hw WHERE past_id = '" + sys.argv[3] + "'")

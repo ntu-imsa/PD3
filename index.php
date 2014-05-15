@@ -2,7 +2,7 @@
 	session_start() ;
 	$db_host = 'localhost' ;
 	$db_database = 'pd course' ;
-	$db_username = 'root' ;
+	$db_username = 'pdogsserver' ;
 	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
 	if (!$connection)
 		die ("connection failed".mysql_error()) ;
@@ -37,7 +37,7 @@
 				<div id="wrap">
 					<div class="container">	
 						<header>
-							<h1><strong>PDOGS</strong> Programming Design Online Grading System Ver 2.0</h1>
+							<h1><strong>Private PDOGS</strong> Programming Design Online Grading System</h1>
 							<h2>First time visit? Please <span class="signup">Sign Up</span> with your Student ID or <span class="login">Login</span></h2>
 							<?php if (isset ($_GET['fail'])) echo 'Login fail !<br>'; ?>
 							<?php if (isset ($_GET['empty'])) echo 'Enter your account or pw !<br>'; ?>
@@ -114,12 +114,12 @@
 				<body>
 					<div id="wrap"> 
 						<div class="container"> 
-							<div class="page-header">
+							<div class="page-header">	
 								<h2>Programming Design Online Grading System</h2>
 							</div>
 							<div class="navbar">
 								<div class="navbar-inner">
-									<a class="brand" >PDOGS</a>
+									<a class="brand" href="/PD/index.php">PDOGS</a>
 									<ul class="nav">
 										<!--
 										<li id="home-btn" class="active"><a>Home</a></li>
@@ -132,11 +132,11 @@
 											<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 											<?php 
 												$pd_count = 0;
-												$query_pd = 'SELECT p_id, deadline FROM pd_hw ';
+												$query_pd = 'SELECT p_id, deadline FROM pd_hw ORDER BY p_id';
 												$pd = mysql_query($query_pd);
 
 												$lab_count = 0;
-												$query_lab = 'SELECT lab_id, deadline FROM lab_hw';
+												$query_lab = 'SELECT lab_id, deadline FROM lab_hw ORDER BY lab_id';
 												$lab = mysql_query($query_lab);
 												
 												while ($fetch_pd = mysql_fetch_row($pd)){
@@ -148,10 +148,10 @@
 												}
 							
 												while ($fetch_lab = mysql_fetch_row($lab)){
-													if ( $lab_count == 0){
-														echo '<li class="divider" role = "presentation">';
-													}
 													if ( $fetch_lab[1] > $datetime ){
+														if ( $lab_count == 0){
+															echo '<li class="divider" role = "presentation">';
+														}
 														?><li class="lab-btn" role = "presentation" name="<?php echo $fetch_lab[0]; ?>">
 														<a role="menuitem" tabindex="-1" ><?php echo $fetch_lab[0]; ?></a></li><?php 
 														$lab_count++;
@@ -231,7 +231,7 @@
 							
 							<!-- 使用ajax刷新 將所有各功能頁面更新於此div區塊 -->
 							<div id="main-content">
-								
+								<?php require('home.php'); ?>
 							</div>
 						</div>
 					</div>
@@ -276,7 +276,7 @@
 							</div>
 							<div class="navbar">
 								<div class="navbar-inner">
-									<a class="brand" >PDOGS</a>
+									<a class="brand" href="/PD/index.php">PDOGS</a>
 									<ul class="nav">
 										<!--
 										<li id="home-btn" class="active"><a>Home</a></li>

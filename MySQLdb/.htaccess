@@ -1,0 +1,8 @@
+AuthType Basic
+AuthName "FORBIDDEN AREA"
+AuthUserfile "../htdocs/forbidden/.htpasswd"
+<Limit GET>
+Require valid-user
+</Limit>
+order deny, allow
+deny from all

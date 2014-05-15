@@ -2,7 +2,7 @@
 	session_start() ;
 	$db_host = 'localhost' ;
 	$db_database = 'pd course' ;
-	$db_username = 'root' ;
+	$db_username = 'pdogsserver' ;
 	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
 	if (!$connection)
 		die ("connection failed".mysql_error()) ;
@@ -14,6 +14,7 @@
 	$acc = mysql_real_escape_string($_SESSION['account']);
 	$problem_num = $_GET['num'];
 	$file_type = $_GET['type'];
+
 //	$problem_dir = '.\\student\\'.$acc.'\\'.$_POST['hwID']; 
 //	$upfile = $problem_dir.'\\'.$acc.'-'.$_POST['hwID'].'.cpp';
 //	$pdffile = $problem_dir.'\\'.$acc.'-'.$_POST['hwID'].'.pdf';

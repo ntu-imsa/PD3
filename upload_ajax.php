@@ -2,7 +2,7 @@
 	session_start() ;
 	$db_host = 'localhost' ;
 	$db_database = 'pd course' ;
-	$db_username = 'root' ;
+	$db_username = 'pdogsserver' ;
 	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
 	if (!$connection)
 		die ("connection failed".mysql_error()) ;
@@ -38,7 +38,7 @@
 					<div class="fileupload fileupload-new" data-provides="fileupload"> <?php
 						if (file_exists($upfile)){ ?>
 							<div>
-								<a href="download_file.php? num= <?php echo $_POST['hwID'];?>&type=cpp" target="_blank">Submitted cpp file</a><br>
+								<a href="download_file.php?num=<?php echo $_POST['hwID'];?>&type=cpp" target="_blank">Submitted cpp file</a><br>
 							</div> <?php 
 						} ?>
 						<div class="input-append">
