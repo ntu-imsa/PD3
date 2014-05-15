@@ -14,7 +14,7 @@ def execute(cmd):
     outdata = p.communicate(infile)
     t_end = time.time()
     exec_time = t_end - t_beginning
-    print outdata[0]
+    print outdata[0],
     if outdata[1] == '':
         return '%.3f' % exec_time
     else:
@@ -24,7 +24,6 @@ def execute(cmd):
 if __name__ == '__main__':
 
     result = execute(sys.argv[1])
-
     outfile = open(sys.argv[3],'w')
     outfile.write(result)
     outfile.close()
