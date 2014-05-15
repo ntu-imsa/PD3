@@ -21,6 +21,9 @@ if __name__ == '__main__':
         if len(a) == 0:
             break
         o = outputfile.readline()
+        if len(o) == 0:
+            rightAnswerCount = 0
+            break
         a = a.strip()
         o = o.strip()
         count += 1
