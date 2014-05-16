@@ -33,6 +33,7 @@ def command(cmd, exe, timeout=10):
 
 if __name__ == '__main__':
     exe = sys.argv[6]
+    #sys.argv[3] -> outfile -> +.num.in
     try:
         result = command('python execute.py '+sys.argv[1]+' '+sys.argv[2]+' '+sys.argv[5]+' > '+sys.argv[3]+' 2>> '+sys.argv[4], exe, int(sys.argv[7]))
     except TimeoutError:

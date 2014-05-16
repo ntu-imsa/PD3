@@ -39,8 +39,8 @@
 		$compile_logfile = $problem_dir.'\\log\\compile_err_log.txt';
 		$run_logfile = $problem_dir.'\\log\\run_err_log.txt';
 		$all_logfile = '.\\judgement\\upload_log.txt';
-		$outputfile = $problem_dir.'\\answer\\output.txt';
-		#$outputfile = $problem_dir.'\\answer\\'.$_POST['problem_num'];
+		#$outputfile = $problem_dir.'\\answer\\output.txt';
+		$outputfile = $problem_dir.'\\answer\\'.$_POST['problem_num'];
 		$resultfile = $problem_dir.'\\answer\\score.txt';
 		$exec_timefile = $problem_dir.'\\answer\\exec_time.txt';
 		$testfile = $judge_dir.'\\testing_data.txt';
@@ -92,35 +92,66 @@
 					//$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2>> '.$compile_logfile;
 					$command = 'g++ '.$upfile.' -O2 -Wl,--stack,214748364 -static -std=c++11 -o '.$exefile.'  2>> '.$compile_logfile;
 					system($command, $return);
+					exec('python scoreCleaner.py '.$ans_dir.'score.txt');
 					if ($return == 0){	       
 						//如果成功編譯出.exe檔 執行程式
 						//ex. hw.exe < testing_data.txt > output.txt 2>> log.txt
 						//$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2>> '.$run_logfile;  
 						//$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename.' 2>> '.$run_logfile;
 						//先開啟score.txt把檔案清空
-						exec('python scoreCleaner.py '.$ans_dir.'score.txt');
-						$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename.' 3';
-						if ($exec_result = exec($command, $return)){      //如果執行成功  比對結果
-							if ($exec_result != NULL and $exec_result == 'Time limit exceed'){
-								$status = 'Time limit exceed';
-								$exec_result = 3;
-							} else if ($exec_result != NULL and $exec_result == 'Runtime error'){
-								$status = 'Runtime error';
-								$exec_result = 0;
-							} else{
-								//ex. python judge.py b01705001 PD14-1
-								$score = exec($command_judge, $return);
-								$s = mysql_query($query_score);
-								$fetch_s = mysql_fetch_row($s);
-								if ($score == $fetch_s[0]){
-									$status = 'Accepted';
+						$finalstatus = 0;
+						//先抓總共有幾筆測資
+						//這裡需要一個for迴圈來跑多筆測資
+						if($fc == 'P'){
+							$datanumsource = mysql_query("SELECT data_number FROM pd_hw WHERE p_id = '".$_POST['problem_num']."'");
+						}else{
+							$datanumsource = mysql_query("SELECT data_number FROM lab_hw WHERE p_id = '".$_POST['problem_num']."'");
+						}
+						$datanum = mysql_fetch_row($datanumsource)[0];
+						echo $datanum[0];
+						for($i = 0 ; $i < $datanum ; $i++){
+							$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.'.'.$i.'.out '.$run_logfile.' '.$exec_timefile.' '.$exename.' 3';
+							if ($exec_result = exec($command, $return)){      //如果執行成功  比對結果
+								if ($exec_result != NULL and $exec_result == 'Time limit exceed'){
+									$status = 'Time limit exceed';
+									if($finalstatus < 2) $finalstatus = 2;
+									$exec_result = 3;
+								} else if ($exec_result != NULL and $exec_result == 'Runtime error'){
+									$status = 'Runtime error';
+									if($finalstatus < 3) $finalstatus = 3;
+									$exec_result = 0;
 								} else {
-									$status = 'Wrong answer';
+									//ex. python judge.py b01705001 PD14-1
+									$score = exec($command_judge.' '.$i, $return);
+									$s = mysql_query($query_score);
+									$fetch_s = mysql_fetch_row($s);
+									if ($score == $fetch_s[0]){
+										$status = 'Accepted';
+									} else {
+										$status = 'Wrong answer';
+										if($finalstatus < 1) $finalstatus = 1;
+									}
 								}
+							} else {
+								//runtime error
+								$status = 'Runtime error';
+								if($finalstatus < 3) $finalstatus = 3;
 							}
-						} else {
-							//runtime error
-							$status = 'Runtime error';
+						}
+						//回報total結果	
+						switch($finalstatus){
+							case 0:
+								$status = 'Accepted';
+							break;
+							case 1:
+								$status = 'Wrong answer';
+							break;
+							case 2:
+								$status = 'Time limit exceed';
+							break;
+							case 3:
+								$status = 'Runtime error';
+							break;
 						}
 					} else {
 						//compile error

@@ -4,10 +4,11 @@ import MySQLdb
 
 if __name__ == '__main__':
     
+    data_num = sys.argv[3]
     hw_path = './student/' + sys.argv[1] + '/' + sys.argv[2] + '/answer/'
     judge_path = './judgement/' + sys.argv[2] + '/'
-    outputfile = open(hw_path + 'output.txt', 'r')
-    answerfile = open(judge_path + 'answer.txt', 'r')
+    outputfile = open(hw_path + '/' + sys.argv[2] + '.' + str(data_num) + '.out', 'r')
+    answerfile = open(judge_path + '/' + sys.argv[2] + '.' + str(data_num) + '.out', 'r')
     conn = MySQLdb.connect(host="127.0.0.1",user="pdogsserver",passwd="pdogsserver",db="pd course")  
     cursor = conn.cursor()   
     
@@ -45,8 +46,8 @@ if __name__ == '__main__':
             total_score += single_score
             #print row[0][0] / test_num
     '''
-    outfile = open(hw_path + 'score.txt', 'w')
-    outfile.write(str(total_score))
+    outfile = open(hw_path + 'score.txt', 'a')
+    outfile.write(str(total_score)+'\n')
     outputfile.close()
     answerfile.close()
     outfile.close()
