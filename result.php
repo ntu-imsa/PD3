@@ -21,7 +21,7 @@
 		$problem_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num']; 
 		$log_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num'].'\\log';
 		$ans_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num'].'\\answer';
-			
+		
 		if (!is_dir($problem_dir))
 			mkdir($problem_dir);
 				
@@ -40,6 +40,7 @@
 		$run_logfile = $problem_dir.'\\log\\run_err_log.txt';
 		$all_logfile = '.\\judgement\\upload_log.txt';
 		$outputfile = $problem_dir.'\\answer\\output.txt';
+		#$outputfile = $problem_dir.'\\answer\\'.$_POST['problem_num'];
 		$resultfile = $problem_dir.'\\answer\\score.txt';
 		$exec_timefile = $problem_dir.'\\answer\\exec_time.txt';
 		$testfile = $judge_dir.'\\testing_data.txt';
@@ -96,6 +97,8 @@
 						//ex. hw.exe < testing_data.txt > output.txt 2>> log.txt
 						//$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2>> '.$run_logfile;  
 						//$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename.' 2>> '.$run_logfile;
+						//先開啟score.txt把檔案清空
+						exec('python scoreCleaner.py '.$ans_dir.'score.txt');
 						$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename.' 3';
 						if ($exec_result = exec($command, $return)){      //如果執行成功  比對結果
 							if ($exec_result != NULL and $exec_result == 'Time limit exceed'){
