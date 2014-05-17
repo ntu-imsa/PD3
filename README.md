@@ -1,6 +1,6 @@
-Program Design Online Gudgement System
+Program Design Online Grading System
 ================
-Program Design Online Gudgement System (PDOGS) is an online judgement system used in Programming Design course in Department of Information Management, National Taiwan University (NTU IM).
+Program Design Online Grading System (PDOGS) is an online judgement system used in Programming Design course in Department of Information Management, National Taiwan University (NTU IM).
 
 ## Features
 - 
