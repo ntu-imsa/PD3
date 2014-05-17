@@ -3,3 +3,6 @@ judgement
 problem
 past
 *.pyc
+._.DS_Store
+._.git
+.DS_Store
