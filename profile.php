@@ -1,21 +1,12 @@
-<?php 
+<?php
 	session_start() ;
-	$db_host = 'localhost' ;
-	$db_database = 'pd course' ;
-	$db_username = 'pdogsserver' ;
-	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
-	if (!$connection)
-		die ("connection failed".mysql_error()) ;
-	mysql_query("SET NAMES 'utf8'");
-	$selection = mysql_select_db($db_database) ;
-	if (!$selection)
-		die ("selection failed".mysql_error()) ;
-	
+	require_once('db.inc.php');
+
 	date_default_timezone_set('Asia/Taipei');
 	$datetime = date ("Y-m-d H:i:s");
 
-	
-	
+
+
 
 	//使用者尚未登入 顯示登入頁面
 	if (!isset($_SESSION['account'])){
@@ -23,9 +14,9 @@
 		<!DOCTYPE html>
 		<html lang="en">
 			<head>
-				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
-				<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-				<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+				<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 				<title>Programming Design Online Grading System</title>
 				<link rel="shortcut icon" href="../favicon.ico">
 				<link rel="stylesheet" type="text/css" href="css/style.css"/>
@@ -35,7 +26,7 @@
 			</head>
 			<body>
 				<div id="wrap">
-					<div class="container">	
+					<div class="container">
 						<header>
 							<h1><strong>PDOGS</strong> Programming Design Online Grading System</h1>
 							<h2>First time visit? Please <span class="signup">Sign Up</span> with your Student ID or <span class="login">Login</span></h2>
@@ -49,8 +40,8 @@
 							</div>
 						</header>
 						<div class="container">
-						
-							<iframe class ='main' src="http://free.timeanddate.com/clock/i3i2qw9c/n241/tltw/fn6/tct/pct/tt0/tm1/th1" 
+
+							<iframe class ='main' src="http://free.timeanddate.com/clock/i3i2qw9c/n241/tltw/fn6/tct/pct/tt0/tm1/th1"
 								frameborder="0" width="246" height="21" allowTransparency="true">
 							</iframe>
 
@@ -63,16 +54,16 @@
 									<p class="field">
 										<input type="password" name="password" placeholder="Password">
 										<i class="icon-lock icon-large"></i>
-									</p>									
-									<p class="submit">		
+									</p>
+									<p class="submit">
 										<button type="submit" name="submit"><i class="icon-arrow-right icon-large"></i></button>
 									</p>
 								</form>
-								
+
 							</section>
-						
-							
-							
+
+
+
 						</div>
 						<div  class="container">
                             <img id="dog_img" src="images/dogs3.jpg" />
@@ -88,11 +79,11 @@
 				<script src="js/signup.js"></script>
 			</body>
 		</html>
-			
+
 <?php
 	}else{
 		$acc = mysql_real_escape_string($_SESSION['account']);
-		$query_t = "SELECT type FROM student WHERE account = '".$acc."'"; 
+		$query_t = "SELECT type FROM student WHERE account = '".$acc."'";
 		$q_type = mysql_query($query_t);
 		$type = mysql_fetch_row($q_type);
 
@@ -102,7 +93,7 @@
 			<!DOCTYPE html>
 			<html>
 				<head>
-					<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+					<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 					<title>Programming Design Online Grading System</title>
 					<link href="css/bootstrap.css" rel="stylesheet" media="screen">
 					<link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
@@ -111,8 +102,8 @@
 					<link href="css/bootstrap-fileupload.css" rel="stylesheet" media="screen">
 				</head>
 				<body>
-					<div id="wrap"> 
-						<div class="container"> 
+					<div id="wrap">
+						<div class="container">
 							<div class="page-header">
 								<h2>Programming Design Online Grading System</h2>
 							</div>
@@ -123,16 +114,16 @@
 										<!--
 										<li id="home-btn" class="active"><a>Home</a></li>
 										-->
-										
+
 										<li id="past-problem-btn"><a>Past Problem Set</a></li>
-										
+
 										<li id="submit-past-btn"><a>Submit Past HW</a></li>
-										
+
 										<li id="past-score-btn"><a>Past Scores</a></li>
 
-										
+
 									</ul>
-									
+
 									<ul class="nav pull-right">
 										<li class="divider-vertical"></li>
 										<li class="dropdown">
@@ -147,10 +138,10 @@
 									</ul>
 								</div>
 							</div>
-							<div id="load" > 
+							<div id="load" >
 								<span class="spin"><i class="icon-spinner icon-spin icon-2x pull-left"></i>Loading... </span>
 							</div>
-							
+
 							<!-- 使用ajax刷新 將所有各功能頁面更新於此div區塊 -->
 							<div id="main-content">
 								<?php //include_once('past_problem.php'); ?>
@@ -181,7 +172,7 @@
 			<!DOCTYPE html>
 			<html>
 				<head>
-					<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+					<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 					<title>Programming Design Online Grading System</title>
 					<link href="css/bootstrap.css" rel="stylesheet" media="screen">
 					<link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
@@ -190,8 +181,8 @@
 					<link href="css/bootstrap-fileupload.css" rel="stylesheet" media="screen">
 				</head>
 				<body>
-					<div id="wrap"> 
-						<div class="container"> 
+					<div id="wrap">
+						<div class="container">
 							<div class="page-header">
 								<h2>Programming Design Online Grading System</h2>
 							</div>
@@ -203,7 +194,7 @@
 										<li id="home-btn" class="active"><a>Home</a></li>
 										-->
 										<li id="users-btn"><a>Users</a></li>
-				
+
 										<li class="dropdown">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Create Problem<b class="caret"></b></a>
 											<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -229,7 +220,7 @@
 												</li>
 												<li class="createproblem-btn" role = "presentation" name="<?php echo $append2.($max2 +1); ?>">
 													<a role="menuitem"  tabindex="-1" ><?php echo $append2.($max2 +1); ?></a>
-												</li>												
+												</li>
 											</ul>
 										</li>
 									    <li id="problemlist-btn"><a>Problem List</a></li>
@@ -249,13 +240,13 @@
 									</ul>
 								</div>
 							</div>
-							<div id="load" > 
+							<div id="load" >
 								<span class="spin"><i class="icon-spinner icon-spin icon-2x pull-left"></i>Loading... </span>
 							</div>
-							
+
 							<!-- 使用ajax刷新 將所有各功能頁面更新於此div區塊 -->
 							<div id="main-content">
-								
+
 							</div>
 						</div>
 					</div>
@@ -271,9 +262,9 @@
 				<script src="js/bootstrap.min.js"></script>
 				<script src="js/bootstrap-fileupload.min.js"></script>
 				<script src="js/jquery.form.js"></script>
-				<script src="js/nav.js"></script>	
-				<script src="js/upload.js"></script>				
-			</html>	
+				<script src="js/nav.js"></script>
+				<script src="js/upload.js"></script>
+			</html>
 <?php
 		}
 	}

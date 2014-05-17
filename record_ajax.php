@@ -1,16 +1,6 @@
-<?php 
+<?php
 	session_start() ;
-	$db_host = 'localhost' ;
-	$db_database = 'pd course' ;
-	$db_username = 'pdogsserver' ;
-	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
-	if (!$connection)
-		die ("connection failed".mysql_error()) ;
-	mysql_query("SET NAMES 'utf8'");
-	$selection = mysql_select_db($db_database) ;
-	if (!$selection)
-		die ("selection failed".mysql_error()) ;
-
+	require_once('db.inc.php');
 
 	if (!isset($_SESSION['account'])){
 		header ("Location:index.php") ;
@@ -28,12 +18,12 @@
 					</tr>
 				</thead>
 				<tbody>
-				<?php 
-					
-					$query_pd = "SELECT p_id, status, exec_time, time, score FROM pd_score NATURAL JOIN student 
+				<?php
+
+					$query_pd = "SELECT p_id, status, exec_time, time, score FROM pd_score NATURAL JOIN student
 								 WHERE account = '".mysql_real_escape_string($_SESSION['account'])."' ORDER BY time DESC LIMIT 0, 15";
 					$pd = mysql_query($query_pd);
-					$query_lab = "SELECT lab_id, status, exec_time, time, score FROM lab_score NATURAL JOIN student 
+					$query_lab = "SELECT lab_id, status, exec_time, time, score FROM lab_score NATURAL JOIN student
 								 WHERE account = '".mysql_real_escape_string($_SESSION['account'])."' ORDER BY time DESC LIMIT 0, 15";
 					$lab = mysql_query($query_lab);
 					$count = 0;
@@ -82,12 +72,12 @@
 						$count++;
 						if ($fetch_pd == null and $fetch_lab == null)
 							break;
-					}		
+					}
 				?>
 				</tbody>
 			</table>
 		</div>
-		
-<?php		
+
+<?php
 	}
 ?>

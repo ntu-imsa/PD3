@@ -1,15 +1,6 @@
-<?php 
+<?php
 session_start() ;
-$db_host = 'localhost' ;
-$db_database = 'pd course' ;
-$db_username = 'pdogsserver' ;
-$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
-if (!$connection)
-	die ("connection failed".mysql_error()) ;
-mysql_query("SET NAMES 'utf8'");
-$selection = mysql_select_db($db_database) ;
-if (!$selection)
-	die ("selection failed".mysql_error()) ;
+require_once('db.inc.php');
 
 $acc = mysql_real_escape_string($_SESSION['account']);
 
@@ -27,8 +18,8 @@ if (!isset($_SESSION['account'])){
 	$fetch_project = mysql_fetch_assoc($project);
 	$append = substr('PJ000', 0, -strlen($fetch_project['project_id']));
 	$project_id = $append.$fetch_project['project_id'];
-	
-	
+
+
 	#$return = -1;
 	#如果有人上傳後才會執行更新分數和排名的動作
 	if ($fetch_project['isUpdate'] == 1){
@@ -38,7 +29,7 @@ if (!isset($_SESSION['account'])){
 		} catch (Exception $e){
 			echo $e;
 		}
-		
+
 	}
 	#查詢組內成績
 	$score_query = "SELECT group_num, rank, best_score, worst_score, total_score, status, exec_time
@@ -56,11 +47,11 @@ if (!isset($_SESSION['account'])){
 	$rank_query = "SELECT group_num, rank, total_score, status, exec_time
 	                FROM project_group  NATURAL JOIN `group` ORDER BY rank";
 	$rank = mysql_query($rank_query);
-	
 
-	
-	
-	?>   
+
+
+
+	?>
 	<div class="hero-unit upload_section">
 			<p class="hw-id"><?php echo $project_id; ?></p>
 			<p>Your group's status</p>
@@ -77,7 +68,7 @@ if (!isset($_SESSION['account'])){
 					</tr>
 				</thead>
 				<tbody>
-				<?php 					
+				<?php
 					if ( $fetch_score['status'] != ""){
 						//如果該題有上傳紀錄 顯示最新一次上傳成績與狀態
 						if ($fetch_score['status'] == 'Accepted'){
@@ -111,12 +102,12 @@ if (!isset($_SESSION['account'])){
 							<td></td>
 							<td><?php echo "0";?></td>
 						</tr><?php
-					}	
+					}
 				?>
 				</tbody>
 			</table>
 			<br>
-			
+
 
 
 			<p>Ranking</p>
@@ -135,7 +126,7 @@ if (!isset($_SESSION['account'])){
 					</tr>
 				</thead>
 				<tbody>
-				<?php 				
+				<?php
 					//查詢lab hw 總題數
 					for ($i = 1; $i <= $n; $i++){
 						$fetch_rank = mysql_fetch_assoc($rank);
@@ -190,7 +181,7 @@ if (!isset($_SESSION['account'])){
 								<td><?php echo " ";?></td>
 							</tr><?php
 						}
-					}		
+					}
 				?>
 				</tbody>
 			</table>

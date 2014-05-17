@@ -1,17 +1,7 @@
-<?php 
+<?php
 	session_start() ;
-	$db_host = 'localhost' ;
-	$db_database = 'pd course' ;
-	$db_username = 'root' ;
-	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
-	if (!$connection)
-		die ("connection failed".mysql_error()) ;
-	mysql_query("SET NAMES 'utf8'");
-	$selection = mysql_select_db($db_database) ;
-	if (!$selection)
-		die ("selection failed".mysql_error()) ;
+	require_once('db.inc.php');
 
-		
 	$pdf = '.\\problem\\'.$_POST['hwID'].'.pdf';
 	$testingdata = '.\\judgement\\'.$_POST['hwID'].'\\testing_data.txt';
 	$answer = '.\\judgement\\'.$_POST['hwID'].'\\answer.txt';
@@ -28,16 +18,16 @@
 			$num = (int)($_POST['hwID'][$len-3].$_POST['hwID'][$len-2].$_POST['hwID'][$len-1]);
 			if ($len == 5)
 				$query = "SELECT submit_code, submit_pdf, total_score, deadline FROM pd_hw WHERE p_id = '".$num."'";
-			else if ($len == 6) 
+			else if ($len == 6)
 				$query = "SELECT submit_code, submit_pdf, total_score, deadline FROM lab_hw WHERE lab_id = '".$num."'";
 			$status = mysql_query($query);
-			$fetch_status = mysql_fetch_row($status); 
+			$fetch_status = mysql_fetch_row($status);
 	?>
 	<p class="hw"> Problem </p>
 	<p class="hw"> File format: .pdf </p>
-	<?php	if (file_exists($pdf)) 
+	<?php	if (file_exists($pdf))
 				echo "<p> Problem has been uploaded . </p>";
-			else  
+			else
 				echo "<p> You haven't uploaded yet. </p>"; ?>
 		<div class="fileupload fileupload-new" data-provides="fileupload">
 			<div class="input-append">
@@ -47,7 +37,7 @@
 	  			</div>
 				<span class="btn btn-file">
 					<span class="fileupload-new">Select file</span>
-					<span class="fileupload-exists">Change File</span>					
+					<span class="fileupload-exists">Change File</span>
 					<input type="file" class="pdfupload" name="pdfupload"/>
 				</span>
 				<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
@@ -57,16 +47,16 @@
 		<div class="checkbox">
 			<label>
 				<input type="checkbox" name="submitcode" value="1"
-				<?php if ($fetch_status[0] == 1) 
+				<?php if ($fetch_status[0] == 1)
 					echo "checked";   ?>
 				> Submit code
-			</label>   
+			</label>
 			<label>
 				<input type="checkbox"  name="submitpdf" value="1"
-				<?php if ($fetch_status[1] == 1) 
+				<?php if ($fetch_status[1] == 1)
 					echo "checked";   ?>
 				> Submit pdf
-			</label>      		   		
+			</label>
 		</div>
 		<br>
     	<p class="hw"> Total Score </p>
@@ -75,9 +65,9 @@
     	<br>
     	<p class="hw"> Testing Data </p>
 		<p class="hw"> File format: .txt </p>
-		<?php	if (file_exists($testingdata)) 
+		<?php	if (file_exists($testingdata))
 				echo "<p> Testing Data has been uploaded. </p>";
-			else  
+			else
 				echo "<p> You haven't uploaded yet. </p>"; ?>
 		<div class="fileupload fileupload-new" data-provides="fileupload">
 			<div class="input-append">
@@ -87,7 +77,7 @@
 	  			</div>
 				<span class="btn btn-file">
 					<span class="fileupload-new">Select file</span>
-					<span class="fileupload-exists">Change File</span>					
+					<span class="fileupload-exists">Change File</span>
 					<input type="file" class="tdupload" name="tdupload"/>
 				</span>
 				<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
@@ -96,9 +86,9 @@
 		<br>
     	<p class="hw"> Answer</p>
 		<p class="hw"> File format: .cpp </p>
-		<?php	if (file_exists($answer)) 
+		<?php	if (file_exists($answer))
 				echo "<p> Answer has been uploaded. </p>";
-			else  
+			else
 				echo "<p> You haven't uploaded yet. </p>"; ?>
 		<div class="fileupload fileupload-new" data-provides="fileupload">
 			<div class="input-append">
@@ -108,16 +98,16 @@
 	  			</div>
 				<span class="btn btn-file">
 					<span class="fileupload-new">Select file</span>
-					<span class="fileupload-exists">Change File</span>					
+					<span class="fileupload-exists">Change File</span>
 					<input type="file" class="ansupload" name="ansupload">
 				</span>
 				<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
 			</div>
 		</div>
 		<a class="btn fileupload-exists upload-button" >Edit</a>
-			
+
 </form>
-	
+
 <?php
 	}
 ?>

@@ -1,15 +1,6 @@
-<?php 
+<?php
 	session_start() ;
-	$db_host = 'localhost' ;
-	$db_database = 'pd course' ;
-	$db_username = 'pdogsserver' ;
-	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
-	if (!$connection)
-		die ("connection failed".mysql_error()) ;
-	mysql_query("SET NAMES 'utf8'");
-	$selection = mysql_select_db($db_database) ;
-	if (!$selection)
-		die ("selection failed".mysql_error()) ;
+	require_once('db.inc.php');
 
 	//ini_set("display_errors", "Off"); // 顯示錯誤是否打開( On=開, Off=關 )
 	//error_reporting(E_ALL & ~E_NOTICE);
@@ -31,13 +22,13 @@
 					</tr>
 				</thead>
 				<tbody>
-				<?php 
+				<?php
 					$acc = mysql_real_escape_string($_SESSION['account']);
 					//查詢使用者s_id
 					$query_id = "SELECT s_id FROM student WHERE account = '".$acc."'";
 					$id = mysql_query($query_id);
 					$fetch_id = mysql_fetch_row($id);
-					
+
 					//查詢class hw 總題數
 					$query_num = "SELECT COUNT(*) FROM pd_hw";
 					$num = mysql_query($query_num);
@@ -46,12 +37,12 @@
 					$query_ID = "SELECT p_id FROM pd_hw";
 					$ID = mysql_query($query_ID);
 					$fetch_ID = mysql_fetch_row($ID);
-					
+
 					$problem_set = "'".$fetch_ID[0]."'";
 					while ($fetch_ID = mysql_fetch_row($ID)){
 						$problem_set =  $problem_set.",'".$fetch_ID[0]."'";
 					}
-					
+
 					//查詢使用者每個題目最新上傳的狀態和成績
 					$query_score = "SELECT p_id, status, exec_time, time, score FROM pd_score WHERE time IN (SELECT MAX(time) FROM pd_score WHERE s_id = ".$fetch_id[0]." AND p_id IN (".$problem_set.") GROUP BY p_id) ORDER BY p_id ";
 					$score = mysql_query($query_score);
@@ -94,7 +85,7 @@
 								<td><?php echo "";?></td>
 							</tr><?php
 						}
-					}		
+					}
 				?>
 				</tbody>
 			</table>
@@ -111,7 +102,7 @@
 					</tr>
 				</thead>
 				<tbody>
-				<?php 				
+				<?php
 					//查詢lab hw 總題數
 					$query_num = "SELECT COUNT(*) FROM lab_hw";
 					$num = mysql_query($query_num);
@@ -125,11 +116,11 @@
 					while ($fetch_ID = mysql_fetch_row($ID)){
 						$problem_set =  $problem_set.",'".$fetch_ID[0]."'";
 					}
-					
+
 					//查詢使用者每個題目最新上傳的狀態和成績
 					$query_score = "SELECT lab_id, status, exec_time, time, score FROM lab_score WHERE time IN (SELECT MAX(time) FROM lab_score WHERE s_id = ".$fetch_id[0]." AND lab_id IN (".$problem_set.") GROUP BY lab_id ) ORDER BY lab_id ";
 					$score = mysql_query($query_score);
-					
+
 					//將結果顯示在畫面
 					if ($score != False)
 						$fetch_score = mysql_fetch_row($score);
@@ -166,13 +157,13 @@
 								<td><?php echo "";?></td>
 							</tr><?php
 						}
-					}		
+					}
 				?>
 				</tbody>
 			</table>
 		</div>
-		
 
-<?php		
+
+<?php
 	}
 ?>
