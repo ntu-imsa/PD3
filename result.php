@@ -92,7 +92,9 @@
 					//$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2>> '.$compile_logfile;
 					$command = 'g++ '.$upfile.' -O2 -Wl,--stack,214748364 -static -std=c++11 -o '.$exefile.'  2>> '.$compile_logfile;
 					system($command, $return);
-					exec('python scoreCleaner.py '.$ans_dir.'score.txt');
+					exec('python txtCleaner.py '.$ans_dir.'\\exec_time.txt');
+					exec('python txtCleaner.py '.$ans_dir.'\\score.txt');
+					exec('python txtCleaner.py '.$ans_dir.'\\result.txt');
 					if ($return == 0){	       
 						//如果成功編譯出.exe檔 執行程式
 						//ex. hw.exe < testing_data.txt > output.txt 2>> log.txt
@@ -108,9 +110,8 @@
 							$datanumsource = mysql_query("SELECT data_number FROM lab_hw WHERE p_id = '".$_POST['problem_num']."'");
 						}
 						$datanum = mysql_fetch_row($datanumsource)[0];
-						echo $datanum[0];
 						for($i = 0 ; $i < $datanum ; $i++){
-							$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.'.'.$i.'.out '.$run_logfile.' '.$exec_timefile.' '.$exename.' 3';
+							$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.'.'.$i.'.out '.$run_logfile.' '.$exec_timefile.' '.$exename.' 1';
 							if ($exec_result = exec($command, $return)){      //如果執行成功  比對結果
 								if ($exec_result != NULL and $exec_result == 'Time limit exceed'){
 									$status = 'Time limit exceed';
@@ -137,6 +138,9 @@
 								$status = 'Runtime error';
 								if($finalstatus < 3) $finalstatus = 3;
 							}
+							$fp = fopen($ans_dir.'/result.txt',"a");
+							fputs($fp, $status."\r\n");
+							fclose($fp);
 						}
 						//回報total結果	
 						switch($finalstatus){

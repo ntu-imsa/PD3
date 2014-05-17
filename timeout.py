@@ -29,11 +29,10 @@ def command(cmd, exe, timeout=10):
                 os.system("taskkill /im "+exe+ " /f")
             raise TimeoutError(cmd, timeout)
         time.sleep(0.5)
-    return  p.stdout.read()
+    return  seconds_passed
 
 if __name__ == '__main__':
     exe = sys.argv[6]
-    #sys.argv[3] -> outfile -> +.num.in
     try:
         result = command('python execute.py '+sys.argv[1]+' '+sys.argv[2]+' '+sys.argv[5]+' > '+sys.argv[3]+' 2>> '+sys.argv[4], exe, int(sys.argv[7]))
     except TimeoutError:
@@ -43,5 +42,6 @@ if __name__ == '__main__':
         if timefile == 'Runtime error':
             print 'Runtime error'
         else:
-            print timefile
+            print str("%.3f" % result)
+            #print timefile
 

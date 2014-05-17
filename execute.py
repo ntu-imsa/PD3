@@ -24,7 +24,8 @@ def execute(cmd):
 if __name__ == '__main__':
 
     result = execute(sys.argv[1])
-    outfile = open(sys.argv[3],'w')
+    outfile = open(sys.argv[3],'a')
     outfile.write(result)
+    outfile.write('\n')
     outfile.close()
 
