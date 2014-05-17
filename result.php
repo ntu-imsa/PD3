@@ -4,6 +4,7 @@
 	$db_database = 'pd course' ;
 	$db_username = 'pdogsserver' ;
 	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
+	$score = 0;
 	if (!$connection)
 		die ("connection failed".mysql_error()) ;
 	mysql_query("SET NAMES 'utf8'");
@@ -43,7 +44,7 @@
 		$outputfile = $problem_dir.'\\answer\\'.$_POST['problem_num'];
 		$resultfile = $problem_dir.'\\answer\\score.txt';
 		$exec_timefile = $problem_dir.'\\answer\\exec_time.txt';
-		$testfile = $judge_dir.'\\testing_data.txt';
+		$testfile = $judge_dir.'\\'.$_POST['problem_num'];
 			
 		if (file_exists($upfile)) unlink($upfile);
 		if (file_exists($exefile)) unlink($exefile);
@@ -110,8 +111,11 @@
 							$datanumsource = mysql_query("SELECT data_number FROM lab_hw WHERE p_id = '".$_POST['problem_num']."'");
 						}
 						$datanum = mysql_fetch_row($datanumsource)[0];
+						$testdatainfo = fopen($judge_dir.'\\testing_data.txt', "r");
 						for($i = 0 ; $i < $datanum ; $i++){
-							$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.'.'.$i.'.out '.$run_logfile.' '.$exec_timefile.' '.$exename.' 1';
+							$teststr = fgets($testdatainfo, 100);
+							preg_match_all("/\d+/", $teststr, $testarr);
+							$command = 'python timeout.py '.$exefile.' '.$testfile.'.'.$i.'.in '.$outputfile.'.'.$i.'.out '.$run_logfile.' '.$exec_timefile.' '.$exename.' '.$testarr[0][0];
 							if ($exec_result = exec($command, $return)){      //如果執行成功  比對結果
 								if ($exec_result != NULL and $exec_result == 'Time limit exceed'){
 									$status = 'Time limit exceed';
@@ -123,15 +127,14 @@
 									$exec_result = 0;
 								} else {
 									//ex. python judge.py b01705001 PD14-1
-									$score = exec($command_judge.' '.$i, $return);
-									$s = mysql_query($query_score);
-									$fetch_s = mysql_fetch_row($s);
-									if ($score == $fetch_s[0]){
+									$tmpscore = exec($command_judge.' '.$i.' '.$testarr[0][1], $return);
+									if ($tmpscore == $testarr[0][1]){
 										$status = 'Accepted';
 									} else {
 										$status = 'Wrong answer';
 										if($finalstatus < 1) $finalstatus = 1;
 									}
+									$score += $tmpscore;
 								}
 							} else {
 								//runtime error

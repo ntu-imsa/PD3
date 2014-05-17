@@ -14,7 +14,6 @@ if __name__ == '__main__':
     
     n = cursor.execute("SELECT total_score FROM pd_hw WHERE p_id = '" + sys.argv[2] + "'")
     row = cursor.fetchall() 
-    #print row[0][0]
     count = 0
     rightAnswerCount = 0
     while True:
@@ -33,7 +32,7 @@ if __name__ == '__main__':
     if len(outputfile.readline()) != 0:
         total_score = 0;
     else:
-        total_score = row[0][0] * (rightAnswerCount/count)
+        total_score = int(sys.argv[4]) * (rightAnswerCount/count)
     '''print rightAnswerCount
     print count'''
     '''total_score = 0.0
