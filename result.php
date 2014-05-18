@@ -11,9 +11,9 @@
 		header ("Location:index.php") ;
 	} else {
 		$acc = mysql_real_escape_string($_SESSION['account']);
-		$problem_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num'];
-		$log_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num'].'\\log';
-		$ans_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num'].'\\answer';
+		$problem_dir = './student/'.$acc.'/'.$_POST['problem_num'];
+		$log_dir = './student/'.$acc.'/'.$_POST['problem_num'].'/log';
+		$ans_dir = './student/'.$acc.'/'.$_POST['problem_num'].'/answer';
 
 		if (!is_dir($problem_dir))
 			mkdir($problem_dir);
@@ -24,19 +24,19 @@
 		if (!is_dir($ans_dir))
 			mkdir($ans_dir);
 
-		$judge_dir = '.\\judgement\\'.$_POST['problem_num'];
-		$upfile = $problem_dir.'\\'.$acc.'-'.$_POST['problem_num'].'.cpp';
-		$pdffile = $problem_dir.'\\'.$acc.'-'.$_POST['problem_num'].'.pdf';
-		$exefile = $problem_dir.'\\'.$acc.'-'.$_POST['problem_num'].'.exe';
+		$judge_dir = './judgement/'.$_POST['problem_num'];
+		$upfile = $problem_dir.'/'.$acc.'-'.$_POST['problem_num'].'.cpp';
+		$pdffile = $problem_dir.'/'.$acc.'-'.$_POST['problem_num'].'.pdf';
+		$exefile = $problem_dir.'/'.$acc.'-'.$_POST['problem_num'].'.exe';
 		$exename = $acc.'-'.$_POST['problem_num'].'.exe';
-		$compile_logfile = $problem_dir.'\\log\\compile_err_log.txt';
-		$run_logfile = $problem_dir.'\\log\\run_err_log.txt';
-		$all_logfile = '.\\judgement\\upload_log.txt';
-		#$outputfile = $problem_dir.'\\answer\\output.txt';
-		$outputfile = $problem_dir.'\\answer\\'.$_POST['problem_num'];
-		$resultfile = $problem_dir.'\\answer\\score.txt';
-		$exec_timefile = $problem_dir.'\\answer\\exec_time.txt';
-		$testfile = $judge_dir.'\\'.$_POST['problem_num'];
+		$compile_logfile = $problem_dir.'/log/compile_err_log.txt';
+		$run_logfile = $problem_dir.'/log/run_err_log.txt';
+		$all_logfile = './judgement/upload_log.txt';
+		#$outputfile = $problem_dir.'/answer/output.txt';
+		$outputfile = $problem_dir.'/answer/'.$_POST['problem_num'];
+		$resultfile = $problem_dir.'/answer/score.txt';
+		$exec_timefile = $problem_dir.'/answer/exec_time.txt';
+		$testfile = $judge_dir.'/'.$_POST['problem_num'];
 
 		if (file_exists($upfile)) unlink($upfile);
 		if (file_exists($exefile)) unlink($exefile);
@@ -85,9 +85,9 @@
 					//$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2>> '.$compile_logfile;
 					$command = 'g++ '.$upfile.' -O2 -Wl,--stack,214748364 -static -std=c++11 -o '.$exefile.'  2>> '.$compile_logfile;
 					system($command, $return);
-					exec('python txtCleaner.py '.$ans_dir.'\\exec_time.txt');
-					exec('python txtCleaner.py '.$ans_dir.'\\score.txt');
-					exec('python txtCleaner.py '.$ans_dir.'\\result.txt');
+					exec('python txtCleaner.py '.$ans_dir.'/exec_time.txt');
+					exec('python txtCleaner.py '.$ans_dir.'/score.txt');
+					exec('python txtCleaner.py '.$ans_dir.'/result.txt');
 					if ($return == 0){
 						//如果成功編譯出.exe檔 執行程式
 						//ex. hw.exe < testing_data.txt > output.txt 2>> log.txt
@@ -103,7 +103,7 @@
 							$datanumsource = mysql_query("SELECT data_number FROM lab_hw WHERE p_id = '".$_POST['problem_num']."'");
 						}
 						$datanum = mysql_fetch_row($datanumsource)[0];
-						$testdatainfo = fopen($judge_dir.'\\testing_data.txt', "r");
+						$testdatainfo = fopen($judge_dir.'/testing_data.txt', "r");
 						for($i = 0 ; $i < $datanum ; $i++){
 							$teststr = fgets($testdatainfo, 100);
 							preg_match_all("/\d+/", $teststr, $testarr);
