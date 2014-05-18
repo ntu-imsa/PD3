@@ -83,7 +83,7 @@
 					fwrite($fp, '['.$datetime.'] :'."\n");
 					fclose($fp);
 					//$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2>> '.$compile_logfile;
-					$command = 'g++ '.$upfile.' -O2 -Wl,--stack,214748364 -static -std=c++11 -o '.$exefile.'  2>> '.$compile_logfile;
+					$command = 'g++ '.$upfile.' -o '.$exefile.'  2>> '.$compile_logfile;
 					system($command, $return);
 					exec('python txtCleaner.py '.$ans_dir.'/exec_time.txt');
 					exec('python txtCleaner.py '.$ans_dir.'/score.txt');
