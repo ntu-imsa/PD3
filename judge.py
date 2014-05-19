@@ -1,6 +1,6 @@
 import os
 import sys
-import MySQLdb
+#import MySQLdb
 
 if __name__ == '__main__':
     
@@ -9,11 +9,11 @@ if __name__ == '__main__':
     judge_path = './judgement/' + sys.argv[2] + '/'
     outputfile = open(hw_path + '/' + sys.argv[2] + '.' + str(data_num) + '.out', 'r')
     answerfile = open(judge_path + '/' + sys.argv[2] + '.' + str(data_num) + '.out', 'r')
-    conn = MySQLdb.connect(host="127.0.0.1",user="pdogsserver",passwd="pdogsserver",db="pd course")  
+    '''conn = MySQLdb.connect(host="127.0.0.1",user="pdogsserver",passwd="pdogsserver",db="pd course")  
     cursor = conn.cursor()   
     
     n = cursor.execute("SELECT total_score FROM pd_hw WHERE p_id = '" + sys.argv[2] + "'")
-    row = cursor.fetchall() 
+    row = cursor.fetchall() '''
     count = 0
     rightAnswerCount = 0
     while True:
