@@ -1,15 +1,6 @@
-<?php 
+<?php
 	session_start() ;
-	$db_host = 'localhost' ;
-	$db_database = 'pd course' ;
-	$db_username = 'pdogsserver' ;
-	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
-	if (!$connection)
-		die ("connection failed".mysql_error()) ;
-	mysql_query("SET NAMES 'utf8'");
-	$selection = mysql_select_db($db_database) ;
-	if (!$selection)
-		die ("selection failed".mysql_error()) ;
+	require_once('db.inc.php');
 
 	//ini_set("display_errors", "Off"); // 顯示錯誤是否打開( On=開, Off=關 )
 	//error_reporting(E_ALL & ~E_NOTICE);
@@ -31,7 +22,7 @@
 					</tr>
 				</thead>
 				<tbody>
-				<?php 
+				<?php
 					$acc = mysql_real_escape_string($_SESSION['account']);
 					//查詢使用者s_id
 					$query_id = "SELECT s_id FROM student WHERE account = '".$acc."'";
@@ -45,24 +36,24 @@
 						$ID = mysql_query($query_ID);
 						$num = mysql_num_rows($ID);
 						$fetch_ID = mysql_fetch_row($ID);
-						
+
 						$problem_set = "'".$fetch_ID[0]."'";
 						while ($fetch_ID = mysql_fetch_row($ID)){
 							$problem_set =  $problem_set.",'".$fetch_ID[0]."'";
 						}
-					
+
 						//查詢使用者每個題目最新上傳的狀態和成績
 						$query_score = "SELECT past_id, status, exec_time, time, score FROM past_score WHERE time IN (SELECT MAX(time) FROM past_score WHERE s_id = ".$fetch_id[0]." AND past_id IN (".$problem_set.") GROUP BY past_id) ORDER BY past_id ";
 						$score = mysql_query($query_score);
 						$fetch_score = NULL;
-						
+
 						//將結果顯示在畫面
 						if ($num){
 							$fetch_score = mysql_fetch_row($score);
 						} else {
 							$gonext = False;
 						}
-						
+
 						$ID = mysql_query($query_ID);
 						for ($i = 1; $i <= $num; $i++){
 							$fetch_ID = mysql_fetch_row($ID);
@@ -101,17 +92,17 @@
 						$ID = mysql_query($query_ID);
 						$num = mysql_num_rows($ID);
 						$fetch_ID = mysql_fetch_row($ID);
-						
+
 						$problem_set = "'".$fetch_ID[0]."'";
 						while ($fetch_ID = mysql_fetch_row($ID)){
 							$problem_set =  $problem_set.",'".$fetch_ID[0]."'";
 						}
-						
+
 						//查詢使用者每個題目最新上傳的狀態和成績
 						$query_score = "SELECT past_id, status, exec_time, time, score FROM past_score WHERE time IN (SELECT MAX(time) FROM past_score WHERE s_id = ".$fetch_id[0]." AND past_id IN (".$problem_set.") GROUP BY past_id) ORDER BY past_id ";
 						$score = mysql_query($query_score);
 						$fetch_score = NULL;
-						
+
 						//將結果顯示在畫面
 						if ($num){
 							$fetch_score = mysql_fetch_row($score);
@@ -160,10 +151,10 @@
 					}?>
 				</tbody>
 			</table>
-	
-		</div>
-		
 
-<?php		
+		</div>
+
+
+<?php
 	}
 ?>

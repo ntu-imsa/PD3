@@ -1,15 +1,6 @@
-<?php 
+<?php
 	session_start() ;
-	$db_host = 'localhost' ;
-	$db_database = 'pd course' ;
-	$db_username = 'root' ;
-	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
-	if (!$connection)
-		die ("connection failed".mysql_error()) ;
-	mysql_query("SET NAMES 'utf8'");
-	$selection = mysql_select_db($db_database) ;
-	if (!$selection)
-		die ("selection failed".mysql_error()) ;
+	require_once('db.inc.php');
 
 	date_default_timezone_set('Asia/Taipei');
 	$datetime = date ("Y-m-d H:i:s");
@@ -18,7 +9,7 @@
 		header ("Location:index.php") ;
 	} else {
 
-		$problem_dir = '.\\problem\\'.$_POST['problem_num']; 
+		$problem_dir = '.\\problem\\'.$_POST['problem_num'];
 		$pdf = $problem_dir.'\\'.$_POST['problem_num'].'.pdf';
 		$testingdata = $problem_dir.'\\'.$_POST['problem_num'].'.txt';
 		$answer = $problem_dir.'\\'.$_POST['problem_num'].'.cpp';
@@ -45,18 +36,18 @@
 			echo "Answer is uploaded. <br>";
 		}
 
-			$submitcode = @$_POST ['submitcode']; 
-			$submitpdf = @$_POST ['submitpdf']; 
+			$submitcode = @$_POST ['submitcode'];
+			$submitpdf = @$_POST ['submitpdf'];
 			$score = $_POST ['score'];
 			$len = strlen($_POST['problem_num']);
 			$num = (int)($_POST['problem_num'][$len-3].$_POST['problem_num'][$len-2].$_POST['problem_num'][$len-1]);
 
 		if ($len == 5){
-			$update = "UPDATE pd_hw 
+			$update = "UPDATE pd_hw
 					SET submit_code = '$submitcode', submit_pdf = '$submitpdf', total_score = '$score'
 					WHERE p_id = '".$num."' " ;
 		}else if ($len == 6){
-			$update = "UPDATE lab_hw 
+			$update = "UPDATE lab_hw
 					SET submit_code = '$submitcode', submit_pdf = '$submitpdf', total_score = '$score'
 					WHERE lab_id = '".$num."' " ;
 		}

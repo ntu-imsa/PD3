@@ -1,19 +1,10 @@
-<?php 
+<?php
 	session_start() ;
-	$db_host = 'localhost' ;
-	$db_database = 'pd course' ;
-	$db_username = 'root' ;
-	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
-	if (!$connection)
-		die ("connection failed".mysql_error()) ;
-	mysql_query("SET NAMES 'utf8'");
-	$selection = mysql_select_db($db_database) ;
-	if (!$selection)
-		die ("selection failed".mysql_error()) ;
-	
+	require_once('db.inc.php');
+
 	date_default_timezone_set('Asia/Taipei');
 	$datetime = date ("Y-m-d H:i:s");
-	
+
 	//使用者尚未登入 顯示登入頁面
 	if (!isset($_SESSION['account'])){
 		header ("Location:index.php") ;
@@ -37,7 +28,7 @@
 						 <th>Student ID</th>
 						 <th>Account</th>
 						 <th>Type</th>
-						 <th>delete </th>						 
+						 <th>delete </th>
 					</tr>
 				</thead>
 				<tbody>
@@ -45,7 +36,7 @@
 						$query_s = "SELECT s_id, account, type FROM student";
 						$s_id = mysql_query($query_s);
 						while ($fetch_s = mysql_fetch_row($s_id))
-						{ 					
+						{
 							echo '<tr>';
 							for($i = 0; $i<3; $i++)
 							{
@@ -56,19 +47,19 @@
 										echo "TA";
 									else if($fetch_s[$i] == 1)
 										echo "student";
-									else 
+									else
 										echo "passerby";
 								}else{
 									echo $fetch_s[$i];
 								}
-								echo '</td>';								
+								echo '</td>';
 							}
 							echo '<td>';
 							echo '<a href= "#" >link</a>';
 							echo '</td>';
-							echo '</tr>';						
+							echo '</tr>';
 						}
-					?>					
+					?>
 				</tbody>
 		</table>
 	</div>

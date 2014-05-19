@@ -1,15 +1,6 @@
-<?php 
+<?php
 	session_start() ;
-	$db_host = 'localhost' ;
-	$db_database = 'pd course' ;
-	$db_username = 'pdogsserver' ;
-	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
-	if (!$connection)
-		die ("connection failed".mysql_error()) ;
-	mysql_query("SET NAMES 'utf8'");
-	$selection = mysql_select_db($db_database) ;
-	if (!$selection)
-		die ("selection failed".mysql_error()) ;
+	require_once('db.inc.php');
 
 	date_default_timezone_set('Asia/Taipei');
 	$datetime = date ("Y-m-d H:i:s");
@@ -19,7 +10,7 @@
 	} else if (!isset($_POST['past_id'])) {?>
 		<div class="hero-unit upload_section">
 			<h3>Wrong Problem ID, Please Submit Again</h3>
-		</div><?php 
+		</div><?php
 	} else {
 		$query = "SELECT past_id FROM past_hw WHERE past_id = '".$_POST['past_id']."'" ;
 		$id = mysql_query($query);
@@ -27,28 +18,28 @@
 		if ($fetch_id[0] == ''){?>
 			<div class="hero-unit upload_section">
 				<h3>Wrong Problem ID, Please Submit Again</h3>
-			</div><?php 
+			</div><?php
 		} else {
 
 			//echo $_POST['past_id'];
 			$acc = mysql_real_escape_string($_SESSION['account']);
 			$past = '.\\student\\'.$acc.'\\past\\';
-			$problem_dir = $past.$_POST['past_id']; 
+			$problem_dir = $past.$_POST['past_id'];
 			$log_dir = $problem_dir.'\\log';
 			$ans_dir = $problem_dir.'\\answer';
-			
+
 			if (!is_dir($past))
 				mkdir($past);
 
 			if (!is_dir($problem_dir))
 				mkdir($problem_dir);
-					
+
 			if (!is_dir($log_dir))
 				mkdir($log_dir);
-					
+
 			if (!is_dir($ans_dir))
 				mkdir($ans_dir);
-				
+
 			$judge_dir = '.\\past\\'.$_POST['past_id'];
 			$upfile = $problem_dir.'\\'.$acc.'-'.$_POST['past_id'].'.cpp';
 			$pdffile = $problem_dir.'\\'.$acc.'-'.$_POST['past_id'].'.pdf';
@@ -61,21 +52,21 @@
 			$resultfile = $problem_dir.'\\answer\\score.txt';
 			$exec_timefile = $problem_dir.'\\answer\\exec_time.txt';
 			$testfile = $judge_dir.'\\testing_data.txt';
-				
+
 			if (file_exists($upfile)) unlink($upfile);
 			if (file_exists($exefile)) unlink($exefile);
 			if (file_exists($outputfile)) unlink($outputfile);
 			if (file_exists($resultfile)) unlink($resultfile);
-			if (file_exists($pdffile)) unlink($pdffile);	
-			
+			if (file_exists($pdffile)) unlink($pdffile);
+
 			$status = '';
 			$score = 0;
 			$exec_result = 0;
 			$return = -1;
 			$ID = $_POST['past_id'];
-			
+
 			$query = "SELECT deadline FROM past_hw WHERE past_id = '".$ID."'";
-			$command_judge = 'python pastjudge.py '.$acc.' '.$_POST['past_id'].' '.$ID;   
+			$command_judge = 'python pastjudge.py '.$acc.' '.$_POST['past_id'].' '.$ID;
 			$query_score = "SELECT total_score FROM past_hw WHERE past_id = '".$ID."'";
 
 			if (isset($_FILES['upload'])){   // 程式碼檔案上傳
@@ -91,10 +82,10 @@
 						//$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2>> '.$compile_logfile;
 					$command = 'g++ '.$upfile.' -o '.$exefile.'  2>> '.$compile_logfile;
 					system($command, $return);
-					if ($return == 0){	       
+					if ($return == 0){
 							//如果成功編譯出.exe檔 執行程式
 							//ex. hw.exe < testing_data.txt > output.txt 2>> log.txt
-							//$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2>> '.$run_logfile;  
+							//$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2>> '.$run_logfile;
 							//$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename.' 2>> '.$run_logfile;
 						$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename.' 3';
 							if ($exec_result = exec($command, $return)){      //如果執行成功  比對結果
@@ -140,7 +131,7 @@
 			if (isset($_FILES['upload'])){
 				?>	<!-- 改作業序號看這裡 -->
 					<div class="hero-unit upload_section">
-						<table class="table table-hover"><?php 
+						<table class="table table-hover"><?php
 						if (isset($_FILES['upload'])){?>
 							<thead>
 								<tr>
@@ -151,12 +142,12 @@
 									<th>Score</th>
 								</tr>
 							</thead>
-							<tbody> <?php 
+							<tbody> <?php
 								$query_rec = "SELECT past_id, status, exec_time, time, score FROM past_score NATURAL JOIN student WHERE account = '".$acc."' ORDER BY time DESC";
-								
+
 								$rec = mysql_query($query_rec);
 								$fetch_rec = mysql_fetch_row($rec);
-								
+
 								if ($fetch_rec[1] == 'Accepted'){
 									?><tr class="accept"><?php
 								} else if ($fetch_rec[1] == 'Compilation error' or $fetch_rec[1] == 'Runtime error'){
@@ -174,7 +165,7 @@
 									<td><?php echo $fetch_rec[3];?></td>
 									<td><?php echo $fetch_rec[4];?></td>
 								</tr>
-							</tbody> <?php 
+							</tbody> <?php
 						} ?>
 						</table>
 					</div>  <?php

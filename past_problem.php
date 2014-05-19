@@ -1,26 +1,16 @@
-<?php 
+<?php
 	session_start() ;
-	$db_host = 'localhost' ;
-	$db_database = 'pd course' ;
-	$db_username = 'pdogsserver' ;
-	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
-	if (!$connection)
-		die ("connection failed".mysql_error()) ;
-	mysql_query("SET NAMES 'utf8'");
-	$selection = mysql_select_db($db_database) ;
-	if (!$selection)
-		die ("selection failed".mysql_error()) ;
-
+	require_once('db.inc.php');
 
 	if (!isset($_SESSION['account'])){
 		header ("Location:index.php") ;
 	} else {
-		
-?>      
-		
+
+?>
+
 		<div class="hero-unit upload_section">
 			<h3>Past Problems</h3>
-				
+
 				<?php
 				$year = 13;
 				$gonext = True;
@@ -33,8 +23,8 @@
 						<p>Class Homework</p>
 						<table class="table table-hover"><?php
 						$count = 0;
-						while ($fetch_past = mysql_fetch_row($past_id)){ 
-							
+						while ($fetch_past = mysql_fetch_row($past_id)){
+
 							if ($count%3 == 0) echo '<tr>';?>
 							<td>
 								<button type='button' class='btn btn-link btn-large past-btn' name='<?php echo $fetch_past[0]?>'><?php echo $fetch_past[0]; ?></button>
@@ -50,12 +40,12 @@
 						$query_past = "SELECT past_id FROM past_hw WHERE past_id LIKE 'EX".(string)$year."%'";
 						$past_id = mysql_query($query_past);
 						if (mysql_num_rows($past_id)){?>
-							</table> 
+							</table>
 							<p>Lab Exam</p>
 							<table class="table table-hover"><?php
 							$count = 0;
-							while ($fetch_past = mysql_fetch_row($past_id)){ 
-								
+							while ($fetch_past = mysql_fetch_row($past_id)){
+
 								if ($count%3 == 0) echo '<tr>';?>
 								<td>
 									<button type='button' class='btn btn-link btn-large past-btn' name='<?php echo $fetch_past[0]?>'><?php echo $fetch_past[0]; ?></button>
@@ -66,7 +56,7 @@
 									$count = 0;
 								} else {
 									$count++;
-								}	
+								}
 							}
 						}?>
 						</table><?php
@@ -74,12 +64,12 @@
 					} else {
 						$gonext = False;
 					}
-					
+
 				}
 
 				?>
-			
-			
+
+
 		</div>
 		<script src="js/past.js"></script>
 <?php

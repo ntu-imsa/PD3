@@ -43,7 +43,7 @@
 		#$outputfile = $problem_dir.'\\answer\\output.txt';
 		$outputfile = $problem_dir.'\\answer\\'.$_POST['problem_num'];
 		$resultfile = $problem_dir.'\\answer\\score.txt';
-		$exec_timefile = $problem_dir.'\\answer\\exec_time.txt';
+		$exec_timefile = $problem_dir.'\\answer\\'.$_POST['problem_num'];
 		$testfile = $judge_dir.'\\'.$_POST['problem_num'];
 			
 		if (file_exists($upfile)) unlink($upfile);
@@ -94,7 +94,6 @@
 					//$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2>> '.$compile_logfile;
 					$command = 'g++ '.$upfile.' -O2 -Wl,--stack,214748364 -static -std=c++11 -o '.$exefile.'  2>> '.$compile_logfile;
 					system($command, $return);
-					exec('python txtCleaner.py '.$ans_dir.'\\exec_time.txt');
 					exec('python txtCleaner.py '.$ans_dir.'\\score.txt');
 					exec('python txtCleaner.py '.$ans_dir.'\\result.txt');
 					if ($return == 0){	       
@@ -114,9 +113,10 @@
 						$datanum = mysql_fetch_row($datanumsource)[0];
 						$testdatainfo = fopen($judge_dir.'\\testing_data.txt', "r");
 						for($i = 0 ; $i < $datanum ; $i++){
+							exec('python txtCleaner.py '.$exec_timefile.'.'.$i.'.time');
 							$teststr = fgets($testdatainfo, 100);
 							preg_match_all("/\d+/", $teststr, $testarr);
-							$command = 'python timeout.py '.$exefile.' '.$testfile.'.'.$i.'.in '.$outputfile.'.'.$i.'.out '.$run_logfile.' '.$exec_timefile.' '.$exename.' '.$testarr[0][0];
+							$command = 'python timeout.py '.$exefile.' '.$testfile.'.'.$i.'.in '.$outputfile.'.'.$i.'.out '.$run_logfile.' '.$exec_timefile.'.'.$i.'.time '.$exename.' '.$testarr[0][0];
 							if ($exec_result = exec($command, $return)){      //如果執行成功  比對結果
 								if ($exec_result != NULL and $exec_result == 'Time limit exceed'){
 									$status = 'Time limit exceed';

@@ -1,15 +1,6 @@
-<?php 
+<?php
 session_start() ;
-$db_host = 'localhost' ;
-$db_database = 'pd course' ;
-$db_username = 'pdogsserver' ;
-$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
-if (!$connection)
-	die ("connection failed".mysql_error()) ;
-mysql_query("SET NAMES 'utf8'");
-$selection = mysql_select_db($db_database) ;
-if (!$selection)
-	die ("selection failed".mysql_error()) ;
+require_once('db.inc.php');
 
 date_default_timezone_set('Asia/Taipei');
 $datetime = date ("Y-m-d H:i:s");
@@ -33,20 +24,20 @@ if (!isset($_SESSION['account'])){
 	$exist = mysql_query($exist_query);
 	$fetch_exist = mysql_fetch_row($exist);
 	if ($fetch_exist[0] == '0'){
-		
-		$insert = "INSERT INTO `group`(group_num) 
+
+		$insert = "INSERT INTO `group`(group_num)
 						VALUES ('$group_num')" ;
 		$result = mysql_query($insert);
 		if (!$result) {
     		die('Invalid query: ' . mysql_error());
 		}
-		$insert = "INSERT INTO project_group(project_id, group_num) 
+		$insert = "INSERT INTO project_group(project_id, group_num)
 						VALUES ('$fetch_project[0]', '$group_num')" ;
 		mysql_query($insert);
 	}
 
 
-	$problem_dir = '.\\project\\'.$project_id.'\\'.$group_num; 
+	$problem_dir = '.\\project\\'.$project_id.'\\'.$group_num;
 	$log_dir = '.\\project\\'.$project_id.'\\'.$group_num.'\\log';
 	$ans_dir = '.\\project\\'.$project_id.'\\'.$group_num.'\\answer';
 
@@ -72,29 +63,29 @@ if (!isset($_SESSION['account'])){
 	$exec_timefile = $problem_dir.'\\answer\\exec_time.txt';
 	$testfile = $judge_dir.'\\testing_data.txt';
 
-	
+
 	if (file_exists($exefile)) unlink($exefile);
 	if (file_exists($outputfile)) unlink($outputfile);
 	if (file_exists($resultfile)) unlink($resultfile);
-		
+
 
 	$status = '';
 	$score = 0;
 	$exec_result = 0;
 	$return = -1;
-	
-	
 
-		if (isset($_FILES['pdfupload'])){  //pdf 檔案上傳	
+
+
+		if (isset($_FILES['pdfupload'])){  //pdf 檔案上傳
 			if ( $fetch_project[2] > $datetime ){  //如果還沒超過死線
-				if (file_exists($pdffile)) unlink($pdffile); 
+				if (file_exists($pdffile)) unlink($pdffile);
 				move_uploaded_file($_FILES['pdfupload']['tmp_name'], $pdffile);
 			}
 		}
 		if (isset($_FILES['upload'])){   // 程式碼檔案上傳
 			if (file_exists($upfile)) unlink($upfile);
 			move_uploaded_file($_FILES['upload']['tmp_name'], $upfile);
-			
+
 			//如果繳交的題目還沒超過死線
 			if ( $fetch_project[2] > $datetime ){
 				//編譯.cpp檔
@@ -108,10 +99,10 @@ if (!isset($_SESSION['account'])){
 					//$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2>> '.$compile_logfile;
 					$command = 'g++ '.$upfile.' -o '.$exefile.'  2>> '.$compile_logfile;
 					system($command, $return);
-					if ($return == 0){	       
+					if ($return == 0){
 						//如果成功編譯出.exe檔 執行程式
 						//ex. hw.exe < testing_data.txt > output.txt 2>> log.txt
-						//$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2>> '.$run_logfile;  
+						//$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2>> '.$run_logfile;
 						//$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename.' 2>> '.$run_logfile;
 						$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename.' 10';
 						if ($exec_result = exec($command, $return)){     //如果執行成功  比對結果
@@ -160,8 +151,8 @@ if (!isset($_SESSION['account'])){
 	    				die('Invalid query: ' . mysql_error());
 					}
 				}
-				
-				
+
+
 				$update = "UPDATE project_group SET status = '$status', time = '$datetime', exec_time = '$exec_result' WHERE group_num = '$group_num'";
 				//echo $update;
 				$success = mysql_query($update);
@@ -181,11 +172,11 @@ if (!isset($_SESSION['account'])){
 		if (isset($_FILES['upload']) or isset($_FILES['pdfupload'])){
 			?>	<!-- 改作業序號看這裡 -->
 			<div class="hero-unit upload_section">
-				<table class="table table-hover"><?php 
+				<table class="table table-hover"><?php
 				if (isset($_FILES['pdfupload'])){ ?>
 					<p>PDF file is submitted successfully!</p>
-					<br> <?php 
-				} 
+					<br> <?php
+				}
 				if (isset($_FILES['upload'])){?>
 				<thead>
 					<tr>
@@ -195,9 +186,9 @@ if (!isset($_SESSION['account'])){
 						<th>Submission date</th>
 					</tr>
 				</thead>
-				<tbody> <?php 
-				
-				$query_rec = "SELECT  status, exec_time, time FROM project_group 
+				<tbody> <?php
+
+				$query_rec = "SELECT  status, exec_time, time FROM project_group
 					          WHERE group_num = ".$group_num;
 				$rec = mysql_query($query_rec);
 				$fetch_rec = mysql_fetch_row($rec);
@@ -217,7 +208,7 @@ if (!isset($_SESSION['account'])){
 				<td><?php echo $fetch_rec[1],'s';?></td>
 				<td><?php echo $fetch_rec[2];?></td>
 			</tr>
-			</tbody> <?php 
+			</tbody> <?php
 		} ?>
 </table>
 </div>  <?php
