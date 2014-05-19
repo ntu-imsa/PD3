@@ -55,6 +55,7 @@
 		$status = '';
 		$score = 0;
 		$exec_result = 0;
+		$exec_time = 0;
 		$return = -1;
 		$fc = $_POST['problem_num'][0];
 		$ID = $_POST['problem_num'];
@@ -120,7 +121,8 @@
 								if ($exec_result != NULL and $exec_result == 'Time limit exceed'){
 									$status = 'Time limit exceed';
 									if($finalstatus < 2) $finalstatus = 2;
-									$exec_result = 3;
+									$exec_result = $testarr[0][0];
+									$exec_time += $exec_result;
 								} else if ($exec_result != NULL and $exec_result == 'Runtime error'){
 									$status = 'Runtime error';
 									if($finalstatus < 3) $finalstatus = 3;
@@ -135,6 +137,7 @@
 										if($finalstatus < 1) $finalstatus = 1;
 									}
 									$score += $tmpscore;
+									$exec_time += $exec_result;
 								}
 							} else {
 								//runtime error
@@ -177,10 +180,10 @@
 				//echo $_POST['problem_num'][4];	
 				if ($fc == "P"){
 					$insert = "INSERT INTO pd_score(s_id, p_id, status, time, exec_time, score) 
-						VALUES ('$fetch_id[0]', '$ID', '$status', '$datetime', '$exec_result', '$score')" ;
+						VALUES ('$fetch_id[0]', '$ID', '$status', '$datetime', '$exec_time', '$score')" ;
 				} else if($fc == "L"){
 					$insert = "INSERT INTO lab_score(s_id, lab_id, status, time, exec_time, score) 
-						VALUES ('$fetch_id[0]', '$ID', '$status', '$datetime', '$exec_result', '$score')" ;
+						VALUES ('$fetch_id[0]', '$ID', '$status', '$datetime', '$exec_time', '$score')" ;
 				}
 				$success = mysql_query($insert);
 			} else {   //超過死線
