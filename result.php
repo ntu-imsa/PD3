@@ -64,6 +64,7 @@
 		$status_arr = array();
 		$time_arr = array();
 		$score_arr = array();
+		$public_score_arr = array();
 		//根據是PD作業或是LAB作業取出題號
 		
 		if ($fc == "P"){
@@ -119,8 +120,10 @@
 							$status_arr[$i] = "";
 							$time_arr[$i] = 0;
 							$score_arr[$i] = 0;
+							$public_score_arr[$i] = 0;
 							$teststr = fgets($testdatainfo, 100);
 							preg_match_all("/\d+/", $teststr, $testarr);
+							$public_score_arr[$i] = $testarr[0][2];
 							$command = 'python timeout.py '.$exefile.' '.$testfile.'.'.$i.'.in '.$outputfile.'.'.$i.'.out '.$run_logfile.' '.$exec_timefile.' '.$exename.' '.$testarr[0][0];
 							if ($exec_result = exec($command, $return)){      //如果執行成功  比對結果
 								if ($exec_result != NULL and $exec_result == 'Time limit exceed'){
@@ -250,24 +253,35 @@
 							</tr><tr><td> </td></tr>
 							<?php
 								for($i = 0 ; $i < $datanum ; $i++){
-									if ($status_arr[$i] == 'Accepted'){
-										?><tr class="accept"><?php
-									} else if ($status_arr[$i] == 'Compilation error' or $fetch_rec[1] == 'Runtime error'){
-										?><tr class="error"><?php
-									} else if ($status_arr[$i] == 'Time limit exceed'){
-										?><tr class="time_exceed"><?php
-									} else if ($status_arr[$i] == 'Wrong answer'){
-										?><tr class="wrong_answer"><?php
-									} else if ($status_arr[$i] == 'System upload error'){
-										?><tr class="upload_error"><?php
-									} ?>
+									if($public_score_arr[$i] == 1){
+										if ($status_arr[$i] == 'Accepted'){
+											?><tr class="accept"><?php
+										} else if ($status_arr[$i] == 'Compilation error' or $fetch_rec[1] == 'Runtime error'){
+											?><tr class="error"><?php
+										} else if ($status_arr[$i] == 'Time limit exceed'){
+											?><tr class="time_exceed"><?php
+										} else if ($status_arr[$i] == 'Wrong answer'){
+											?><tr class="wrong_answer"><?php
+										} else if ($status_arr[$i] == 'System upload error'){
+											?><tr class="upload_error"><?php
+										} ?>
+											<td><?php echo 'Test Data '.($i+1);?></td>
+											<td><?php echo $status_arr[$i];?></td>
+											<td><?php echo $time_arr[$i].'s';?></td>
+											<td></td>
+											<td><?php echo $score_arr[$i];?></td>
+											</tr>
+										<?php
+									}else{
+										?><tr class="data_hidden">
 										<td><?php echo 'Test Data '.($i+1);?></td>
-										<td><?php echo $status_arr[$i];?></td>
-										<td><?php echo $time_arr[$i].'s';?></td>
+										<td><?php echo 'Data Hidden'?></td>
 										<td></td>
-										<td><?php echo $score_arr[$i];?></td>
-									</tr>
-									<?php
+										<td></td>
+										<td></td>
+										</tr>
+										<?php
+									}
 								}
 							?>
 						</tbody> <?php 

@@ -2265,6 +2265,10 @@ table th[class*="span"],
   background-color: #EBD6FF;/*紫色*/
 }
 
+.table tbody tr.data_hidden >td {
+  background-color: #FFF7EF;/*紫色*/
+}
+
 .table tbody tr.damn >td {
   background-color: #B2E0E0;
 }
@@ -2292,6 +2296,11 @@ table th[class*="span"],
 .table-hover tbody tr.upload_error:hover > td {
   background-color: #DBB8FF;
 }
+
+.table-hover tbody tr.data_hidden >td {
+  background-color: #FFEEDE;
+}
+
 .table-hover tbody tr.damn:hover > td {
   background-color: #80CCCC;
 }
