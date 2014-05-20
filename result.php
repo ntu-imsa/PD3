@@ -42,7 +42,8 @@
 		$all_logfile = '.\\judgement\\upload_log.txt';
 		#$outputfile = $problem_dir.'\\answer\\output.txt';
 		$outputfile = $problem_dir.'\\answer\\'.$_POST['problem_num'];
-		$resultfile = $problem_dir.'\\answer\\score.txt';
+		$resultfile = $problem_dir.'\\answer\\'.$_POST['problem_num'];
+		$scorefile = $problem_dir.'\\answer\\'.$_POST['problem_num'];
 		$exec_timefile = $problem_dir.'\\answer\\'.$_POST['problem_num'];
 		$testfile = $judge_dir.'\\'.$_POST['problem_num'];
 			
@@ -59,6 +60,10 @@
 		$return = -1;
 		$fc = $_POST['problem_num'][0];
 		$ID = $_POST['problem_num'];
+		$datanum = 0;
+		$status_arr = array();
+		$time_arr = array();
+		$score_arr = array();
 		//根據是PD作業或是LAB作業取出題號
 		
 		if ($fc == "P"){
@@ -94,8 +99,6 @@
 					//$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2>> '.$compile_logfile;
 					$command = 'g++ '.$upfile.' -O2 -Wl,--stack,214748364 -static -std=c++11 -o '.$exefile.'  2>> '.$compile_logfile;
 					system($command, $return);
-					exec('python txtCleaner.py '.$ans_dir.'\\score.txt');
-					exec('python txtCleaner.py '.$ans_dir.'\\result.txt');
 					if ($return == 0){	       
 						//如果成功編譯出.exe檔 執行程式
 						//ex. hw.exe < testing_data.txt > output.txt 2>> log.txt
@@ -114,6 +117,11 @@
 						$testdatainfo = fopen($judge_dir.'\\testing_data.txt', "r");
 						for($i = 0 ; $i < $datanum ; $i++){
 							exec('python txtCleaner.py '.$exec_timefile.'.'.$i.'.time');
+							exec('python txtCleaner.py '.$scorefile.'.'.$i.'.score');
+							exec('python txtCleaner.py '.$resultfile.'.'.$i.'.result');
+							$status_arr[$i] = "";
+							$time_arr[$i] = 0;
+							$score_arr[$i] = 0;
 							$teststr = fgets($testdatainfo, 100);
 							preg_match_all("/\d+/", $teststr, $testarr);
 							$command = 'python timeout.py '.$exefile.' '.$testfile.'.'.$i.'.in '.$outputfile.'.'.$i.'.out '.$run_logfile.' '.$exec_timefile.'.'.$i.'.time '.$exename.' '.$testarr[0][0];
@@ -123,6 +131,7 @@
 									if($finalstatus < 2) $finalstatus = 2;
 									$exec_result = $testarr[0][0];
 									$exec_time += $exec_result;
+									$time_arr[$i] = $exec_result;
 								} else if ($exec_result != NULL and $exec_result == 'Runtime error'){
 									$status = 'Runtime error';
 									if($finalstatus < 3) $finalstatus = 3;
@@ -137,15 +146,18 @@
 										if($finalstatus < 1) $finalstatus = 1;
 									}
 									$score += $tmpscore;
+									$score_arr[$i] = $tmpscore;
 									$exec_time += $exec_result;
 								}
+								$time_arr[$i] = $exec_result;
 							} else {
 								//runtime error
 								$status = 'Runtime error';
 								if($finalstatus < 3) $finalstatus = 3;
 							}
-							$fp = fopen($ans_dir.'/result.txt',"a");
-							fputs($fp, $status."\r\n");
+							$status_arr[$i] = $status;
+							$fp = fopen($resultfile.'.'.$i.'.result',"a");
+							fputs($fp, $status);
 							fclose($fp);
 						}
 						//回報total結果	
@@ -235,7 +247,29 @@
 								<td><?php echo $fetch_rec[2].'s';?></td>
 								<td><?php echo $fetch_rec[3];?></td>
 								<td><?php echo $fetch_rec[4];?></td>
-							</tr>
+							</tr><tr><td> </td></tr>
+							<?php
+								for($i = 0 ; $i < $datanum ; $i++){
+									if ($status_arr[$i] == 'Accepted'){
+										?><tr class="accept"><?php
+									} else if ($status_arr[$i] == 'Compilation error' or $fetch_rec[1] == 'Runtime error'){
+										?><tr class="error"><?php
+									} else if ($status_arr[$i] == 'Time limit exceed'){
+										?><tr class="time_exceed"><?php
+									} else if ($status_arr[$i] == 'Wrong answer'){
+										?><tr class="wrong_answer"><?php
+									} else if ($status_arr[$i] == 'System upload error'){
+										?><tr class="upload_error"><?php
+									} ?>
+										<td><?php echo 'Test Data '.($i+1);?></td>
+										<td><?php echo $status_arr[$i];?></td>
+										<td><?php echo $time_arr[$i].'s';?></td>
+										<td></td>
+										<td><?php echo $score_arr[$i];?></td>
+									</tr>
+									<?php
+								}
+							?>
 						</tbody> <?php 
 					} ?>
 					</table>

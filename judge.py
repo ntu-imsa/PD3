@@ -45,8 +45,8 @@ if __name__ == '__main__':
             total_score += single_score
             #print row[0][0] / test_num
     '''
-    outfile = open(hw_path + 'score.txt', 'a')
-    outfile.write(str(total_score)+'\n')
+    outfile = open(hw_path + '/' + sys.argv[2] + '.' + str(data_num) + '.score', 'a')
+    outfile.write(str(total_score))
     outputfile.close()
     answerfile.close()
     outfile.close()

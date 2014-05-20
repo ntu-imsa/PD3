@@ -14,7 +14,9 @@ def execute(cmd):
     t_end = time.time()
     exec_time = t_end - t_beginning
     print outdata[0],
-    if outdata[1] == '' and p.returncode == 0:
+    if outdata[1] == '' and (p.returncode == 0 or p.returncode == 1):
+        return '%.3f' % exec_time
+    elif p.returncode == 0 or p.returncode == 1:
         return '%.3f' % exec_time
     else:
         return 'Runtime error'    
