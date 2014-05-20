@@ -42,9 +42,9 @@
 		$all_logfile = '.\\judgement\\upload_log.txt';
 		#$outputfile = $problem_dir.'\\answer\\output.txt';
 		$outputfile = $problem_dir.'\\answer\\'.$_POST['problem_num'];
-		$resultfile = $problem_dir.'\\answer\\'.$_POST['problem_num'];
-		$scorefile = $problem_dir.'\\answer\\'.$_POST['problem_num'];
-		$exec_timefile = $problem_dir.'\\answer\\'.$_POST['problem_num'];
+		$resultfile = $problem_dir.'\\answer\\result.txt';
+		$scorefile = $problem_dir.'\\answer\\score.txt';
+		$exec_timefile = $problem_dir.'\\answer\\exec_time.txt';
 		$testfile = $judge_dir.'\\'.$_POST['problem_num'];
 			
 		if (file_exists($upfile)) unlink($upfile);
@@ -116,15 +116,12 @@
 						$datanum = mysql_fetch_row($datanumsource)[0];
 						$testdatainfo = fopen($judge_dir.'\\testing_data.txt', "r");
 						for($i = 0 ; $i < $datanum ; $i++){
-							exec('python txtCleaner.py '.$exec_timefile.'.'.$i.'.time');
-							exec('python txtCleaner.py '.$scorefile.'.'.$i.'.score');
-							exec('python txtCleaner.py '.$resultfile.'.'.$i.'.result');
 							$status_arr[$i] = "";
 							$time_arr[$i] = 0;
 							$score_arr[$i] = 0;
 							$teststr = fgets($testdatainfo, 100);
 							preg_match_all("/\d+/", $teststr, $testarr);
-							$command = 'python timeout.py '.$exefile.' '.$testfile.'.'.$i.'.in '.$outputfile.'.'.$i.'.out '.$run_logfile.' '.$exec_timefile.'.'.$i.'.time '.$exename.' '.$testarr[0][0];
+							$command = 'python timeout.py '.$exefile.' '.$testfile.'.'.$i.'.in '.$outputfile.'.'.$i.'.out '.$run_logfile.' '.$exec_timefile.' '.$exename.' '.$testarr[0][0];
 							if ($exec_result = exec($command, $return)){      //如果執行成功  比對結果
 								if ($exec_result != NULL and $exec_result == 'Time limit exceed'){
 									$status = 'Time limit exceed';
@@ -132,10 +129,12 @@
 									$exec_result = $testarr[0][0];
 									$exec_time += $exec_result;
 									$time_arr[$i] = $exec_result;
+									exec('python putzero.py '.$scorefile);
 								} else if ($exec_result != NULL and $exec_result == 'Runtime error'){
 									$status = 'Runtime error';
 									if($finalstatus < 3) $finalstatus = 3;
 									$exec_result = 0;
+									exec('python putzero.py '.$scorefile);
 								} else {
 									//ex. python judge.py b01705001 PD14-1
 									$tmpscore = exec($command_judge.' '.$i.' '.$testarr[0][1], $return);
@@ -154,10 +153,11 @@
 								//runtime error
 								$status = 'Runtime error';
 								if($finalstatus < 3) $finalstatus = 3;
+								exec('python putzero.py '.$scorefile);
 							}
 							$status_arr[$i] = $status;
-							$fp = fopen($resultfile.'.'.$i.'.result',"a");
-							fputs($fp, $status);
+							$fp = fopen($resultfile,"a");
+							fputs($fp, $status."\r\n");
 							fclose($fp);
 						}
 						//回報total結果	
