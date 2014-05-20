@@ -2,6 +2,7 @@ student
 judgement
 problem
 past
+interactive
 *.pyc
 ._.DS_Store
 ._.git
