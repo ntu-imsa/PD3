@@ -107,6 +107,9 @@
 						}
 						$datanum = mysql_fetch_row($datanumsource)[0];
 						$testdatainfo = fopen($judge_dir.'\\testing_data.txt', "r");
+						exec('python txtCleaner.py '.$exec_timefile);
+						exec('python txtCleaner.py '.$resultfile);
+						exec('python txtCleaner.py '.$scorefile);
 						for($i = 0 ; $i < $datanum ; $i++){
 							$status_arr[$i] = "";
 							$time_arr[$i] = 0;
