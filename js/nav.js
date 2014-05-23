@@ -372,3 +372,37 @@
          }
      });
   });
+  $("#chg-pass-btn").click(function() {
+    console.log("change_password.php");
+    $('#load').addClass('loading');
+    $("#main-content").css("display", "none");
+    $.ajax({
+      url: 'change_password.php',
+      cache: false,
+      dataType: 'html',
+      error: function(xhr) {
+        alert('Ajax request 發生錯誤');
+      },
+      success: function(response) {
+        $('.nav').children('.active').removeClass('active');
+        $("#main-content").css("display","block");
+        $('#main-content').html(response);
+        $('#load').removeClass('loading');
+        $('#footer').html("<div class='container'><p class='muted credit'>© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p></div>");
+        $('#send-pass-btn').click(function() {
+          var data = $("#chg-pass").serialize();
+          $("#chg-pass")[0].reset();
+          $.post("change_password.php", data, function(res) {
+            console.log(res); 
+            if (res == "success")
+            {
+              alert('密碼修改成功!');
+              window.location = 'index.php';
+            }
+            else
+              $("#msg").text(res);
+          });
+        });
+      }
+    }); 
+  });

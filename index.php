@@ -208,7 +208,7 @@
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi, <?php echo $_SESSION['account'];?><b class="caret"></b></a>
 											<ul class="dropdown-menu">
 											<li><a href="profile.php">Past Problems</a></li>
-											<li><a href="#">Change Password</a></li>
+											<li><a id="chg-pass-btn" href="#">Change Password</a></li>
 											<li class="divider"></li>
 											<li><a href="logout.php">Logout</a></li>
 											</ul>
