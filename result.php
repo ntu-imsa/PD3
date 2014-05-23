@@ -66,7 +66,7 @@
 		$score_arr = array();
 		$public_score_arr = array();
 		//根據是PD作業或是LAB作業取出題號
-		
+
 		if ($fc == "P"){
 			$query = "SELECT deadline FROM pd_hw WHERE p_id = '".$_POST['problem_num']."'";
 			$command_judge = 'python judge.py '.$acc.' '.$_POST['problem_num'];   
@@ -79,16 +79,13 @@
 		$time = mysql_query($query);
 		$fetch_time = mysql_fetch_row($time);
 		
+	if ( $fetch_time[0] > $datetime ){  //如果還沒超過死線
 		if (isset($_FILES['pdfupload'])){  //pdf 檔案上傳	
-			if ( $fetch_time[0] > $datetime ){  //如果還沒超過死線
 				move_uploaded_file($_FILES['pdfupload']['tmp_name'], $pdffile);
-			}
 		}
 		if (isset($_FILES['upload'])){   // 程式碼檔案上傳
 			move_uploaded_file($_FILES['upload']['tmp_name'], $upfile);
 			
-			//如果繳交的題目還沒超過死線
-			if ( $fetch_time[0] > $datetime ){
 				//編譯.cpp檔
 				if (file_exists($upfile)){
 					$fp = fopen($compile_logfile, 'a');
@@ -201,10 +198,12 @@
 						VALUES ('$fetch_id[0]', '$ID', '$status', '$datetime', '$exec_time', '$score')" ;
 				}
 				$success = mysql_query($insert);
-			} else {   //超過死線
-				echo "<div class='hero-unit upload_section'><p>deadline is passed!</p></div>";
-			}
+			
 		}
+	} else {   //超過死線
+				echo "<div class='hero-unit upload_section'><p>deadline is passed!</p></div>";
+	}
+
 		if (isset($_FILES['upload']) or isset($_FILES['pdfupload'])){
 			?>	<!-- 改作業序號看這裡 -->
 				<div class="hero-unit upload_section">
