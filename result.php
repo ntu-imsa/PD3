@@ -46,12 +46,6 @@
 		$scorefile = $problem_dir.'\\answer\\score.txt';
 		$exec_timefile = $problem_dir.'\\answer\\exec_time.txt';
 		$testfile = $judge_dir.'\\'.$_POST['problem_num'];
-			
-		if (file_exists($upfile)) unlink($upfile);
-		if (file_exists($exefile)) unlink($exefile);
-		if (file_exists($outputfile)) unlink($outputfile);
-		if (file_exists($resultfile)) unlink($resultfile);
-		if (file_exists($pdffile)) unlink($pdffile);	
 		
 		$status = '';
 		$score = 0;
@@ -80,13 +74,22 @@
 		$fetch_time = mysql_fetch_row($time);
 		
 	if ( $fetch_time[0] > $datetime ){  //如果還沒超過死線
-		if (isset($_FILES['pdfupload'])){  //pdf 檔案上傳	
-				move_uploaded_file($_FILES['pdfupload']['tmp_name'], $pdffile);
+		if (isset($_FILES['pdfupload']) && file_exists($_FILES['pdfupload']['tmp_name']) && is_uploaded_file($_FILES['pdfupload']['tmp_name'])){
+			// pdf 檔案上傳，如果沒有上傳檔案，就不要進行處理
+			// 有上傳的話，先把server上已存在的刪掉
+			if (file_exists($pdffile)) unlink($pdffile);	
+			move_uploaded_file($_FILES['pdfupload']['tmp_name'], $pdffile);
 		}
-		if (isset($_FILES['upload'])){   // 程式碼檔案上傳
+		if (isset($_FILES['upload']) && file_exists($_FILES['upload']['tmp_name']) && is_uploaded_file($_FILES['upload']['tmp_name'])){
+			// 程式碼檔案上傳，如果沒有上傳檔案，就不要進行處理
+			// 有上傳的話，先把server上已存在的刪掉
+			if (file_exists($upfile)) unlink($upfile);
+			if (file_exists($exefile)) unlink($exefile);
+			if (file_exists($outputfile)) unlink($outputfile);
+			if (file_exists($resultfile)) unlink($resultfile);
 			move_uploaded_file($_FILES['upload']['tmp_name'], $upfile);
-			
-				//編譯.cpp檔
+
+			//編譯.cpp檔
 				if (file_exists($upfile)){
 					$fp = fopen($compile_logfile, 'a');
 					fwrite($fp, '['.$datetime.'] :'."\n");
