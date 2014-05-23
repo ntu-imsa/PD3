@@ -1,17 +1,8 @@
 ﻿<?php 
 	session_start() ;
-	$db_host = 'localhost' ;
-	$db_database = 'pd course' ;
-	$db_username = 'pdogsserver' ;
-	$connection = mysql_connect($db_host, $db_username, 'pdogsserver');
-	$score = 0;
-	if (!$connection)
-		die ("connection failed".mysql_error()) ;
-	mysql_query("SET NAMES 'utf8'");
-	$selection = mysql_select_db($db_database) ;
-	if (!$selection)
-		die ("selection failed".mysql_error()) ;
+	require_once('db.inc.php');
 
+	$score = 0;
 	date_default_timezone_set('Asia/Taipei');
 	$datetime = date ("Y-m-d H:i:s");
 
