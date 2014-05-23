@@ -41,7 +41,7 @@
 						</header>
 						<div class="container">
 
-							<iframe class ='main' src="http://free.timeanddate.com/clock/i3i2qw9c/n241/tltw/fn6/tct/pct/tt0/tm1/th1"
+							<iframe class ="main" src="time.php"
 								frameborder="0" width="246" height="21" allowTransparency="true">
 							</iframe>
 

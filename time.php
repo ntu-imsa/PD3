@@ -1,48 +1,26 @@
-<span id="clock"> 
-<SCRIPT LANGUAGE="JavaScript"> 
-    function getthedate(){ 
-        var mydate=new Date(); 
-        var hours=mydate.getHours(); 
-        var minutes=mydate.getMinutes(); 
-        var seconds=mydate.getSeconds(); 
-        var dn="AM"; 
-        if (hours>=12) dn="PM"; 
-        if (hours>12) hours=hours-12;        
-        if (hours==0) hours=12; 
-        if (minutes<=9) minutes="0"+minutes; 
-        if (seconds<=9)    seconds="0"+seconds; 
-        
-
-        var cdate="<b>Local Time</b> "+hours+":"+minutes+":"+seconds+" "+dn+"<BR>"; 
-        if (document.all) 
-            document.all.clock.innerHTML=cdate; 
-        else if (document.getElementById) 
-            document.getElementById("clock").innerHTML=cdate; 
-        else 
-            document.write(cdate); 
-    } 
-    if (!document.all&&!document.getElementById) getthedate(); 
-
-    function goforit(){ 
-        if (document.all||document.getElementById) setInterval("getthedate()",1000); 
-    } 
-    window.onload=goforit; 
-</SCRIPT> 
-</span> 
-
-<?php 
-
-        $thetimeis = getdate(time()); 
-            $thehour = $thetimeis['hours']; 
-            $theminute = $thetimeis['minutes']; 
-            $thesecond = $thetimeis['seconds']; 
-        if($thehour > 12){ 
-            $thehour = $thehour - 12; 
-            $dn = "PM"; 
-        }else{ 
-            $dn = "AM"; 
-        } 
-        
-echo "$thehour: $theminute:$thesecond $dn"; 
-?>    
-</p>
+<!doctype html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript">
+  function init(){
+    setInterval(updateTime,1000);
+  }
+  function updateTime(){
+    var d = new Date();
+    var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    var dateString = days[d.getDay()] + ', ' + d.getDate() + ' ' + months[d.getMonth()]+ ' '+ d.getFullYear() + ' '+ d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+    document.getElementById("t1").innerHTML = dateString;
+    }
+  </script>
+  <style type="text/css">
+#c1 {text-align:center;display:block;margin:0px auto;background-color:transparent;padding:1px;border:none;}
+#t1c,#t1 {white-space:nowrap;font-family:'Century Gothic',AvantGarde,'Avant Garde',sans-serif;font-size:14px;color:#000;text-decoration:none;}
+.t100 {width:100%;height:100%;}
+.tab {margin: 0 auto;}
+body {border:none;margin:0px;padding:0px;overflow:hidden;background-color:transparent;}
+</style></head>
+<body onload="init()" allowTransparency=true style="background:transparent">
+  <table cellpadding=0 cellspacing=0 border=0 class="tab t100" id=c2>
+    <tr><td id=c1 valign=middle><span id=t1>Friday, 23 May 2014, 15:08:52</span></a></td></tr>
+  </table>
+</body></html>
