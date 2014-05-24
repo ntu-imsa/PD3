@@ -18,6 +18,14 @@
 				success: function(data)
 				{
 					$('#scoreboard').html(data);
+
+					// set update time
+						var d = new Date();
+						var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+						var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+						var dateString = days[d.getDay()] + ', ' + d.getDate() + ' ' + months[d.getMonth()]+ ' '+ d.getFullYear() + ' '+ d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+						document.getElementById("lastUpdTime").innerHTML = dateString;
+
 				//	alert('updated');
 				},
 				error: function()
@@ -46,6 +54,10 @@
         <hr>
 
 <div id="scoreboard"></div>
+<hr>
+<div class="footer">
+	<p>Last updated: <span id="lastUpdTime"></span></p>
+</div>
 </div>
 </body>
 </html>
