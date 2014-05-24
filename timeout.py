@@ -35,11 +35,11 @@ if __name__ == '__main__':
     exe = sys.argv[6]
     try:
         result = command('python execute.py '+sys.argv[1]+' '+sys.argv[2]+' '+sys.argv[5]+' > '+sys.argv[3]+' 2>> '+sys.argv[4], exe, int(sys.argv[7]))
-        print 'python execute.py '+sys.argv[1]+' '+sys.argv[2]+' '+sys.argv[5]+' > '+sys.argv[3]+' 2>> '+sys.argv[4]
     except TimeoutError:
         print 'Time limit exceed'
     else:
 	timefile = open(sys.argv[5],'r').read()
+        print timefile
         if timefile == 'Runtime error':
             print 'Runtime error'
         else:

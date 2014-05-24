@@ -11,12 +11,12 @@ def execute(cmd):
     t_beginning = time.time()
     p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stderr=subprocess.PIPE, stdout=subprocess.PIPE, preexec_fn=os.setsid if is_linux else None)
     outdata = p.communicate(infile)
+    print outdata[0],
     t_end = time.time()
     exec_time = t_end - t_beginning
-    print outdata[0],
     if outdata[1] == '' and (p.returncode == 0 or p.returncode == 1):
         return '%.3f' % exec_time
-    elif p.returncode == 0 or p.returncode == 1:
+    if p.returncode == 0 or p.returncode == 1:
         return '%.3f' % exec_time
     else:
         return 'Runtime error'    
@@ -24,7 +24,6 @@ def execute(cmd):
 
 if __name__ == '__main__':
     result = execute(sys.argv[1])
-    outfile = open(sys.argv[3],'a')
-    outfile.write(result+'\r\n')
+    outfile = open(sys.argv[3],'w')
+    outfile.write(result)
     outfile.close()
-

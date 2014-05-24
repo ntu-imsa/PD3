@@ -105,6 +105,8 @@
 						}else{
 							$datanumsource = mysql_query("SELECT data_number FROM lab_hw WHERE p_id = '".$_POST['problem_num']."'");
 						}
+						
+						$all_result = '';
 						$datanum = mysql_fetch_row($datanumsource)[0];
 						$testdatainfo = fopen($judge_dir.'\\testing_data.txt', "r");
 						exec('python txtCleaner.py '.$exec_timefile);
@@ -116,6 +118,7 @@
 							$score_arr[$i] = 0;
 							$public_score_arr[$i] = 0;
 							$teststr = fgets($testdatainfo, 100);
+							$tmpscore = 0;
 							preg_match_all("/\d+/", $teststr, $testarr);
 							$public_score_arr[$i] = $testarr[0][2];
 							$command = 'python timeout.py '.$exefile.' '.$testfile.'.'.$i.'.in '.$outputfile.'.'.$i.'.out '.$run_logfile.' '.$exec_timefile.' '.$exename.' '.$testarr[0][0];
@@ -155,6 +158,7 @@
 							$status_arr[$i] = $status;
 							$fp = fopen($resultfile,"a");
 							fputs($fp, $status."\r\n");
+							$all_result .= sprintf("%d,", $tmpscore);// << this should be the real score you got!
 							fclose($fp);
 						}
 						//回報total結果	
@@ -187,12 +191,13 @@
 				$id = mysql_query($query);
 				$fetch_id = mysql_fetch_row($id);
 				//echo $_POST['problem_num'][4];	
+
 				if ($fc == "P"){
-					$insert = "INSERT INTO pd_score(s_id, p_id, status, time, exec_time, score) 
-						VALUES ('$fetch_id[0]', '$ID', '$status', '$datetime', '$exec_time', '$score')" ;
+					$insert = "INSERT INTO pd_score(s_id, p_id, status, time, exec_time, score, result) 
+						VALUES ('$fetch_id[0]', '$ID', '$status', '$datetime', '$exec_time', '$score', '$all_result')" ;
 				} else if($fc == "L"){
-					$insert = "INSERT INTO lab_score(s_id, lab_id, status, time, exec_time, score) 
-						VALUES ('$fetch_id[0]', '$ID', '$status', '$datetime', '$exec_time', '$score')" ;
+					$insert = "INSERT INTO lab_score(s_id, lab_id, status, time, exec_time, score, result) 
+						VALUES ('$fetch_id[0]', '$ID', '$status', '$datetime', '$exec_time', '$score', '$all_result')" ;
 				}
 				$success = mysql_query($insert);
 			
