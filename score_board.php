@@ -8,6 +8,12 @@
     <link href="css/scoreboard.css" rel="stylesheet" media="screen">
 		<script src="js/jquery.min.js" type="text/javascript"></script>
 		<script type="text/javascript">
+		function padLeft(str,lenght){
+		    if(str.length >= lenght)
+	   	     	return str;
+	  	  	else
+	    	    return padLeft("0" + str,lenght);
+		}
 		function upd()
 		{
 			$.ajax
@@ -23,7 +29,7 @@
 						var d = new Date();
 						var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 						var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-						var dateString = days[d.getDay()] + ', ' + d.getDate() + ' ' + months[d.getMonth()]+ ' '+ d.getFullYear() + ' '+ d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+						var dateString = days[d.getDay()] + ', ' + d.getDate() + ' ' + months[d.getMonth()]+ ' '+ d.getFullYear() + ' '+ padLeft(String(d.getHours()), 2) + ":" + padLeft(String(d.getMinutes()), 2) + ":" + padLeft(String(d.getSeconds()), 2);
 						document.getElementById("lastUpdTime").innerHTML = dateString;
 
 				//	alert('updated');
