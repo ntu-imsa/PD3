@@ -15,8 +15,7 @@ while($r = mysql_fetch_assoc($result)) {
 }
 
 
-echo '<table border="1">';
-echo '<tr><th>User</th><th>Score</th><th>Penalty</th>';
+echo '<table class="table table-bordered no-wrap"><thead><tr><th>User</th><th>Score</th><th>Penalty</th>';
 foreach($problem as $name=>$row)
 {
 	$number = (int)$row['data_number'];
@@ -24,12 +23,12 @@ foreach($problem as $name=>$row)
 	for($i=1; $i<=$number; $i++)
 		echo sprintf('<th>%s - %d</th>', $name, $i);
 }
-echo '</tr>';
+echo '</tr></thead><tbody>';
 
 
 //$query = 'SELECT student.group_num, pd_score.p_id, MAX(pd_score.score) AS max_score FROM pd_score, student WHERE pd_score.s_id = student.s_id GROUP by p_id, group_num ORDER BY group_num';
-$query = 'SELECT student.group_num, pd_score.p_id, pd_score.score, pd_score.result 
-FROM pd_score, student 
+$query = 'SELECT student.group_num, pd_score.p_id, pd_score.score, pd_score.result
+FROM pd_score, student
 WHERE pd_score.s_id = student.s_id
 ORDER BY pd_score.time ASC';
 
@@ -43,12 +42,12 @@ $firstid = array();
 $result = mysql_query($query);
 $rows = array();
 while($r = mysql_fetch_assoc($result)) {
-	
+
 	$rows[$cnt] = $r;
 
 	$user = $r['group_num'];
 	$prob = $r['p_id'];
-	
+
 	if( !isset($maxscore[$user][$prob]) )
 		$maxscore[$user][$prob] = -1;
 	if($maxscore[$user][$prob] < $r['score'])
@@ -139,7 +138,7 @@ foreach($team as $score)
 
 }
 
-echo '</table>';
+echo '</tbody></table>';
 
 //header("Content-Type: application/json");
 //echo json_encode($rows, JSON_PRETTY_PRINT);
