@@ -21,7 +21,14 @@ foreach($problem as $name=>$row)
 	$number = (int)$row['data_number'];
 
 	for($i=1; $i<=$number; $i++)
-		echo sprintf('<th>%s - %d</th>', $name, $i);
+		echo sprintf('<th colspan="2">%s - %d</th>', $name, $i);
+}
+echo '</tr><tr><th colspan="4"></th>';
+foreach($problem as $name=>$row)
+{
+$number = (int)$row['data_number'];
+	for($i=1; $i<=$number; $i++)
+		echo '<th>Score</th><th>Tries</th>';
 }
 echo '</tr></thead><tbody>';
 
@@ -148,9 +155,14 @@ foreach($team as $score)
 
 		for($i=0; $i<$number; $i++)
 		{
-			if( isset($results[$i]) ) $tmpstr = $results[$i];
-			else $tmpstr = '';
-			echo sprintf("<td>%s</td>", $tmpstr);
+			if( isset($results[$i]) ){
+				$tmpstr = $results[$i];
+				$tmpstr2 = $tries[$usr][$probid];
+			}else{
+				$tmpstr = '';
+				$tmpstr2 = '';
+			}
+			echo sprintf("<td>%s</td><td>%s</td>", $tmpstr, $tmpstr2);
 		}
 	}
 
