@@ -158,6 +158,9 @@ foreach($team as $score)
 			if( isset($results[$i]) ){
 				$tmpstr = $results[$i];
 				$tmpstr2 = $tries[$usr][$probid];
+				if($isAC[$usr][$probid] != true){
+					$tmpstr2 += $tries_pending[$usr][$probid] - 1;
+				}
 			}else{
 				$tmpstr = '';
 				$tmpstr2 = '';
