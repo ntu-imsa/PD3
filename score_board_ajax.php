@@ -34,9 +34,9 @@ echo '</tr></thead><tbody>';
 
 
 //$query = 'SELECT student.group_num, pd_score.p_id, MAX(pd_score.score) AS max_score FROM pd_score, student WHERE pd_score.s_id = student.s_id GROUP by p_id, group_num ORDER BY group_num';
-$query = 'SELECT student.group_num, pd_score.p_id, pd_score.score, pd_score.result, pd_score.status
-FROM pd_score, student
-WHERE pd_score.s_id = student.s_id
+$query = 'SELECT student.group_num, `group`.group_name, pd_score.p_id, pd_score.score, pd_score.result, pd_score.status
+FROM `group`, pd_score, student
+WHERE pd_score.s_id = student.s_id and `group`.group_num = student.group_num
 ORDER BY pd_score.time ASC';
 
 //[user][problem] = score
@@ -55,7 +55,7 @@ while($r = mysql_fetch_assoc($result)) {
 
 	$rows[$cnt] = $r;
 
-	$user = $r['group_num'];
+	$user = $r['group_name'];
 	$prob = $r['p_id'];
 
 	if( !isset($maxscore[$user][$prob]) ){

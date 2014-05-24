@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主機: 127.0.0.1
--- 產生時間： 2014-05-24: 08:45:15
+-- 產生時間： 2014-05-24: 14:47:55
 -- 伺服器版本: 5.6.16
 -- PHP 版本： 5.5.11
 
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `group` (
   `group_num` int(11) NOT NULL,
+  `group_name` varchar(255) CHARACTER SET utf8 NOT NULL,
   `rank` int(11) NOT NULL,
   `best_score` float NOT NULL,
   `worst_score` float NOT NULL,
@@ -35,6 +36,15 @@ CREATE TABLE IF NOT EXISTS `group` (
   PRIMARY KEY (`group_num`),
   UNIQUE KEY `group_num` (`group_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- 資料表的匯出資料 `group`
+--
+
+INSERT INTO `group` (`group_num`, `group_name`, `rank`, `best_score`, `worst_score`, `total_score`) VALUES
+(1, '資管帥哥哥裁判隊', 0, 0, 0, 0),
+(2, '測試隊1號', 0, 0, 0, 0),
+(3, '測試隊2號', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -117,8 +127,15 @@ CREATE TABLE IF NOT EXISTS `pd_hw` (
 --
 
 INSERT INTO `pd_hw` (`p_id`, `submit_code`, `submit_pdf`, `data_number`, `total_score`, `deadline`) VALUES
-('P_TESTPRO', 1, 0, 4, 100, '3014-05-15 23:59:59'),
-('P_STACKSZ', 1, 0, 2, 8, '3014-05-15 23:59:59');
+('P_TESTPRO', 1, 0, 2, 8, '3014-05-15 23:59:59'),
+('P_STACKSZ', 1, 0, 2, 8, '3014-05-15 23:59:59'),
+('ProblemA', 1, 0, 2, 8, '3014-05-15 23:59:59'),
+('ProblemB', 1, 0, 2, 8, '3014-05-15 23:59:59'),
+('ProblemC', 1, 0, 2, 8, '3014-05-15 23:59:59'),
+('ProblemD', 1, 0, 2, 8, '3014-05-15 23:59:59'),
+('ProblemE', 1, 0, 2, 8, '3014-05-15 23:59:59'),
+('ProblemF', 1, 0, 2, 8, '3014-05-15 23:59:59'),
+('ProblemG', 1, 0, 2, 8, '3014-05-15 23:59:59');
 
 -- --------------------------------------------------------
 
@@ -142,38 +159,26 @@ CREATE TABLE IF NOT EXISTS `pd_score` (
 --
 
 INSERT INTO `pd_score` (`s_id`, `p_id`, `status`, `time`, `exec_time`, `score`, `result`) VALUES
-(72, 'P_STACKSZ', 'Accepted', '2014-05-24 13:16:04', 0, 8, '4,4,'),
-(72, 'P_TESTPRO', 'Time limit exceed', '2014-05-24 13:16:17', 1, 84, '0,23,41,20,'),
-(72, 'P_TESTPRO', 'Time limit exceed', '2014-05-24 13:17:54', 1, 84, '0,23,41,20,'),
-(74, 'P_STACKSZ', 'Accepted', '2014-05-24 13:36:48', 0, 8, '4,4,'),
-(75, 'P_TESTPRO', 'Time limit exceed', '2014-05-24 13:39:35', 1, 84, '0,23,41,20,'),
-(75, 'P_TESTPRO', 'Accepted', '2014-05-24 13:39:54', 0, 95, '11,23,41,20,'),
-(75, 'P_TESTPRO', 'Accepted', '2014-05-24 13:42:29', 0, 95, '11,23,41,20,'),
-(75, 'P_TESTPRO', 'Accepted', '2014-05-24 13:43:40', 0, 95, '11,23,41,20,'),
-(75, 'P_TESTPRO', 'Accepted', '2014-05-24 13:44:24', 0, 95, '11,23,41,20,'),
-(75, 'P_TESTPRO', 'Wrong answer', '2014-05-24 13:47:43', 0, 0, '0,0,0,0,'),
-(75, 'P_TESTPRO', 'Wrong answer', '2014-05-24 13:48:49', 0, 0, '0,0,0,0,'),
-(75, 'P_TESTPRO', 'Wrong answer', '2014-05-24 13:49:10', 0, 0, '0,0,0,0,'),
-(75, 'P_TESTPRO', 'Wrong answer', '2014-05-24 13:49:53', 0, 0, '0,0,0,0,'),
-(75, 'P_TESTPRO', 'Wrong answer', '2014-05-24 13:56:29', 0, 0, '0,0,0,0,'),
-(75, 'P_TESTPRO', 'Wrong answer', '2014-05-24 13:56:59', 0, 0, '0,0,0,0,'),
-(75, 'P_TESTPRO', 'Wrong answer', '2014-05-24 13:57:44', 0, 0, '0,0,0,0,'),
-(75, 'P_TESTPRO', 'Wrong answer', '2014-05-24 14:02:16', 0, 0, '0,0,0,0,'),
-(75, 'P_TESTPRO', 'Wrong answer', '2014-05-24 14:02:41', 0, 0, '0,0,0,0,'),
-(75, 'P_TESTPRO', 'Time limit exceed', '2014-05-24 14:03:36', 1, 0, '0,0,0,0,'),
-(75, 'P_TESTPRO', 'Wrong answer', '2014-05-24 14:03:45', 0, 0, '0,0,0,0,'),
-(75, 'P_TESTPRO', 'Time limit exceed', '2014-05-24 14:07:25', 1, 84, '0,23,41,20,'),
-(75, 'P_TESTPRO', 'Wrong answer', '2014-05-24 14:07:34', 0, 0, '0,0,0,0,'),
-(75, 'P_TESTPRO', 'Compilation error', '2014-05-24 14:14:26', 0, 0, ''),
-(75, 'P_TESTPRO', 'Wrong answer', '2014-05-24 14:14:57', 0, 0, '0,0,0,0,'),
-(75, 'P_TESTPRO', 'Compilation error', '2014-05-24 14:15:05', 0, 0, ''),
-(75, 'P_TESTPRO', 'Compilation error', '2014-05-24 14:16:11', 0, 0, ''),
-(75, 'P_TESTPRO', 'Time limit exceed', '2014-05-24 14:16:34', 1, 84, '0,23,41,20,'),
-(75, 'P_TESTPRO', 'Wrong answer', '2014-05-24 14:17:11', 0, 0, '0,0,0,0,'),
-(75, 'P_TESTPRO', 'Wrong answer', '2014-05-24 14:37:05', 0, 0, '0,0,0,0,'),
-(75, 'P_TESTPRO', 'Wrong answer', '2014-05-24 14:38:22', 0, 0, '0,0,0,0,'),
-(75, 'P_TESTPRO', 'Runtime error', '2014-05-24 14:39:46', 0, 0, '0,0,0,0,'),
-(75, 'P_TESTPRO', 'Time limit exceed', '2014-05-24 14:39:55', 1, 84, '0,23,41,20,');
+(75, 'ProblemA', 'Accepted', '2014-05-24 16:35:44', 0, 8, '4,4,'),
+(75, 'ProblemB', 'Accepted', '2014-05-24 16:35:48', 0, 8, '4,4,'),
+(75, 'ProblemC', 'Accepted', '2014-05-24 16:35:52', 0, 8, '4,4,'),
+(75, 'ProblemD', 'Accepted', '2014-05-24 16:35:56', 0, 8, '4,4,'),
+(75, 'ProblemE', 'Accepted', '2014-05-24 16:35:59', 0, 8, '4,4,'),
+(75, 'ProblemF', 'Accepted', '2014-05-24 16:36:03', 0, 8, '4,4,'),
+(75, 'ProblemG', 'Accepted', '2014-05-24 16:36:07', 0, 8, '4,4,'),
+(75, 'P_STACKSZ', 'Accepted', '2014-05-24 16:36:10', 0, 8, '4,4,'),
+(75, 'P_TESTPRO', 'Accepted', '2014-05-24 16:36:14', 0, 8, '4,4,'),
+(72, 'P_TESTPRO', 'Time limit exceed', '2014-05-24 18:06:45', 1, 4, '4,0,'),
+(72, 'P_TESTPRO', 'Time limit exceed', '2014-05-24 18:07:03', 1, 4, '4,0,'),
+(72, 'ProblemA', 'Time limit exceed', '2014-05-24 18:08:04', 2, 0, '0,0,'),
+(72, 'ProblemA', 'Time limit exceed', '2014-05-24 18:08:10', 2, 0, '0,0,'),
+(72, 'P_STACKSZ', 'Accepted', '2014-05-24 20:11:55', 0, 8, '4,4,'),
+(72, 'ProblemC', 'Time limit exceed', '2014-05-24 20:12:33', 2, 0, '0,0,'),
+(72, 'ProblemC', 'Time limit exceed', '2014-05-24 20:18:33', 2, 0, '0,0,'),
+(72, 'ProblemC', 'Time limit exceed', '2014-05-24 20:18:46', 2, 0, '0,0,'),
+(72, 'ProblemC', 'Time limit exceed', '2014-05-24 20:19:10', 2, 0, '0,0,'),
+(72, 'ProblemC', 'Accepted', '2014-05-24 20:19:34', 0, 8, '4,4,'),
+(72, 'ProblemA', 'Accepted', '2014-05-24 20:19:57', 0, 8, '4,4,');
 
 -- --------------------------------------------------------
 
