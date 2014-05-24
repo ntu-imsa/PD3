@@ -15,7 +15,7 @@ while($r = mysql_fetch_assoc($result)) {
 }
 
 
-echo '<table class="table table-bordered no-wrap"><thead><tr><th>User</th><th>Score</th><th>Penalty</th>';
+echo '<table class="table table-bordered no-wrap"><thead><tr><th>Rank</th><th>User</th><th>Score</th><th>Penalty</th>';
 foreach($problem as $name=>$row)
 {
 	$number = (int)$row['data_number'];
@@ -27,7 +27,7 @@ echo '</tr></thead><tbody>';
 
 
 //$query = 'SELECT student.group_num, pd_score.p_id, MAX(pd_score.score) AS max_score FROM pd_score, student WHERE pd_score.s_id = student.s_id GROUP by p_id, group_num ORDER BY group_num';
-$query = 'SELECT student.group_num, pd_score.p_id, pd_score.score, pd_score.result
+$query = 'SELECT student.group_num, pd_score.p_id, pd_score.score, pd_score.result, pd_score.status
 FROM pd_score, student
 WHERE pd_score.s_id = student.s_id
 ORDER BY pd_score.time ASC';
@@ -37,7 +37,10 @@ ORDER BY pd_score.time ASC';
 $cnt = 0;
 $rows = array();
 $maxscore = array();
+$tries = array();
+$tries_pending = array();
 $firstid = array();
+$isAC = array();
 
 $result = mysql_query($query);
 $rows = array();
@@ -48,12 +51,24 @@ while($r = mysql_fetch_assoc($result)) {
 	$user = $r['group_num'];
 	$prob = $r['p_id'];
 
-	if( !isset($maxscore[$user][$prob]) )
+	if( !isset($maxscore[$user][$prob]) ){
 		$maxscore[$user][$prob] = -1;
+		$tries_pending[$user][$prob] = 0;
+		$tries[$user][$prob] = 0;
+		$isAC[$user][$prob] = false;
+	}
+
+	$tries_pending[$user][$prob] += 1;
+
 	if($maxscore[$user][$prob] < $r['score'])
 	{
 		$maxscore[$user][$prob] = $r['score'];
 		$firstid[$user][$prob] = $cnt;
+		$tries[$user][$prob] += $tries_pending[$user][$prob];
+		$tries_pending[$user][$prob] = 0;
+		if($r['status'] == 'Accepted'){
+			$isAC[$user][$prob] = true;
+		}
 	}
 
 	$cnt++;
@@ -99,16 +114,21 @@ foreach($firstid as $user=>$ids)
 	foreach($ids as $prob=>$id)
 	{
 		$team[$user]->tot_score += $maxscore[$user][$prob];
-		//$team[$user]->penalty += $rows[$id].time???
+		if($isAC[$user][$prob] == true){
+			$team[$user]->penalty += $tries[$user][$prob] - 1;
+		}
 	}
 }
 
 usort($team, "comp");
 
+$rank = 1;
+
 foreach($team as $score)
 {
 	$usr = $score->group;
 	echo '<tr>';
+	echo sprintf('<td>%s</td>', $rank);
 	echo sprintf('<td>%s</td>', $usr);
 	echo sprintf('<td>%d</td><td>%d</td>', $score->tot_score, $score->penalty);
 
@@ -135,7 +155,7 @@ foreach($team as $score)
 	}
 
 	echo '</tr>';
-
+$rank++;
 }
 
 echo '</tbody></table>';
