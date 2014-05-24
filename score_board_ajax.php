@@ -146,7 +146,7 @@ foreach($team as $score)
 		if( !isset($firstid[$usr][$probid]) )
 		{
 			for($i=0; $i<$number; $i++)
-				echo '<td></td>';
+				echo '<td></td><td></td>';
 			continue;
 		}
 
