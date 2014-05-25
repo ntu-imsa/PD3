@@ -16,3 +16,28 @@ body
 {
 	white-space: nowrap;
 }
+
+
+#scoreboard table tbody td.accept {
+  background-color: #dff0d8;/*青綠色*/
+}
+
+#scoreboard table tbody td.error {
+  background-color: #f2dede;/*淺紅色*/
+}
+
+#scoreboard table tbody td.wrong_answer {
+  background-color: #fcf8e3;/*鵝黃色*/
+}
+
+#scoreboard table tbody td.accept:hover {
+  background-color: #d0e9c6;
+}
+
+#scoreboard table tbody td.error:hover{
+  background-color: #ebcccc;
+}
+
+#scoreboard table tbody td.wrong_answer:hover{
+  background-color: #faf2cc;
+}

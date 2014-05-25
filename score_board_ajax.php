@@ -160,12 +160,18 @@ foreach($team as $score)
 				$tmpstr2 = $tries[$usr][$probid];
 				if($isAC[$usr][$probid] != true){
 					$tmpstr2 += $tries_pending[$usr][$probid] - 1;
+					if($results[$i] == 0)
+						$class = 'error';
+					else
+						$class = 'wrong_answer';
+				}else{
+					$class = 'accept';
 				}
 			}else{
 				$tmpstr = '';
 				$tmpstr2 = '';
 			}
-			echo sprintf("<td>%s</td><td>%s</td>", $tmpstr, $tmpstr2);
+			echo "<td class=\"$class\">$tmpstr</td><td class=\"$class\">$tmpstr2</td>";
 		}
 	}
 
