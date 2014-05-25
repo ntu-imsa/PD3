@@ -5,10 +5,14 @@ body
 }
 .container-narrow
 {
-	margin: 0 auto;
-	max-width: 90%;
+	margin-left: 50px;
 }
 .container-narrow>hr
 {
 	margin: 30px 0;
+}
+
+#scoreboard>table
+{
+	white-space: nowrap;
 }
