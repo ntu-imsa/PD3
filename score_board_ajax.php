@@ -19,9 +19,7 @@ echo '<table class="table table-bordered no-wrap"><thead><tr><th>Rank</th><th>Us
 foreach($problem as $name=>$row)
 {
 	$number = (int)$row['data_number'];
-
-	for($i=1; $i<=$number; $i++)
-		echo sprintf('<th colspan="2">%s - %d</th>', $name, $i);
+	echo '<th colspan="'.(2*$number).'">'.$name.'</th>';
 }
 echo '</tr><tr><th colspan="4"></th>';
 foreach($problem as $name=>$row)
