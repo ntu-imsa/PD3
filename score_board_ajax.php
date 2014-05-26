@@ -19,14 +19,12 @@ echo '<table class="table table-bordered no-wrap"><thead><tr><th>Rank</th><th>Us
 foreach($problem as $name=>$row)
 {
 	$number = (int)$row['data_number'];
-	echo '<th colspan="'.(2*$number).'">'.$name.'</th>';
+	echo '<th colspan="3">'.$name.'</th>';
 }
 echo '</tr><tr><th colspan="4"></th>';
 foreach($problem as $name=>$row)
 {
-$number = (int)$row['data_number'];
-	for($i=1; $i<=$number; $i++)
-		echo '<th>Score</th><th>Tries</th>';
+	echo '<th>Simple</th><th>Extreme</th><th>Tries</th>';
 }
 echo '</tr></thead><tbody>';
 
@@ -144,20 +142,22 @@ foreach($team as $score)
 		if( !isset($firstid[$usr][$probid]) )
 		{
 			for($i=0; $i<$number; $i++)
-				echo '<td></td><td></td>';
+				echo '<td></td>';
 			continue;
 		}
 
 		$submission_id = $firstid[$usr][$probid];
 		$results = explode(",", $rows[$submission_id]['result']);
-
+		$totalPenalty = 0;
+		$totalTry = 0;
+		
 		for($i=0; $i<$number; $i++)
 		{
 			if( isset($results[$i]) ){
 				$tmpstr = $results[$i];
-				$tmpstr2 = $tries[$usr][$probid];
+				$totalTry += $tries[$usr][$probid];
 				if($isAC[$usr][$probid] != true){
-					$tmpstr2 += $tries_pending[$usr][$probid] - 1;
+					$totalPenalty += $tries_pending[$usr][$probid] - 1;
 					if($results[$i] == 0)
 						$class = 'error';
 					else
@@ -169,8 +169,10 @@ foreach($team as $score)
 				$tmpstr = '';
 				$tmpstr2 = '';
 			}
-			echo "<td class=\"$class\">$tmpstr</td><td class=\"$class\">$tmpstr2</td>";
+			echo "<td class=\"$class\">$tmpstr</td>";
 		}
+		// total tries
+		echo "<td>$totalPenalty/$totalTry</td>";
 	}
 
 	echo '</tr>';
