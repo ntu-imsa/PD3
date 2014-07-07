@@ -37,6 +37,7 @@
 		$scorefile = $problem_dir.'\\answer\\score.txt';
 		$exec_timefile = $problem_dir.'\\answer\\exec_time.txt';
 		$testfile = $judge_dir.'\\'.$_POST['problem_num'];
+		$specialjudge = $judge_dir.'\\judge.exe ';
 		
 		$status = '';
 		$score = 0;
@@ -53,8 +54,9 @@
 		//根據是PD作業或是LAB作業取出題號
 
 		if ($fc == "P"){
+			$type = mysql_fetch_row(mysql_query("SELECT type FROM pd_hw WHERE p_id = '".$_POST['problem_num']."'"));
 			$query = "SELECT deadline FROM pd_hw WHERE p_id = '".$_POST['problem_num']."'";
-			$command_judge = 'python judge.py '.$acc.' '.$_POST['problem_num'];   
+			$command_judge = ($type < 1 ? 'python judge.py ' : $specialjudge).$acc.' '.$_POST['problem_num'];   
 			$query_score = "SELECT total_score FROM pd_hw WHERE p_id = '".$_POST['problem_num']."'";
 		} else if($fc == "L"){
 			$query = "SELECT deadline FROM lab_hw WHERE lab_id = '".$_POST['problem_num']."'";

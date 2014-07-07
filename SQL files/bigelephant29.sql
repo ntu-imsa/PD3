@@ -117,6 +117,7 @@ CREATE TABLE IF NOT EXISTS `pd_hw` (
   `submit_code` tinyint(1) NOT NULL,
   `submit_pdf` tinyint(1) NOT NULL,
   `data_number` int(1) NOT NULL DEFAULT '1',
+  `type` int(1) NOT NULL,
   `total_score` int(11) NOT NULL,
   `deadline` datetime NOT NULL,
   PRIMARY KEY (`p_id`)
@@ -126,16 +127,16 @@ CREATE TABLE IF NOT EXISTS `pd_hw` (
 -- 資料表的匯出資料 `pd_hw`
 --
 
-INSERT INTO `pd_hw` (`p_id`, `submit_code`, `submit_pdf`, `data_number`, `total_score`, `deadline`) VALUES
-('P_TESTPRO', 1, 0, 2, 8, '3014-05-15 23:59:59'),
-('P_STACKSZ', 1, 0, 2, 8, '3014-05-15 23:59:59'),
-('ProblemA', 1, 0, 2, 8, '3014-05-15 23:59:59'),
-('ProblemB', 1, 0, 2, 8, '3014-05-15 23:59:59'),
-('ProblemC', 1, 0, 2, 8, '3014-05-15 23:59:59'),
-('ProblemD', 1, 0, 2, 8, '3014-05-15 23:59:59'),
-('ProblemE', 1, 0, 2, 8, '3014-05-15 23:59:59'),
-('ProblemF', 1, 0, 2, 8, '3014-05-15 23:59:59'),
-('ProblemG', 1, 0, 2, 8, '3014-05-15 23:59:59');
+INSERT INTO `pd_hw` (`p_id`, `submit_code`, `submit_pdf`, `data_number`, `type`, `total_score`, `deadline`) VALUES
+('P_TESTPRO', 1, 0, 2, 0, 8, '3014-05-15 23:59:59'),
+('P_STACKSZ', 1, 0, 2, 0, 8, '3014-05-15 23:59:59'),
+('ProblemA', 1, 0, 2, 0, 8, '3014-05-15 23:59:59'),
+('ProblemB', 1, 0, 2, 0, 8, '3014-05-15 23:59:59'),
+('ProblemC', 1, 0, 2, 0, 8, '3014-05-15 23:59:59'),
+('ProblemD', 1, 0, 2, 0, 8, '3014-05-15 23:59:59'),
+('ProblemE', 1, 0, 2, 0, 8, '3014-05-15 23:59:59'),
+('ProblemF', 1, 0, 2, 0, 8, '3014-05-15 23:59:59'),
+('ProblemG', 1, 0, 2, 0, 8, '3014-05-15 23:59:59');
 
 -- --------------------------------------------------------
 
