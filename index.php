@@ -199,8 +199,19 @@
 										<li id="record-btn"><a>Records</a></li>
 
 										<li id="score-btn"><a>Scores</a></li>
+										
+										<li class="dropdown">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown">TA<b class="caret"></b></a>
+											<ul class="dropdown-menu" role="menu" aria-labelledby="dlabel">
+												<li class="createproblem-btn" role = "presentation" name="submit">
+													<a role="menuitem" tabindex="-1" >Create Problem</a>
+												</li>
+											</ul>
+										</li>
 
 									</ul>
+									
+									
 
 									<ul class="nav pull-right">
 										<li class="divider-vertical"></li>
