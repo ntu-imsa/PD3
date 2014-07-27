@@ -1,6 +1,6 @@
 <?php
 	session_start() ;
-	require_once('db.inc.php');
+	require_once('lib.inc.php');
 
 	date_default_timezone_set('Asia/Taipei');
 	$datetime = date ("Y-m-d H:i:s");
@@ -83,12 +83,17 @@
 
 <?php
 	}else{
-		$acc = mysql_real_escape_string($_SESSION['account']);
-		$query_t = "SELECT type FROM student WHERE account = '".$acc."'";
-		$q_type = mysql_query($query_t);
-		$type = mysql_fetch_row($q_type);
+		$sql = "SELECT type FROM student WHERE account = :acc";
+		$db = getDatabaseConnection();
+		$stmt = $db->prepare($sql);
+		$stmt->execute(
+			array(
+				":acc" => $_SESSION['account']
+			)
+		);
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		if( $type[0] == 1 or $type[0] == 2) {   //使用者登入成功 顯示PDOGS主頁面
+		if( $result['type'] == 1 or $result['type'] == 2) {   //使用者登入成功 顯示PDOGS主頁面
 		//echo 'have session<br>';
 	?>
 			<!DOCTYPE html>
@@ -122,69 +127,43 @@
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Submit Homework<b class="caret"></b></a>
 											<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 											<?php
-												$pd_count = 0;
-												$query_pd = 'SELECT p_id, deadline FROM pd_hw ORDER BY p_id';
-												$pd = mysql_query($query_pd);
+												$query_pd = 'SELECT `p_id` FROM `pd_hw` WHERE `deadline` > NOW() ORDER BY `p_id`';
+												$stmt = $db->query($query_pd);
+												$fetch_pd = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-												$lab_count = 0;
-												$query_lab = 'SELECT lab_id, deadline FROM lab_hw ORDER BY lab_id';
-												$lab = mysql_query($query_lab);
+												$query_lab = 'SELECT `lab_id` FROM `lab_hw` WHERE `deadline` > NOW() ORDER BY `lab_id`';
+												$stmt = $db->query($query_lab);
+												$fetch_lab = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-												while ($fetch_pd = mysql_fetch_row($pd)){
-													if ( $fetch_pd[1] > $datetime ){
-														?><li class="hw-btn" role = "presentation" name="<?php echo $fetch_pd[0]; ?>">
-														<a role="menuitem"  tabindex="-1" ><?php echo $fetch_pd[0]; ?></a></li> <?php
-														$pd_count++;
-													}
+												foreach($fetch_pd as $row){
+														?><li class="hw-btn" role = "presentation" name="<?php echo $row['p_id']; ?>">
+														<a role="menuitem"  tabindex="-1" ><?php echo $row['p_id']; ?></a></li> <?php
 												}
 
-												while ($fetch_lab = mysql_fetch_row($lab)){
-													if ( $fetch_lab[1] > $datetime ){
-														if ( $lab_count == 0){
-															echo '<li class="divider" role = "presentation">';
-														}
-														?><li class="lab-btn" role = "presentation" name="<?php echo $fetch_lab[0]; ?>">
-														<a role="menuitem" tabindex="-1" ><?php echo $fetch_lab[0]; ?></a></li><?php
-														$lab_count++;
-													}
+												if(!empty($fetch_lab)){
+													echo '<li class="divider" role = "presentation"></li>';
 												}
 
-												if ( $pd_count == 0 and $lab_count == 0 ){
+												foreach($fetch_lab as $row){
+														?><li class="lab-btn" role = "presentation" name="<?php echo $row['lab_id']; ?>">
+														<a role="menuitem" tabindex="-1" ><?php echo $row['lab_id']; ?></a></li><?php
+												}
+
+												if ( empty($fetch_pd) and empty($fetch_lab) ){
 													?><li role = "presentation"><a role="menuitem" tabindex="-1" >No problem available</a></li><?php
 												}
 											?>
 											</ul>
 										</li>
-										<!--
-										<li class="dropdown">
-											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Submit Lab HW<b class="caret"></b></a>
-											<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-											<?php
-												$lab_count = 0;
-												$query_lab = 'SELECT lab_id, deadline FROM lab_hw';
-												$lab = mysql_query($query_lab);
-												while ($fetch_lab = mysql_fetch_row($lab)){
-													if ( $fetch_lab[1] > $datetime ){
-														?><li class="lab-btn" role = "presentation" name="<?php echo $fetch_lab[0]; ?>">
-														<a role="menuitem" tabindex="-1" ><?php echo $fetch_lab[0]; ?></a></li><?php
-														$lab_count++;
-													}
-												}
-												if ( $lab_count == 0 ){
-													?><li role = "presentation"><a role="menuitem" tabindex="-1" >No problem available</a></li><?php
-												}
-											?>
-											</ul>
-										</li>
-							 			-->
+
 										<li class="dropdown">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Project<b class="caret"></b></a>
 											<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 											<?php
-												$query_project = 'SELECT deadline FROM project WHERE onjudge = 1';
-												$project = mysql_query($query_project);
-												$fetch_project = mysql_fetch_row($project);
-												if ( $fetch_project[0] > $datetime ){?>
+												$query_project = 'SELECT `deadline` FROM `project` WHERE `onjudge` = 1 AND `deadline` > NOW()';
+												$stmt = $db->query($query_project);
+												$fetch_project = $stmt->fetch(PDO::FETCH_ASSOC);
+												if ( !empty($fetch_project) ){?>
 												<li class="project-btn" role = "presentation" name="Submit">
 													<a role="menuitem" tabindex="-1" >Submit</a>
 												</li><?php
@@ -199,7 +178,7 @@
 										<li id="record-btn"><a>Records</a></li>
 
 										<li id="score-btn"><a>Scores</a></li>
-										
+
 										<li class="dropdown">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown">TA<b class="caret"></b></a>
 											<ul class="dropdown-menu" role="menu" aria-labelledby="dlabel">
@@ -210,8 +189,8 @@
 										</li>
 
 									</ul>
-									
-									
+
+
 
 									<ul class="nav pull-right">
 										<li class="divider-vertical"></li>
