@@ -1,18 +1,21 @@
 <?php
 	session_start() ;
-	require_once('db.inc.php');
+	require_once('lib.inc.php');
 
-	$acc = mysql_real_escape_string($_POST['account'] );
-	$pw = md5(mysql_real_escape_string($_POST['password']));
-	//$pw = $_POST['password'];
-
-	$query = "SELECT * FROM student
-	          WHERE account='$acc' AND password ='$pw';";
-	$result = mysql_query($query) ;
-	if ($result_row = mysql_fetch_row(($result)))
+	$query = "SELECT * FROM `student` WHERE `account`= :account AND password = :password";
+	$db = getDatabaseConnection();
+	$stmt = $db->prepare($query);
+	$stmt->execute(
+		array(
+			":account" => $_POST['account'],
+			":password" => md5($_POST['password'])
+		)
+	);
+	$result = $stmt->fetch(PDO::FETCH_ASSOC);
+	if (!empty($result))
 	{
 
-		$_SESSION['account'] = $acc ;
+		$_SESSION['account'] = $result['account'] ;
 
 		header ("Location:index.php") ;
 	}
