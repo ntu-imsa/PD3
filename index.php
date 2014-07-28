@@ -28,7 +28,7 @@
 				<div id="wrap">
 					<div class="container">
 						<header>
-							<h1><strong>Private PDOGS</strong> Programming Design Online Grading System</h1>
+							<h1><strong>PDOGS</strong> Programming Design Online Grading System</h1>
 							<h2>First time visit? Please <span class="signup">Sign Up</span> with your Student ID or <span class="login">Login</span></h2>
 							<?php
 								if (isset($_GET['msg'])){
