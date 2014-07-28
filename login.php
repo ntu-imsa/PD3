@@ -21,6 +21,6 @@
 	}
 	else
 	{
-		header ("Location:index.php?fail=1") ;
+		header ("Location:index.php?msg=fail") ;
 	}
 ?>

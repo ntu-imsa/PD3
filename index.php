@@ -30,11 +30,20 @@
 						<header>
 							<h1><strong>Private PDOGS</strong> Programming Design Online Grading System</h1>
 							<h2>First time visit? Please <span class="signup">Sign Up</span> with your Student ID or <span class="login">Login</span></h2>
-							<?php if (isset ($_GET['fail'])) echo 'Login fail !<br>'; ?>
-							<?php if (isset ($_GET['empty'])) echo 'Enter your account or pw !<br>'; ?>
-							<?php if (isset ($_GET['same'])) echo 'Confirm the password !<br>'; ?>
-							<?php if (isset ($_GET['err'])) echo 'Account already exist !<br>'; ?>
-							<?php if (isset ($_GET['sucess'])) echo 'Register success !<br>'; ?>
+							<?php
+								if (isset($_GET['msg'])){
+									$msg = array(
+										"fail" => 'Login fail !<br>',
+										"empty" => 'Enter your account or pw !<br>',
+										"same" => 'Confirm the password !<br>',
+										"err" => 'Account already exist !<br>',
+										"sucess" => 'Register success !<br>'
+									);
+									if(isset( $msg[ $_GET['msg'] ] )){
+										echo $msg[$_GET['msg']];
+									}
+								}
+							?>
 							<div class="support-note">
 								<span class="note-ie">Sorry, only modern browsers.</span>
 							</div>

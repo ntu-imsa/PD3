@@ -5,9 +5,9 @@
 
 	$student_dir = '.\\student\\'.$acc;
 	if ($acc == NULL or $_POST["password"] == NULL or $_POST["cpw"] == NULL)
-		header ("Location:index.php?empty=1") ;
+		header ("Location:index.php?msg=empty") ;
 	elseif ($pw != $cpw)
-		header ("Location:index.php?same=1") ;
+		header ("Location:index.php?msg=same") ;
 	else{
 
 	require_once('lib.inc.php');
@@ -16,7 +16,7 @@
 	echo $acc;
 	$valid2 = mysql_query($valid) ;
 	if ($same = mysql_fetch_row($valid2)){
-		header ("Location:index.php?err=1") ;
+		header ("Location:index.php?msg=err") ;
 	} else {
 		$uid = "SELECT MAX(s_id) FROM student ;" ;
 		$max = mysql_query($uid) ;
@@ -33,7 +33,7 @@
 		system($command, $return);
 
 		if ($result_rowc = mysql_fetch_row($success) and file_exists($student_dir))
-			header("Location:index.php?success=1") ;
+			header("Location:index.php?msg=success") ;
 		}
 	}
 ?>
