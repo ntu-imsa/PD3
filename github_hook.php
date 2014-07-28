@@ -17,7 +17,7 @@ function cidr_match($ip, $cidr)
 // Make sure request comes from GitHub hook
 
 if(cidr_match($_SERVER['REMOTE_ADDR'], '192.30.252.0/22')){
-		shell_exec('git reset --hard HEAD && git pull');
+		shell_exec('start github_hook.bat');
 }else{
 	header('HTTP/1.1 401 Unauthorized');
 	echo 'Access Denined';
