@@ -1,6 +1,6 @@
 ﻿<?php
 	session_start() ;
-	require_once('lib.inc.php');
+	require_once('includes/lib.inc.php');
 
 	$score = 0;
 	date_default_timezone_set('Asia/Taipei');

@@ -1,6 +1,6 @@
 <?php
 	session_start() ;
-	require_once('lib.inc.php');
+	require_once('includes/lib.inc.php');
 
 	$query = "SELECT * FROM `student` WHERE `account`= :account AND password = :password";
 	$db = getDatabaseConnection();

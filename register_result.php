@@ -1,6 +1,6 @@
 <?php
 
-	require_once('lib.inc.php');
+	require_once('includes/lib.inc.php');
 
 	// 使用RegEx過濾帳號，方便建立資料夾以及避免 remote code execution
 	$acc = filterString($_POST["account"]);

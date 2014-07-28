@@ -1,6 +1,6 @@
 <?php
 	session_start() ;
-	require_once('lib.inc.php');
+	require_once('includes/lib.inc.php');
 
 	//ini_set("display_errors", "Off"); // 顯示錯誤是否打開( On=開, Off=關 )
 	//error_reporting(E_ALL & ~E_NOTICE);
