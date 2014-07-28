@@ -14,8 +14,8 @@
 	else{
 
 	$db = getDatabaseConnection();
-	$sql = "SELECT * FROM student WHERE account = :acc";
-	$stmt = $db->prepare($sql);
+	$query = "SELECT * FROM student WHERE account = :acc";
+	$stmt = $db->prepare($query);
 	$stmt->execute(
 		array(
 			":acc" => $acc
