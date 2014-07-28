@@ -15,6 +15,10 @@ function cidr_match($ip, $cidr)
 }
 
 function exec_background($cmd) {
+
+	// http://php.net/manual/en/function.exec.php#86329
+	// This will run shell command in background
+
     if (substr(php_uname(), 0, 7) == "Windows"){
         pclose(popen("start /B ". $cmd, "r"));
     }
