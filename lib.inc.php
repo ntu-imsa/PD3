@@ -12,4 +12,8 @@ function getDatabaseConnection() {
   return $dbh;
 }
 
+function filterString($str){
+  return preg_replace("/[^a-zA-z0-9_\-]/", "", $str);
+}
+
 ?>
