@@ -22,6 +22,9 @@ if(cidr_match($_SERVER['REMOTE_ADDR'], '192.30.252.0/22')){
 	if(isset($_SERVER['Authorization']) && sha1($_SERVER['Authorization']) == $auth_digest){
 		system("git pull");
 	}
+
+}else{
+	header('HTTP/1.1 401 Unauthorized');
 }
 
 ?>
