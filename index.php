@@ -45,7 +45,7 @@
 								}
 							?>
 							<div class="support-note">
-								<span class="note-ie">Sorry, only modern browsers.</span>
+								<span class="note-ie">Sorry, only modern browsers are supported.</span>
 							</div>
 						</header>
 						<div class="container">
