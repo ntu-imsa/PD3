@@ -1,6 +1,6 @@
 <?php
 	session_start() ;
-	require_once('../db.inc.php');
+	require_once('../lib.inc.php');
 
 	date_default_timezone_set('Asia/Taipei');
 	$datetime = date ("Y-m-d H:i:s");
@@ -13,7 +13,7 @@
 		$pdf = "..\\problem\\$pid.pdf";
 		$testdata = "$problem_dir\\$pid";
 		$num = (int)$_POST['datanum'];
-		
+
 		if (!is_dir($problem_dir))
 			mkdir($problem_dir);
 ?>
@@ -35,19 +35,19 @@
 			move_uploaded_file($_FILES['tdoutput']['tmp_name'][$i], "$testdata.$i.out");
 		}
 		fclose($file);
-		
-		
+
+
 		$submitcode = isset($_POST ['submitcode']) ? 1 : 0;
 		$submitpdf = isset($_POST ['submitpdf']) ? 1 : 0;
 		$type = $_POST['type'];
 		$deadline = $_POST['deadline'];
 		$table = ($pid[0] == 'P' ? "pd_hw" : "lab_hw");
-		
+
 		$sql = "INSERT INTO $table VALUES ('$pid', $submitcode, $submitpdf, $num, '$type', $total, '$deadline')";
 		mysql_query($sql);
-		
-		
-		
+
+
+
 ?>
 			<?=$pid?> is created!
 	</div>

@@ -1,6 +1,6 @@
 <?php
 	session_start() ;
-	require_once('db.inc.php');
+	require_once('lib.inc.php');
 
 	$pdf = '.\\problem\\'.$_POST['hwID'].'.pdf';
 	$testingdata = '.\\judgement\\'.$_POST['hwID'].'\\testing_data.txt';

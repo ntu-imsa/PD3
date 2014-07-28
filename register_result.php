@@ -10,7 +10,7 @@
 		header ("Location:index.php?same=1") ;
 	else{
 
-	require_once('db.inc.php');
+	require_once('lib.inc.php');
 
 	$valid = "SELECT * FROM student WHERE account = '".$acc."'" ;
 	echo $acc;

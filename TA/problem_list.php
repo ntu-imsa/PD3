@@ -1,6 +1,6 @@
 <?php
 	session_start() ;
-	require_once('db.inc.php');
+	require_once('lib.inc.php');
 
 	//使用者尚未登入 顯示登入頁面
 	if (!isset($_SESSION['account'])){

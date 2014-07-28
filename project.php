@@ -1,6 +1,6 @@
 <?php
 session_start() ;
-require_once('db.inc.php');
+require_once('lib.inc.php');
 
 $acc = mysql_real_escape_string($_SESSION['account']);
 //$problem_dir = '.\\student\\'.$acc.'\\'.$_POST['hwID'];

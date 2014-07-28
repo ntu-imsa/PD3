@@ -1,6 +1,6 @@
 <?php
 	session_start() ;
-	require_once('../db.inc.php');
+	require_once('../lib.inc.php');
 
 	$acc = mysql_real_escape_string($_SESSION['account']);
 
@@ -50,7 +50,7 @@
     	<p class="hw"> Total Testdata：
     	<input class="form-control" id="datanum" type="number" min="1" value="1" name="datanum"></p>
     	<br>
-		<div id="data-block" style="display:none;">	
+		<div id="data-block" style="display:none;">
 			<div class="data-id hw">Testing Data <span class="data-id"></span></div>
 			<div class="checkbox">
 				<label><input type="checkbox" name="tdhid[]" value="1"> Hidden</label>
@@ -87,7 +87,7 @@
 			</div>
 			<div><span class="hw">Score:</span>
     			<input class="form-control" id="focusedInput" type="text" value="0" name="score[]"></p>
-			</div> 
+			</div>
 		</div>
 		<div id="datas">
 		</div>
@@ -98,5 +98,3 @@
 <?php
 	}
 ?>
-
-

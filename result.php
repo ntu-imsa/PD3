@@ -1,6 +1,6 @@
-﻿<?php 
+﻿<?php
 	session_start() ;
-	require_once('db.inc.php');
+	require_once('lib.inc.php');
 
 	$score = 0;
 	date_default_timezone_set('Asia/Taipei');
@@ -10,19 +10,19 @@
 		header ("Location:index.php") ;
 	} else {
 		$acc = mysql_real_escape_string($_SESSION['account']);
-		$problem_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num']; 
+		$problem_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num'];
 		$log_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num'].'\\log';
 		$ans_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num'].'\\answer';
-		
+
 		if (!is_dir($problem_dir))
 			mkdir($problem_dir);
-				
+
 		if (!is_dir($log_dir))
 			mkdir($log_dir);
-				
+
 		if (!is_dir($ans_dir))
 			mkdir($ans_dir);
-			
+
 		$judge_dir = '.\\judgement\\'.$_POST['problem_num'];
 		$upfile = $problem_dir.'\\'.$acc.'-'.$_POST['problem_num'].'.cpp';
 		$pdffile = $problem_dir.'\\'.$acc.'-'.$_POST['problem_num'].'.pdf';
@@ -38,7 +38,7 @@
 		$exec_timefile = $problem_dir.'\\answer\\exec_time.txt';
 		$testfile = $judge_dir.'\\'.$_POST['problem_num'];
 		$specialjudge = $judge_dir.'\\judge.exe ';
-		
+
 		$status = '';
 		$score = 0;
 		$exec_result = 0;
@@ -56,21 +56,21 @@
 		if ($fc == "P"){
 			$type = mysql_fetch_row(mysql_query("SELECT type FROM pd_hw WHERE p_id = '".$_POST['problem_num']."'"));
 			$query = "SELECT deadline FROM pd_hw WHERE p_id = '".$_POST['problem_num']."'";
-			$command_judge = ($type < 1 ? 'python judge.py ' : $specialjudge).$acc.' '.$_POST['problem_num'];   
+			$command_judge = ($type < 1 ? 'python judge.py ' : $specialjudge).$acc.' '.$_POST['problem_num'];
 			$query_score = "SELECT total_score FROM pd_hw WHERE p_id = '".$_POST['problem_num']."'";
 		} else if($fc == "L"){
 			$query = "SELECT deadline FROM lab_hw WHERE lab_id = '".$_POST['problem_num']."'";
-			$command_judge = 'python labjudge.py '.$acc.' '.$_POST['problem_num'];  
+			$command_judge = 'python labjudge.py '.$acc.' '.$_POST['problem_num'];
 			$query_score = "SELECT total_score FROM lab_hw WHERE lab_id = '".$_POST['problem_num']."'";
 		}
 		$time = mysql_query($query);
 		$fetch_time = mysql_fetch_row($time);
-		
+
 	if ( $fetch_time[0] > $datetime ){  //如果還沒超過死線
 		if (isset($_FILES['pdfupload']) && file_exists($_FILES['pdfupload']['tmp_name']) && is_uploaded_file($_FILES['pdfupload']['tmp_name'])){
 			// pdf 檔案上傳，如果沒有上傳檔案，就不要進行處理
 			// 有上傳的話，先把server上已存在的刪掉
-			if (file_exists($pdffile)) unlink($pdffile);	
+			if (file_exists($pdffile)) unlink($pdffile);
 			move_uploaded_file($_FILES['pdfupload']['tmp_name'], $pdffile);
 		}
 		if (isset($_FILES['upload']) && file_exists($_FILES['upload']['tmp_name']) && is_uploaded_file($_FILES['upload']['tmp_name'])){
@@ -93,10 +93,10 @@
 					//$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2>> '.$compile_logfile;
 					$command = 'g++ '.$upfile.' -O2 -Wl,--stack,214748364 -static -std=c++11 -I D:\xampp\htdocs\PD\ -o '.$exefile.'  2>> '.$compile_logfile;
 					system($command, $return);
-					if ($return == 0){	       
+					if ($return == 0){
 						//如果成功編譯出.exe檔 執行程式
 						//ex. hw.exe < testing_data.txt > output.txt 2>> log.txt
-						//$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2>> '.$run_logfile;  
+						//$command = $exefile.' < '.$testfile.' > '.$outputfile.' 2>> '.$run_logfile;
 						//$command = 'python timeout.py '.$exefile.' '.$testfile.' '.$outputfile.' '.$run_logfile.' '.$exec_timefile.' '.$exename.' 2>> '.$run_logfile;
 						//先開啟score.txt把檔案清空
 						$finalstatus = 0;
@@ -107,7 +107,7 @@
 						}else{
 							$datanumsource = mysql_query("SELECT data_number FROM lab_hw WHERE p_id = '".$_POST['problem_num']."'");
 						}
-						
+
 						$all_result = '';
 						$datanum = mysql_fetch_row($datanumsource)[0];
 						$testdatainfo = fopen($judge_dir.'\\testing_data.txt', "r");
@@ -163,7 +163,7 @@
 							$all_result .= sprintf("%d,", $tmpscore);// << this should be the real score you got!
 							fclose($fp);
 						}
-						//回報total結果	
+						//回報total結果
 						switch($finalstatus){
 							case 0:
 								$status = 'Accepted';
@@ -192,17 +192,17 @@
 				$query = "SELECT s_id FROM student WHERE account = '".$acc."'" ;
 				$id = mysql_query($query);
 				$fetch_id = mysql_fetch_row($id);
-				//echo $_POST['problem_num'][4];	
+				//echo $_POST['problem_num'][4];
 
 				if ($fc == "P"){
-					$insert = "INSERT INTO pd_score(s_id, p_id, status, time, exec_time, score, result) 
+					$insert = "INSERT INTO pd_score(s_id, p_id, status, time, exec_time, score, result)
 						VALUES ('$fetch_id[0]', '$ID', '$status', '$datetime', '$exec_time', '$score', '$all_result')" ;
 				} else if($fc == "L"){
-					$insert = "INSERT INTO lab_score(s_id, lab_id, status, time, exec_time, score, result) 
+					$insert = "INSERT INTO lab_score(s_id, lab_id, status, time, exec_time, score, result)
 						VALUES ('$fetch_id[0]', '$ID', '$status', '$datetime', '$exec_time', '$score', '$all_result')" ;
 				}
 				$success = mysql_query($insert);
-			
+
 		}
 	} else {   //超過死線
 				echo "<div class='hero-unit upload_section'><p>deadline is passed!</p></div>";
@@ -211,11 +211,11 @@
 		if (isset($_FILES['upload']) or isset($_FILES['pdfupload'])){
 			?>	<!-- 改作業序號看這裡 -->
 				<div class="hero-unit upload_section">
-					<table class="table table-hover"><?php 
+					<table class="table table-hover"><?php
 					if (isset($_FILES['pdfupload'])){ ?>
 						<p>PDF file is submitted successfully!</p>
-						<br> <?php 
-					} 
+						<br> <?php
+					}
 					if (isset($_FILES['upload'])){?>
 						<thead>
 							<tr>
@@ -226,17 +226,17 @@
 								<th>Score</th>
 							</tr>
 						</thead>
-						<tbody> <?php 
+						<tbody> <?php
 							if ($fc == "P"){
-								$query_rec = "SELECT p_id, status, exec_time, time, score FROM pd_score NATURAL JOIN student 
+								$query_rec = "SELECT p_id, status, exec_time, time, score FROM pd_score NATURAL JOIN student
 											WHERE account = '".$acc."' ORDER BY time DESC";
 							} else if ($fc == "L"){
-								$query_rec = "SELECT lab_id, status, exec_time, time, score FROM lab_score NATURAL JOIN student 
+								$query_rec = "SELECT lab_id, status, exec_time, time, score FROM lab_score NATURAL JOIN student
 											WHERE account = '".$acc."' ORDER BY time DESC";
 							}
 							$rec = mysql_query($query_rec);
 							$fetch_rec = mysql_fetch_row($rec);
-							
+
 							if ($fetch_rec[1] == 'Accepted'){
 								?><tr class="accept"><?php
 							} else if ($fetch_rec[1] == 'Compilation error' or $fetch_rec[1] == 'Runtime error'){
@@ -287,7 +287,7 @@
 									}
 								}
 							?>
-						</tbody> <?php 
+						</tbody> <?php
 					} ?>
 					</table>
 				</div>  <?php

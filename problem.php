@@ -1,6 +1,6 @@
 ﻿<?php
 	session_start() ;
-  require_once('db.inc.php');
+  require_once('lib.inc.php');
 
 	if (!isset($_SESSION['account'])){
 		header ("Location:index.php") ;

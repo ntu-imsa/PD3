@@ -1,6 +1,6 @@
 <?php
 	session_start() ;
-	require_once('db.inc.php');
+	require_once('lib.inc.php');
 
 	date_default_timezone_set('Asia/Taipei');
 	$datetime = date ("Y-m-d H:i:s");
