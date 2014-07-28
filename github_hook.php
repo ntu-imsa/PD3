@@ -14,11 +14,14 @@ function cidr_match($ip, $cidr)
     return false;
 }
 
+// Make sure request comes from GitHub hook
 
 if(cidr_match($_SERVER['REMOTE_ADDR'], '192.30.252.0/22')){
 
-	// Make sure request comes from GitHub hook
-
+	$auth_digest = 'a5fa2247b5a3d4d23e3420f722278ef5dc672258';
+	if(isset($_SERVER['Authorization']) && sha1($_SERVER['Authorization']) == $auth_digest){
+		system("git pull");
+	}
 }
 
 ?>
