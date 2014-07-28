@@ -33,8 +33,8 @@
 							<?php
 								if (isset($_GET['msg'])){
 									$msg = array(
-										"fail" => 'Login fail !<br>',
-										"empty" => 'Enter your account or pw !<br>',
+										"fail" => 'Login failed !<br>',
+										"empty" => 'Enter your account or password !<br>',
 										"same" => 'Confirm the password !<br>',
 										"err" => 'Account already exist !<br>',
 										"sucess" => 'Register success !<br>'
