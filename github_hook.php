@@ -14,10 +14,19 @@ function cidr_match($ip, $cidr)
     return false;
 }
 
+function exec_background($cmd) {
+    if (substr(php_uname(), 0, 7) == "Windows"){
+        pclose(popen("start /B ". $cmd, "r"));
+    }
+    else {
+        exec($cmd . " > /dev/null &");
+    }
+}
+
 // Make sure request comes from GitHub hook
 
 if(cidr_match($_SERVER['REMOTE_ADDR'], '192.30.252.0/22')){
-		shell_exec('start github_hook.bat');
+		exec_background('git pull');
 }else{
 	header('HTTP/1.1 401 Unauthorized');
 	echo 'Access Denined';
