@@ -233,7 +233,7 @@
 				<script src="js/upload.js"></script>
 			</html>
 	<?php
-		} else if ($type[0] == 0 ) {
+		} else if ($result['type'] == 0 ) {
 	    //使用者登入成功 顯示PDOGS主頁面
 		//進入助教頁面
 		//echo 'have session<br>';
