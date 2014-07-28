@@ -25,6 +25,7 @@ if(cidr_match($_SERVER['REMOTE_ADDR'], '192.30.252.0/22')){
 
 }else{
 	header('HTTP/1.1 401 Unauthorized');
+	echo 'Access Denined';
 }
 
 ?>
