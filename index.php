@@ -92,9 +92,9 @@
 
 <?php
 	}else{
-		$sql = "SELECT type FROM student WHERE account = :acc";
+		$query = "SELECT type FROM student WHERE account = :acc";
 		$db = getDatabaseConnection();
-		$stmt = $db->prepare($sql);
+		$stmt = $db->prepare($query);
 		$stmt->execute(
 			array(
 				":acc" => $_SESSION['account']
