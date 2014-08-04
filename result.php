@@ -15,13 +15,13 @@
 		$ans_dir = '.\\student\\'.$acc.'\\'.$_POST['problem_num'].'\\answer';
 
 		if (!is_dir($problem_dir))
-			mkdir($problem_dir);
+			mkdir($problem_dir, 0777, true);
 
 		if (!is_dir($log_dir))
-			mkdir($log_dir);
+			mkdir($log_dir, 0777, true);
 
 		if (!is_dir($ans_dir))
-			mkdir($ans_dir);
+			mkdir($ans_dir, 0777, true);
 
 		$judge_dir = '.\\judgement\\'.$_POST['problem_num'];
 		$upfile = $problem_dir.'\\'.$acc.'-'.$_POST['problem_num'].'.cpp';
