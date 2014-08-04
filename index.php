@@ -102,7 +102,7 @@
 		);
 		$result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		if( $result['type'] == 1 or $result['type'] == 2) {   //使用者登入成功 顯示PDOGS主頁面
+//		if( $result['type'] == 1 or $result['type'] == 2) {   //使用者登入成功 顯示PDOGS主頁面
 		//echo 'have session<br>';
 	?>
 			<!DOCTYPE html>
@@ -187,7 +187,9 @@
 										<li id="record-btn"><a>Records</a></li>
 
 										<li id="score-btn"><a>Scores</a></li>
-
+<?php
+										if ($result['type'] == 0) {
+?>
 										<li class="dropdown">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown">TA<b class="caret"></b></a>
 											<ul class="dropdown-menu" role="menu" aria-labelledby="dlabel">
@@ -196,7 +198,9 @@
 												</li>
 											</ul>
 										</li>
-
+<?php
+										}
+?>
 									</ul>
 
 
@@ -242,7 +246,8 @@
 				<script src="js/upload.js"></script>
 			</html>
 	<?php
-		} else if ($result['type'] == 0 ) {
+		//} else if ($result['type'] == 0 ) {
+      /*
 	    //使用者登入成功 顯示PDOGS主頁面
 		//進入助教頁面
 		//echo 'have session<br>';
@@ -345,6 +350,6 @@
 				<script src="js/upload.js"></script>
 			</html>
 <?php
-		}
+		}*/
 	}
 ?>
