@@ -43,11 +43,21 @@
 		$deadline = $_POST['deadline'];
 		$table = ($pid[0] == 'P' ? "pd_hw" : "lab_hw");
 
-		$sql = "INSERT INTO $table VALUES ('$pid', $submitcode, $submitpdf, $num, '$type', $total, '$deadline')";
-		mysql_query($sql);
-
-
-
+		$db = getDatabaseConnection();
+		$query = "INSERT INTO :table VALUES(:pid, :submitcode, :submitpdf, :num, :type, :total, :deadline)";
+		$stmt = $db->prepare($query);
+		$stmt->execute(
+			array(
+				"table" => $table,
+				"pid" => $pid,
+				"submitcode" => $submitcode,
+				"submitpdf" => $submitpdf,
+				"num" => $num,
+				"type" => $type,
+				"total" => $total,
+				"deadline" => $deadline
+			)
+		);
 ?>
 			<?=$pid?> is created!
 	</div>
