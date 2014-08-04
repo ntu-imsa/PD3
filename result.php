@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	session_start() ;
 	require_once('includes/lib.inc.php');
 
@@ -52,21 +52,22 @@
 		$score_arr = array();
 		$public_score_arr = array();
 		//根據是PD作業或是LAB作業取出題號
+		
+		$table = ($fc == "P" ? "pd_hw" : "lab_hw");
+		$db = getDatabaseConnection();
+		$query = "SELECT deadline, type, data_number FROM $table WHERE p_id = :pid";
+		$stmt = $db->prepare($query);
+		$stmt->execute(array("pid" => $_POST['problem_num']));
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		
 
 		if ($fc == "P"){
-			$type = mysql_fetch_row(mysql_query("SELECT type FROM pd_hw WHERE p_id = '".$_POST['problem_num']."'"));
-			$query = "SELECT deadline FROM pd_hw WHERE p_id = '".$_POST['problem_num']."'";
-			$command_judge = ($type < 1 ? 'python judge.py ' : $specialjudge).$acc.' '.$_POST['problem_num'];
-			$query_score = "SELECT total_score FROM pd_hw WHERE p_id = '".$_POST['problem_num']."'";
+			$command_judge = ($result['type'] < 1 ? 'python judge.py ' : $specialjudge).$acc.' '.$_POST['problem_num'];
 		} else if($fc == "L"){
-			$query = "SELECT deadline FROM lab_hw WHERE lab_id = '".$_POST['problem_num']."'";
 			$command_judge = 'python labjudge.py '.$acc.' '.$_POST['problem_num'];
-			$query_score = "SELECT total_score FROM lab_hw WHERE lab_id = '".$_POST['problem_num']."'";
 		}
-		$time = mysql_query($query);
-		$fetch_time = mysql_fetch_row($time);
 
-	if ( $fetch_time[0] > $datetime ){  //如果還沒超過死線
+	if ( $result['deadline'] > $datetime ){  //如果還沒超過死線
 		if (isset($_FILES['pdfupload']) && file_exists($_FILES['pdfupload']['tmp_name']) && is_uploaded_file($_FILES['pdfupload']['tmp_name'])){
 			// pdf 檔案上傳，如果沒有上傳檔案，就不要進行處理
 			// 有上傳的話，先把server上已存在的刪掉
@@ -102,14 +103,9 @@
 						$finalstatus = 0;
 						//先抓總共有幾筆測資
 						//這裡需要一個for迴圈來跑多筆測資
-						if($fc == 'P'){
-							$datanumsource = mysql_query("SELECT data_number FROM pd_hw WHERE p_id = '".$_POST['problem_num']."'");
-						}else{
-							$datanumsource = mysql_query("SELECT data_number FROM lab_hw WHERE p_id = '".$_POST['problem_num']."'");
-						}
-
+						
 						$all_result = '';
-						$datanum = mysql_fetch_row($datanumsource)[0];
+						$datanum = $result['data_number'];
 						$testdatainfo = fopen($judge_dir.'\\testing_data.txt', "r");
 						exec('python txtCleaner.py '.$exec_timefile);
 						exec('python txtCleaner.py '.$resultfile);
@@ -297,3 +293,4 @@
 		}
 	}
 ?>
+   
