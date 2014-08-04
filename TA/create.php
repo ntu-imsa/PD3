@@ -18,7 +18,7 @@
 			mkdir($problem_dir);
 ?>
 	<div class="hero-unit upload_section">
-<?
+<?php
 		if (isset($_FILES['pdfupload']))
 			move_uploaded_file($_FILES['pdfupload']['tmp_name'], $pdf);
 		$hidden = array_fill(0, $num, 1);
@@ -44,7 +44,7 @@
 		$table = ($pid[0] == 'P' ? "pd_hw" : "lab_hw");
 
 		$db = getDatabaseConnection();
-		$query = "INSERT INTO :table VALUES(:pid, :submitcode, :submitpdf, :num, :type, :total, :deadline)";
+		$query = "INSERT INTO $table VALUES(:pid, :submitcode, :submitpdf, :num, :type, :total, :deadline)";
 		$stmt = $db->prepare($query);
 		$stmt->execute(
 			array(
@@ -61,6 +61,6 @@
 ?>
 			<?=$pid?> is created!
 	</div>
-<?
+<?php
 	}
 ?>
