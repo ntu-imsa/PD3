@@ -48,7 +48,6 @@
 		$stmt = $db->prepare($query);
 		$stmt->execute(
 			array(
-				"table" => $table,
 				"pid" => $pid,
 				"submitcode" => $submitcode,
 				"submitpdf" => $submitpdf,
