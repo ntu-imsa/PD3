@@ -37,6 +37,7 @@
 			</select>
 		</p>
 		<p class="hw">Deadline: <input type="datetime-local" name="deadline" placeholder="yyyy-mm-dd hh:mm:ss" step="1" style="width: 250px" /></p>
+    <p class="hw">Time Limit: <input type="text" name="tlimit" />second(s)</p>
 		<div class="checkbox">
       		<label>
         	<input type="checkbox" name="submitcode" value="1"> Submit code

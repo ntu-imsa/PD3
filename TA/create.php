@@ -29,7 +29,7 @@
 		$total = 0;
 		$file = fopen("$problem_dir\\testing_data.txt", "w");
 		for ($i = 0; $i < $num; $i++) {
-			fwrite($file, "10 ".$_POST['score'][$i+1]." ".$hidden[$i]."\n");
+			fwrite($file, $_POST['tlimit']." ".$_POST['score'][$i+1]." ".$hidden[$i]."\r\n");
 			$total += (int)$_POST['score'][$i+1];
 			move_uploaded_file($_FILES['tdinput']['tmp_name'][$i], "$testdata.$i.in");
 			move_uploaded_file($_FILES['tdoutput']['tmp_name'][$i], "$testdata.$i.out");
