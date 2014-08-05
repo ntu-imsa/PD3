@@ -124,7 +124,7 @@
 							</div>
 							<div class="navbar">
 								<div class="navbar-inner">
-									<a class="brand" href="/PD/index.php">PDOGS</a>
+									<a class="brand" href="./">PDOGS</a>
 									<ul class="nav">
 										<!--
 										<li id="home-btn" class="active"><a>Home</a></li>
@@ -271,7 +271,7 @@
 							</div>
 							<div class="navbar">
 								<div class="navbar-inner">
-									<a class="brand" href="/PD/index.php">PDOGS</a>
+									<a class="brand" href="./">PDOGS</a>
 									<ul class="nav">
 										<!--
 										<li id="home-btn" class="active"><a>Home</a></li>
