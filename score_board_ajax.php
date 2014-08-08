@@ -1,5 +1,5 @@
 <?php
-require_once('db.inc.php');
+require_once('includes/lib.inc.php');
 
 $problem = array();
 $query = 'SELECT * FROM pd_hw';
@@ -150,7 +150,7 @@ foreach($team as $score)
 		$results = explode(",", $rows[$submission_id]['result']);
 		$totalPenalty = 0;
 		$totalTry = 0;
-		
+
 		for($i=0; $i<$number; $i++)
 		{
 			if( isset($results[$i]) ){
