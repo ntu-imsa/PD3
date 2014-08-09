@@ -82,6 +82,7 @@
 			if (file_exists($outputfile)) unlink($outputfile);
 			if (file_exists($resultfile)) unlink($resultfile);
 			move_uploaded_file($_FILES['upload']['tmp_name'], $upfile);
+			$all_result = '';
 
 			//編譯.cpp檔
 				if (file_exists($upfile)){
@@ -92,7 +93,7 @@
 					fwrite($fp, '['.$datetime.'] :'."\n");
 					fclose($fp);
 					//$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2>> '.$compile_logfile;
-					$command = 'g++ '.$upfile.' -O2 -Wl,--stack,214748364 -static -std=c++11 -I D:\xampp\htdocs\PD\ -o '.$exefile.'  2>> '.$compile_logfile;
+					$command = 'g++ "'.$upfile.'" -O2 -Wl,--stack,214748364 -static -std=c++11 -I D:\xampp\htdocs\PD3\ -o "'.$exefile.'"  2>> "'.$compile_logfile.'"';
 					system($command, $return);
 					if ($return == 0){
 						//如果成功編譯出.exe檔 執行程式
@@ -104,7 +105,7 @@
 						//先抓總共有幾筆測資
 						//這裡需要一個for迴圈來跑多筆測資
 						
-						$all_result = '';
+						
 						$datanum = $result['data_number'];
 						$testdatainfo = fopen($judge_dir.'\\testing_data.txt', "r");
 						exec('python txtCleaner.py '.$exec_timefile);
@@ -119,7 +120,7 @@
 							$tmpscore = 0;
 							preg_match_all("/\d+/", $teststr, $testarr);
 							$public_score_arr[$i] = $testarr[0][2];
-							$command = 'python timeout.py '.$exefile.' '.$testfile.'.'.$i.'.in '.$outputfile.'.'.$i.'.out '.$run_logfile.' '.$exec_timefile.' '.$exename.' '.$testarr[0][0];
+							$command = 'python timeout.py "'.$exefile.'" "'.$testfile.'.'.$i.'.in" "'.$outputfile.'.'.$i.'.out" '.$run_logfile.' '.$exec_timefile.' "'.$exename.'" '.$testarr[0][0];
 							if ($exec_result = exec($command, $return)){      //如果執行成功  比對結果
 								if ($exec_result != NULL and $exec_result == 'Time limit exceed'){
 									$status = 'Time limit exceed';
