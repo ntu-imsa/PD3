@@ -93,7 +93,7 @@
 					fwrite($fp, '['.$datetime.'] :'."\n");
 					fclose($fp);
 					//$command = 'g++ '.$upfile.' -o '.$exefile.' -enable-auto-import 2>> '.$compile_logfile;
-					$command = 'g++ "'.$upfile.'" -O2 -Wl,--stack,214748364 -static -std=c++11 -I D:\xampp\htdocs\PD3\ -o "'.$exefile.'"  2>> "'.$compile_logfile.'"';
+					$command = 'g++ "'.$upfile.'" -O2 -Wl,--stack,214748364 -static -std=c++11 -I .\interactive -o "'.$exefile.'"  2>> "'.$compile_logfile.'"';
 					system($command, $return);
 					if ($return == 0){
 						//如果成功編譯出.exe檔 執行程式
