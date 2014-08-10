@@ -7,4 +7,6 @@ define("DBNAME",'pd course');
 define("DBUSER",'pdogsserver');
 define("DBPASS",'pdogsserver');
 
+define("REG_ENABLED",true);
+
 ?>

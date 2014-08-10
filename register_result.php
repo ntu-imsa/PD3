@@ -2,6 +2,12 @@
 
 	require_once('includes/lib.inc.php');
 
+	// Check if registration has been disabled
+	if(REG_ENABLED == false){
+		header("Location:index.php?msg=disabled");
+		exit();
+	}
+
 	// 使用RegEx過濾帳號，方便建立資料夾以及避免 remote code execution
 	$acc = filterString($_POST["account"]);
 	$pw = md5($_POST["password"]) ;

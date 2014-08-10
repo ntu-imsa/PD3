@@ -37,7 +37,8 @@
 										"empty" => 'Enter your account or password !<br>',
 										"same" => 'Confirm the password !<br>',
 										"err" => 'Account already exist !<br>',
-										"sucess" => 'Register success !<br>'
+										"sucess" => 'Register success !<br>',
+										"disabled" => 'Registration is closed currently!<br>'
 									);
 									if(isset( $msg[ $_GET['msg'] ] )){
 										echo $msg[$_GET['msg']];
