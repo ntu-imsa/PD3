@@ -63,7 +63,7 @@
 		
 
 		if ($fc == "P"){
-			$command_judge = ($result['type'] < 1 ? 'python judge.py ' : $specialjudge).$acc.' '.$_POST['problem_num'];
+			$command_judge = ($result['type'] != 1 ? 'python judge.py ' : $specialjudge).$acc.' '.$_POST['problem_num'];
 		} else if($fc == "L"){
 			$command_judge = 'python labjudge.py '.$acc.' '.$_POST['problem_num'];
 		}
@@ -138,10 +138,10 @@
 								} else {
 									//ex. python judge.py b01705001 PD14-1
 									$tmpscore = exec($command_judge.' '.$i.' '.$testarr[0][1], $return);
-                  if ($result['type'] == 3) { //debug challenge
-                    if (!debug_challenge("$judge_dir\\origin.cpp", $upfile, $testarr[0][3]))
-                      $tmpscore = 0;
-                  }
+									if ($result['type'] == 3) { //debug challenge
+										if (!debug_challenge("$judge_dir\\origin.cpp", $upfile, $testarr[0][3]))
+											$tmpscore = 0;
+									}
 									if ($tmpscore == $testarr[0][1]){
 										$status = 'Accepted';
 									} else {
