@@ -1,6 +1,7 @@
 <?php
 	session_start() ;
 	require_once('includes/lib.inc.php');
+  require_once('includes/dc.inc.php');
 
 	$score = 0;
 	date_default_timezone_set('Asia/Taipei');
@@ -137,6 +138,10 @@
 								} else {
 									//ex. python judge.py b01705001 PD14-1
 									$tmpscore = exec($command_judge.' '.$i.' '.$testarr[0][1], $return);
+                  if ($result['type'] == 3) { //debug challenge
+                    if (!debug_challenge("$judgedir\\origin.cpp", $upfile, $testarr[0][3]))
+                      $tmpscore = 0;
+                  }
 									if ($tmpscore == $testarr[0][1]){
 										$status = 'Accepted';
 									} else {
@@ -294,4 +299,3 @@
 		}
 	}
 ?>
-   
