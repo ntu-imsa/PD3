@@ -28,9 +28,9 @@ function edit_distance($code1, $code2) {
 	return $dp[$n][$m];
 }
 
-function debug_challenge($code1, $code2, $val) {
-	$code1 = preg_replace('/\s/', '', $code1);
-	$code2 = preg_replace('/\s/', '', $code2);
+function debug_challenge($file1, $file2, $val) {
+	$code1 = preg_replace('/\s/', '', file_get_contents($file1));
+	$code2 = preg_replace('/\s/', '', file_get_contents($file2));
 	return edit_distance($code1, $code2) <= $val;
 }
 
