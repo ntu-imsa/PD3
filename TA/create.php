@@ -21,6 +21,8 @@
 <?php
 		if (isset($_FILES['pdfupload']))
 			move_uploaded_file($_FILES['pdfupload']['tmp_name'], $pdf);
+		if ($_POST['type'] == 3 && isset($_FILES['source']))
+			move_uploaded_file($_FILES['source']['tmp_name'], "$problem_dir\\origin.cpp");
 		$hidden = array_fill(0, $num, 1);
 		if (isset($_POST['tdhid'])) {
 			foreach ($_POST['tdhid'] as $x)
@@ -29,7 +31,10 @@
 		$total = 0;
 		$file = fopen("$problem_dir\\testing_data.txt", "w");
 		for ($i = 0; $i < $num; $i++) {
-			fwrite($file, $_POST['tlimit']." ".$_POST['score'][$i+1]." ".$hidden[$i]."\r\n");
+			fwrite($file, $_POST['tlimit']." ".$_POST['score'][$i+1]." ".$hidden[$i]);
+			if ($_POST['type'] == 3)
+				fwrite($file, " ".$_POST['dist'][$i+1]);
+			fwrite($file, "\r\n");
 			$total += (int)$_POST['score'][$i+1];
 			move_uploaded_file($_FILES['tdinput']['tmp_name'][$i], "$testdata.$i.in");
 			move_uploaded_file($_FILES['tdoutput']['tmp_name'][$i], "$testdata.$i.out");

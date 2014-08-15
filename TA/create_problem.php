@@ -8,6 +8,11 @@
 		header ("Location:index.php") ;
 	} else {
 ?>
+	<style>
+		.debug-cha {
+			display: none;
+		}
+	</style>
 	<form method="POST" action = "TA/create.php" id="fileUploadForm" enctype="multipart/form-data">
 	<div class="hero-unit upload_section">
 		<p class="hw-id"> 作業序號放這裡 </p>
@@ -29,7 +34,7 @@
 			</div>
 		</div>
 		<p class="hw">Type:
-			<select name="type">
+			<select id="type" name="type">
 				<option value="0">Normal</option>
 				<option value="1">Special Judge</option>
 				<option value="2">Interactive</option>
@@ -46,6 +51,23 @@
         	<input type="checkbox"  name="submitpdf" value="1"> Submit pdf
       		</label>
     	</div>
+		<p class="hw debug-cha"> Source Code
+			<div class="fileupload fileupload-new" data-provides="fileupload">
+				<div class="input-append">
+					<div class="uneditable-input span3">
+						<i class="icon-file fileupload-exists"></i>
+						<span class="fileupload-preview"></span>
+						</div>
+					<span class="btn btn-file">
+						<span class="fileupload-new">Select file</span>
+						<span class="fileupload-exists">Change File</span>
+						<input type="file" class="upload" name="source"/>
+					</span>
+					<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+
+				</div>
+			</div>
+		</p>
 		<br>
     	<br>
     	<p class="hw"> Total Testdata：
@@ -55,6 +77,9 @@
 			<div class="data-id hw">Testing Data <span class="data-id"></span></div>
 			<div class="checkbox">
 				<label><input type="checkbox" name="tdhid[]" value="1"> Hidden</label>
+			</div>
+			<div class="debug-cha">
+				<span class="hw">Edit Distance: </span><input class="form-control" type="text" value="" name="dist[]">
 			</div>
 			<div class="fileupload fileupload-new" data-provides="fileupload">
 				<span class="hw">Input:</span>

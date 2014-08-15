@@ -17,3 +17,10 @@ $("#datanum").on('input', function() {
 		gen_form(n);
 	}
 });
+
+$("#type").change(function() {
+	if ($(this).val() == 3)
+		$(".debug-cha").show();
+	else
+		$(".debug-cha").hide();
+});
