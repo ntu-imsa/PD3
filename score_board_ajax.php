@@ -137,6 +137,9 @@ foreach($team as $score)
 
 	foreach($problem as $probid=>$row)
 	{
+		if (!isset($firstid[$usr][$probid]))
+			echo "<td>0/0(0)</td>";
+		
 		$class = array("error", "wrong_answer", "accept");
 		$class = $class[$isAC[$usr][$probid]];
 		$totalTry = $isAC[$usr][$probid] == 2 ? $tries[$usr][$probid] : $tries_pending[$usr][$probid];
