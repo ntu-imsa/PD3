@@ -19,12 +19,7 @@ echo '<table class="table table-bordered no-wrap"><thead><tr><th>Rank</th><th>Us
 foreach($problem as $name=>$row)
 {
 	$number = (int)$row['data_number'];
-	echo '<th colspan="3">'.$name.'</th>';
-}
-echo '</tr><tr><th colspan="4"></th>';
-foreach($problem as $name=>$row)
-{
-	echo '<th>Simple</th><th>Extreme</th><th>Tries</th>';
+	echo '<th>'.$name.'</th>';
 }
 echo '</tr></thead><tbody>';
 
@@ -58,7 +53,7 @@ while($r = mysql_fetch_assoc($result)) {
 		$maxscore[$user][$prob] = -1;
 		$tries_pending[$user][$prob] = 0;
 		$tries[$user][$prob] = 0;
-		$isAC[$user][$prob] = false;
+		$isAC[$user][$prob] = 0;
 	}
 
 	$tries_pending[$user][$prob] += 1;
@@ -67,10 +62,12 @@ while($r = mysql_fetch_assoc($result)) {
 	{
 		$maxscore[$user][$prob] = $r['score'];
 		$firstid[$user][$prob] = $cnt;
-		$tries[$user][$prob] += $tries_pending[$user][$prob];
-		$tries_pending[$user][$prob] = 0;
+		$tries[$user][$prob] = $tries_pending[$user][$prob];
 		if($r['status'] == 'Accepted'){
-			$isAC[$user][$prob] = true;
+			$isAC[$user][$prob] = 2;
+		}
+		else if ($r['score'] > 0){
+			$isAC[$user][$prob] = 1;
 		}
 	}
 
@@ -117,8 +114,8 @@ foreach($firstid as $user=>$ids)
 	foreach($ids as $prob=>$id)
 	{
 		$team[$user]->tot_score += $maxscore[$user][$prob];
-		if($isAC[$user][$prob] == true){
-			$team[$user]->penalty += $tries[$user][$prob] - 1;
+		if($isAC[$user][$prob] > 0){
+			$team[$user]->penalty += ($tries[$user][$prob] - 1) * 10;
 		}
 	}
 }
@@ -137,46 +134,14 @@ foreach($team as $score)
 
 	foreach($problem as $probid=>$row)
 	{
-		$number = (int)$row['data_number'];
-
-		if( !isset($firstid[$usr][$probid]) )
-		{
-			for($i=0; $i<$number; $i++)
-				echo '<td></td>';
-			continue;
-		}
-
-		$submission_id = $firstid[$usr][$probid];
-		$results = explode(",", $rows[$submission_id]['result']);
-		$totalPenalty = 0;
-		$totalTry = 0;
-
-		for($i=0; $i<$number; $i++)
-		{
-			if( isset($results[$i]) ){
-				$tmpstr = $results[$i];
-				$totalTry += $tries[$usr][$probid];
-				if($isAC[$usr][$probid] != true){
-					$totalPenalty += $tries_pending[$usr][$probid] - 1;
-					if($results[$i] == 0)
-						$class = 'error';
-					else
-						$class = 'wrong_answer';
-				}else{
-					$class = 'accept';
-				}
-			}else{
-				$tmpstr = '';
-				$tmpstr2 = '';
-			}
-			echo "<td class=\"$class\">$tmpstr</td>";
-		}
-		// total tries
-		echo "<td>$totalPenalty/$totalTry</td>";
+		$class = array("error", "wrong answer", "accept");
+		$class = $class[$isAC[$usr][$probid]];
+		$totalTry = $isAC[$usr][$probid] == 2 ? $tries[$usr][$probid] : $tries_pending[$usr][$probid];
+		echo "<td class=\"$class\">".$maxscore[$usr][$probid]."/".$tries[$usr][$probid]."($totalTry)</td>";
 	}
 
 	echo '</tr>';
-$rank++;
+	$rank++;
 }
 
 echo '</tbody></table>';
