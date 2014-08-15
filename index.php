@@ -226,7 +226,19 @@
 
 							<!-- 使用ajax刷新 將所有各功能頁面更新於此div區塊 -->
 							<div id="main-content">
-								<?php require('home.php'); ?>
+								<?php
+
+									// 從資料庫取得公告
+
+									$query_announce = "SELECT * FROM `announce`";
+									$stmt = $db->query($query_announce);
+									$fetch_announce = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+									foreach($fetch_announce as $announce){
+										echo '<h3>'.$announce['date'].'</h3>'.$announce['content'].'<br>';
+									}
+
+								?>
 							</div>
 						</div>
 					</div>
