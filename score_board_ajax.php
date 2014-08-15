@@ -137,8 +137,10 @@ foreach($team as $score)
 
 	foreach($problem as $probid=>$row)
 	{
-		if (!isset($firstid[$usr][$probid]))
+		if (!isset($firstid[$usr][$probid])) {
 			echo "<td>0/0(0)</td>";
+			continue;
+		}
 		
 		$class = array("error", "wrong_answer", "accept");
 		$class = $class[$isAC[$usr][$probid]];
