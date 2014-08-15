@@ -1,5 +1,6 @@
 <?php
 require_once('includes/lib.inc.php');
+require_once('includes/contest.inc.php');
 
 $problem = array();
 $query = 'SELECT * FROM pd_hw';
@@ -25,7 +26,7 @@ echo '</tr></thead><tbody>';
 
 
 //$query = 'SELECT student.group_num, pd_score.p_id, MAX(pd_score.score) AS max_score FROM pd_score, student WHERE pd_score.s_id = student.s_id GROUP by p_id, group_num ORDER BY group_num';
-$query = 'SELECT student.group_num, `group`.group_name, pd_score.p_id, pd_score.score, pd_score.result, pd_score.status
+$query = 'SELECT student.group_num, `group`.group_name, pd_score.p_id, pd_score.score, pd_score.result, pd_score.status, pd_score.time
 FROM `group`, pd_score, student
 WHERE pd_score.s_id = student.s_id and `group`.group_num = student.group_num
 ORDER BY pd_score.time ASC';
@@ -53,6 +54,7 @@ while($r = mysql_fetch_assoc($result)) {
 		$maxscore[$user][$prob] = -1;
 		$tries_pending[$user][$prob] = 0;
 		$tries[$user][$prob] = 0;
+		$minute[$user][$prob] = 0;
 		$isAC[$user][$prob] = 0;
 	}
 
@@ -63,6 +65,7 @@ while($r = mysql_fetch_assoc($result)) {
 		$maxscore[$user][$prob] = $r['score'];
 		$firstid[$user][$prob] = $cnt;
 		$tries[$user][$prob] = $tries_pending[$user][$prob];
+		$minute[$user][$prob] = (int)((strtotime($r['time']) - STARTTIME) / 60);
 		if($r['status'] == 'Accepted'){
 			$isAC[$user][$prob] = 2;
 		}
@@ -115,7 +118,7 @@ foreach($firstid as $user=>$ids)
 	{
 		$team[$user]->tot_score += $maxscore[$user][$prob];
 		if($isAC[$user][$prob] > 0){
-			$team[$user]->penalty += ($tries[$user][$prob] - 1) * 10;
+			$team[$user]->penalty += $minute[$user][$prob] + ($tries[$user][$prob] - 1) * 10;
 		}
 	}
 }
@@ -134,7 +137,7 @@ foreach($team as $score)
 
 	foreach($problem as $probid=>$row)
 	{
-		$class = array("error", "wrong answer", "accept");
+		$class = array("error", "wrong_answer", "accept");
 		$class = $class[$isAC[$usr][$probid]];
 		$totalTry = $isAC[$usr][$probid] == 2 ? $tries[$usr][$probid] : $tries_pending[$usr][$probid];
 		echo "<td class=\"$class\">".$maxscore[$usr][$probid]."/".$tries[$usr][$probid]."($totalTry)</td>";
