@@ -45,7 +45,10 @@
 							<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
 							<a class="btn fileupload-exists upload-button" >Upload</a>
 						</div>
-					</div> <?php
+					</div>
+				<textarea class="form-control" name="code" rows="10" style="width:100%"></textarea>
+				<a class="btn fileupload-exists upload-button">submit</a>
+<?php
 				}
 				if ($fetch_submit[1] == true){ //需要上傳pdf檔?>
 					<p class="hw"> File format: .pdf </p>

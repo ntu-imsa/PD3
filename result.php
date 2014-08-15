@@ -75,14 +75,19 @@
 			if (file_exists($pdffile)) unlink($pdffile);
 			move_uploaded_file($_FILES['pdfupload']['tmp_name'], $pdffile);
 		}
-		if (isset($_FILES['upload']) && file_exists($_FILES['upload']['tmp_name']) && is_uploaded_file($_FILES['upload']['tmp_name'])){
+		if (isset($_FILES['upload']) && file_exists($_FILES['upload']['tmp_name']) && is_uploaded_file($_FILES['upload']['tmp_name'])) $upload = 1;
+		else if (isset($_POST['code'])) $upload = 2;
+		else $upload = 0;
+		
+		if ($upload > 0){
 			// 程式碼檔案上傳，如果沒有上傳檔案，就不要進行處理
 			// 有上傳的話，先把server上已存在的刪掉
 			if (file_exists($upfile)) unlink($upfile);
 			if (file_exists($exefile)) unlink($exefile);
 			if (file_exists($outputfile)) unlink($outputfile);
 			if (file_exists($resultfile)) unlink($resultfile);
-			move_uploaded_file($_FILES['upload']['tmp_name'], $upfile);
+			if ($upload == 1) move_uploaded_file($_FILES['upload']['tmp_name'], $upfile);
+			else file_put_contents($upfile, $_POST['code']);
 			$all_result = '';
 
 			//編譯.cpp檔
@@ -210,7 +215,7 @@
 				echo "<div class='hero-unit upload_section'><p>deadline is passed!</p></div>";
 	}
 
-		if (isset($_FILES['upload']) or isset($_FILES['pdfupload'])){
+		if ($upload > 0 or isset($_FILES['pdfupload'])){
 			?>	<!-- 改作業序號看這裡 -->
 				<div class="hero-unit upload_section">
 					<table class="table table-hover"><?php
@@ -218,7 +223,7 @@
 						<p>PDF file is submitted successfully!</p>
 						<br> <?php
 					}
-					if (isset($_FILES['upload'])){?>
+					if ($upload > 0){?>
 						<thead>
 							<tr>
 								<th>Problem</th>
@@ -294,7 +299,7 @@
 					</table>
 				</div>  <?php
 		}
-		if (!isset($_FILES['upload']) and !isset($_FILES['pdfupload']) ){ //沒有上傳 理論上不會發生 因為沒辦法按下upload鈕
+		if ($upload == 0 and !isset($_FILES['pdfupload']) ){ //沒有上傳 理論上不會發生 因為沒辦法按下upload鈕
 			echo 'no upload';
 		}
 	}
