@@ -127,7 +127,13 @@
 							preg_match_all("/\d+/", $teststr, $testarr);
 							$public_score_arr[$i] = $testarr[0][2];
 							$command = 'python timeout.py "'.$exefile.'" "'.$testfile.'.'.$i.'.in" "'.$outputfile.'.'.$i.'.out" '.$run_logfile.' '.$exec_timefile.' "'.$exename.'" '.$testarr[0][0];
-							if ($exec_result = exec($command, $return)){      //如果執行成功  比對結果
+							if ($result['type'] == 3 && !debug_challenge("$judge_dir\\origin.cpp", $upfile, $testarr[0][3])) { //debug challenge
+								$status = 'Wrong answer';
+								if($finalstatus < 1) $finalstatus = 1;
+								$score_arr[$i] = 0;
+								$exec_result = 0;
+								exec('python putzero.py '.$scorefile);
+							} else if ($exec_result = exec($command, $return)){      //如果執行成功  比對結果
 								if ($exec_result != NULL and $exec_result == 'Time limit exceed'){
 									$status = 'Time limit exceed';
 									if($finalstatus < 2) $finalstatus = 2;
@@ -143,9 +149,6 @@
 								} else {
 									//ex. python judge.py b01705001 PD14-1
 									$tmpscore = exec($command_judge.' '.$i.' '.$testarr[0][1], $return);
-									if ($result['type'] == 3) { //debug challenge
-										if (!debug_challenge("$judge_dir\\origin.cpp", $upfile, $testarr[0][3]))
-											$tmpscore = 0;
 									}
 									if ($tmpscore == $testarr[0][1]){
 										$status = 'Accepted';
