@@ -226,6 +226,7 @@
 
 							<!-- 使用ajax刷新 將所有各功能頁面更新於此div區塊 -->
 							<div id="main-content">
+								<div class="hero-unit upload_section">
 								<?php
 
 									// 從資料庫取得公告
@@ -239,6 +240,7 @@
 									}
 
 								?>
+								</div>
 							</div>
 						</div>
 					</div>
