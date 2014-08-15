@@ -149,7 +149,6 @@
 								} else {
 									//ex. python judge.py b01705001 PD14-1
 									$tmpscore = exec($command_judge.' '.$i.' '.$testarr[0][1], $return);
-									}
 									if ($tmpscore == $testarr[0][1]){
 										$status = 'Accepted';
 									} else {
