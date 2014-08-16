@@ -12,7 +12,7 @@
 		$query = "INSERT INTO announce(date, content) VALUES(NOW(), :cont)";
 		$stmt = $db->prepare($query);
 		$stmt->execute(
-			array("cont" => $_POST['cont'])
+			array("cont" => $_POST['content'])
 		);
 	}
 ?>
