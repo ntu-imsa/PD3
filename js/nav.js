@@ -406,3 +406,26 @@
       }
     }); 
   });
+$('#announce-btn').click(function (){
+    $('#load').addClass('loading');
+    $("#main-content").css("display","none");  
+    console.log("announce.php");
+
+    $.ajax({
+     url: 'TA/announce.php',
+     cache: false,
+     dataType: 'html',
+     type:'GET',
+     error: function(xhr) {
+       alert('Ajax request 發生錯誤');
+     },
+     success: function(response) {
+       $('.nav').children('.active').removeClass('active');
+       $("#main-content").css("display","block");
+       $('#main-content').html(response);
+       $('#load').removeClass('loading');
+       $('#problemlist-btn').addClass('active'); 
+       $('#footer').html("<div class='container'><p class='muted credit'>© Copyright NTUIM 2013 Spring Programming Design Course | All Rights Reserved.</p></div>");
+     }
+   });
+  }); 

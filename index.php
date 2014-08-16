@@ -198,6 +198,9 @@
 												<li class="createproblem-btn" role = "presentation" name="submit">
 													<a role="menuitem" tabindex="-1" >Create Problem</a>
 												</li>
+												<li id="announce-btn" role="presentation" name="submit">
+													<a role="menuitem" tabindex="-1">Announcement</a>
+												</li>
 											</ul>
 										</li>
 <?php
