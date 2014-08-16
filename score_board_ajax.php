@@ -126,10 +126,14 @@ foreach($firstid as $user=>$ids)
 
 usort($team, "comp");
 
-$rank = 1;
+$last_score = -1;
+$last_penalty = -1;
+$rank = 0;
 
 foreach($team as $score)
 {
+	if ($score->tot_score != $last_score && $score->penalty != $last_penalty)
+		$rank++;
 	$usr = $score->group;
 	echo '<tr>';
 	echo sprintf('<td>%s</td>', $rank);
@@ -150,7 +154,8 @@ foreach($team as $score)
 	}
 
 	echo '</tr>';
-	$rank++;
+	$last_score = $score->tot_score;
+	$last_penalty = $score->penalty;
 }
 
 echo '</tbody></table>';
