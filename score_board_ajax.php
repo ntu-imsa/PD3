@@ -64,13 +64,14 @@ while($r = mysql_fetch_assoc($result)) {
 	{
 		$maxscore[$user][$prob] = $r['score'];
 		$firstid[$user][$prob] = $cnt;
-		$tries[$user][$prob] = $tries_pending[$user][$prob];
+		
 		$minute[$user][$prob] = (int)((strtotime($r['time']) - STARTTIME) / 60);
-		if($r['status'] == 'Accepted'){
-			$isAC[$user][$prob] = 2;
-		}
-		else if ($r['score'] > 0){
+		if ($r['score'] > 0) {
+			$tries[$user][$prob] = $tries_pending[$user][$prob];
 			$isAC[$user][$prob] = 1;
+			if ($r['status'] == "Accpeted") {
+				$isAC[$user][$prob] = 2;
+			}
 		}
 	}
 
