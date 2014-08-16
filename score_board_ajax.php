@@ -69,7 +69,7 @@ while($r = mysql_fetch_assoc($result)) {
 		if ($r['score'] > 0) {
 			$tries[$user][$prob] = $tries_pending[$user][$prob];
 			$isAC[$user][$prob] = 1;
-			if ($r['status'] == "Accpeted") {
+			if ($r['status'] == "Accepted") {
 				$isAC[$user][$prob] = 2;
 			}
 		}
