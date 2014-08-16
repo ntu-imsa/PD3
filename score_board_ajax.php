@@ -34,7 +34,7 @@ function comp($x, $y)
 }
 
 $problem = array();
-$query = 'SELECT * FROM pd_hw';
+$query = 'SELECT * FROM pd_hw WHERE contest_hide = 0';
 $result = mysql_query($query);
 while($r = mysql_fetch_assoc($result)) {
 
@@ -60,6 +60,7 @@ for ($i = 0; $i < 2; $i++) {
 	$query = "SELECT student.group_num, `group`.group_name, pd_score.p_id, pd_score.score, pd_score.result, pd_score.status, pd_score.time
 	FROM `group`, pd_score, student
 	WHERE pd_score.s_id = student.s_id and `group`.group_num = student.group_num and `group`.unofficial = $i
+	      and pd_score.p_id in (SELECT p_id FROM pd_hw WHERE contest_hide = 0)
 	ORDER BY pd_score.time ASC";
 
 	//[user][problem] = score
