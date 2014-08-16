@@ -46,7 +46,7 @@
 							<a class="btn fileupload-exists upload-button" >Upload</a>
 						</div>
 					</div>
-				<textarea class="form-control" name="code" rows="10" style="width:100%"></textarea>
+				<textarea class="form-control" name="code" rows="10" style="width:100%" placeholder="Select file or paste your code here."></textarea>
 				<a class="btn fileupload-exists upload-button">submit</a>
 <?php
 				}
