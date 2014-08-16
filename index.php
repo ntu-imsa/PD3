@@ -235,7 +235,7 @@
 
 									// 從資料庫取得公告
 
-									$query_announce = "SELECT * FROM `announce`";
+									$query_announce = "SELECT * FROM `announce` ORDER BY `date` desc";
 									$stmt = $db->query($query_announce);
 									$fetch_announce = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
