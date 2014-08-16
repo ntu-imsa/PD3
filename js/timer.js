@@ -20,7 +20,7 @@ function show() {
 
 function getServerTime() {
 	$.get("./now.php", function(data) {
-		server = data;
+		server = Number(data);
 		diff = 0;
 		clearInterval(timerId);
 		timerId = setInterval(function() {
