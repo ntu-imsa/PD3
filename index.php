@@ -121,7 +121,8 @@
 					<div id="wrap">
 						<div class="container">
 							<div class="page-header">
-								<h2>Programming Design Online Grading System</h2>
+								<h2 style="display:inline-block">Programming Design Online Grading System</h2>
+								<span id="server-time"></span>
 							</div>
 							<div class="navbar">
 								<div class="navbar-inner">
@@ -259,6 +260,7 @@
 				<script src="js/jquery.form.js"></script>
 				<script src="js/nav.js"></script>
 				<script src="js/upload.js"></script>
+				<script src="js/timer.js"></script>
 			</html>
 	<?php
 		//} else if ($result['type'] == 0 ) {
